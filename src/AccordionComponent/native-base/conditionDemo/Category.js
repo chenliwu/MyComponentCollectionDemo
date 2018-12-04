@@ -48,6 +48,9 @@ export default class Category extends React.Component {
         this.setState({dataSource: arr, rowNumber: rowNumber});
     };
 
+    /**
+     * 拆分item再渲染
+     */
     _renderItemContainer = (dataList, topItem) => {
         return (
             dataList.map((itemB, indexB) => {
@@ -125,8 +128,8 @@ export default class Category extends React.Component {
 
                                 {
                                     this.state.expand
-                                        ? <Image source={require("../../assets/icons/icon_list_down.png")}/>
-                                        : <Image source={require("../../assets/icons/icon_list_up.png")}/>
+                                        ? <Image source={require("../../../assets/icons/icon_list_down.png")}/>
+                                        : <Image source={require("../../../assets/icons/icon_list_up.png")}/>
                                 }
                             </View>
                         </View>

@@ -16,14 +16,13 @@ import MySwipeoutExample from './swipeComponent/react-native-swipeout/MySwipeout
 //手风琴组件
 import AccordionNavigator from './AccordionComponent/AccordionNavigator';
 import NativeBaseCustomAccordionExample from './AccordionComponent/native-base/CustomAccordionExample';
-import ConditionPage from './AccordionComponent/native-base/ConditionPage';
+import ConditionPage from './AccordionComponent/native-base/conditionDemo/ConditionPage';
 
 
 
 import {
     SafeAreaView,
-    createStackNavigator,
-    createSwitchNavigator
+    createStackNavigator
 } from 'react-navigation';
 
 

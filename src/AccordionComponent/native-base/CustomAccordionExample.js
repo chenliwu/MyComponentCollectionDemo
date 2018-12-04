@@ -1,45 +1,76 @@
 import React, {Component} from "react";
 import {
-    Image
+    Image,
+    FlatList,
+    Text
 } from 'react-native';
 import {
-    Container,
-    Content,
     Accordion,
-    Text,
-    View
+    Text as NativeBaseText,
+    View,
 } from "native-base";
 
-import CategoryItem from './CategoryItem';
+import CategoryItem from "./CategoryItem";
+import CategoryLabel from "./CategoryLabel";
 
+import {
+    SafeAreaView
+} from 'react-navigation';
 
-/**
- * 手风琴的内容数组
- * @type {[null,null,null]}
- */
-const dataArray = [
-    {
-        title: "筛选条件1",
-        content:
-            "筛选条件1  Content"
-    },
-    {
-        title: "筛选条件2",
-        content:
-            "筛选条件2  Content"
-    },
-    {
-        title: "筛选条件3",
-        content:
-            "筛选条件3  Content"
-    }
-];
 
 class AccordionCustomHeaderContent extends Component {
 
     static navigationOptions = {
         headerTitle: 'NativeBase手风琴'
     };
+
+
+    constructor(props) {
+        super(props);
+
+        ///准备的数据
+        const dataList = [
+            {
+                name: '筛选标题1',
+                data: [
+                    {
+                        name: '条件1',
+                    },
+                    {
+                        name: '条件2',
+                    }
+                ],
+            },
+            {
+                name: '筛选标题2',
+                data: [
+                    {
+                        name: '条件1',
+                    },
+                    {
+                        name: '条件2',
+                    }
+                ],
+            },
+            {
+                name: '筛选标题3',
+                data: [
+                    {
+                        name: '条件1',
+                    },
+                    {
+                        name: '条件2',
+                    }
+                ],
+            }
+        ];
+        this.state = {
+            dataList: dataList,
+            selectedListMap: new Map(),
+        };
+
+    }
+
 
     /**
      * 渲染手风琴的头部
@@ -52,23 +83,26 @@ class AccordionCustomHeaderContent extends Component {
         return (
             <View
                 style={{
-                    flexDirection: "row",
+                    height: 52,
                     padding: 10,
+                    flexDirection: "row",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    backgroundColor: "#A9DAD6"
+                    //backgroundColor: "#ddd"
                 }}
             >
-                <Text style={{fontWeight: "600"}}>
-                    {" "}{item.title}
-                </Text>
+                <CategoryLabel title={item.name}/>
                 <View style={{
-                    flexDirection:'row',
-                    backgroundColor:'red',
-                    justifyContent:'center',
-                    alignItems:'center'
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }}>
-                    <Text>选中数量</Text>
+                    <Text style={{
+                        color: '#6991f8',
+                        marginRight: 10
+                    }}>
+                        88
+                    </Text>
                     {
                         expanded
                             ? <Image source={require("./../../assets/icons/icon_list_down.png")}/>
@@ -80,41 +114,108 @@ class AccordionCustomHeaderContent extends Component {
         );
     }
 
+    _renderItemContainer = (dataList, topItem) => {
+        return (
+            dataList.map((itemB, indexB) => {
+                return <CategoryItem key={itemB.id} parent={topItem} item={itemB} onPress={(item) => {
+                    ///点击筛选条件按钮的回调事件
+                    let selectItem = this.state.selectItem;
+                    if (item.selected) {
+                        //选中状态，加入数组
+                        selectItem.push(item);
+                    } else {
+                        //非选中状态，在数组中去除   返回false则去除
+                        selectItem = selectItem.filter(({name}) => name !== item.name);
+                    }
+                    this.setState({selectItem: selectItem});
+
+                }}/>
+            })
+        );
+    };
+
+
     /**
      * 渲染手风琴的主体内容
-     * @param item
+     *
+     * @param topItem
      * @returns {XML}
      * @private
      */
-    _renderContent(item) {
+    _renderContent(topItem) {
+        let dataList = topItem.data;
+        let array = [];
+        let rowNumber = 0;  //条件行数
+        for (let i = 0; i < dataList.length; i += 3) {
+            array.push(dataList.slice(i, i + 3)); ///原生js将数组分割成固定个数一组的小数组
+            rowNumber++;
+        }
         return (
-            <Text
-                style={{
-                    backgroundColor: "#e3f1f1",
+            <View style={{
+                flex: 1
+            }}>
+                <View style={{
+                    flexDirection: 'row',
+                    flexWrap: "wrap",
                     padding: 10,
-                    fontStyle: "italic"
-                }}
-            >
-                {item.content}
-            </Text>
+                    backgroundColor: '#fff'
+                }}>
+                    {
+                        ///固定个数的小数组再次拆分绘制数据
+                        array.map((itemA, indexA) => {
+                            return itemA.map((itemB, indexB) => {
+
+                                return <CategoryItem key={itemB.id} parent={topItem} item={itemB} onPress={(item) => {
+                                    ///点击筛选条件按钮的回调事件
+                                    // let selectItem = this.state.selectItem;
+                                    // if (item.selected) {
+                                    //     //选中状态，加入数组
+                                    //     selectItem.push(item);
+                                    // } else {
+                                    //     //非选中状态，在数组中去除   返回false则去除
+                                    //     selectItem = selectItem.filter(({name}) => name !== item.name);
+                                    // }
+                                    // this.setState({selectItem: selectItem});
+
+                                }}/>
+                            });
+                        })
+                    }
+                </View>
+                <View style={{height: 1, backgroundColor: '#f5f5f9',}}/>
+            </View>
         );
     }
 
+
     render() {
+        const dataArray = this.state.dataList;
         return (
-            <Container>
-                <Content padder style={{backgroundColor: "white"}}>
-                    <Accordion
-                        dataArray={dataArray}
-                        animation={true}
-                        expanded={true}
-                        renderHeader={this._renderHeader}
-                        renderContent={this._renderContent}
-                    />
-                </Content>
-            </Container>
+            <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+                <Accordion
+                    dataArray={dataArray}
+                    animation={true}
+                    expanded={true}
+                    renderHeader={this._renderHeader}
+                    renderContent={this._renderContent}
+                />
+            </SafeAreaView>
         );
+        // return (
+        //     <Container>
+        //         <Content padder style={{backgroundColor: "white"}}>
+        //             <Accordion
+        //                 dataArray={dataArray}
+        //                 animation={true}
+        //                 expanded={true}
+        //                 renderHeader={this._renderHeader}
+        //                 renderContent={this._renderContent}
+        //             />
+        //         </Content>
+        //     </Container>
+        // );
     }
+
 }
 
 export default AccordionCustomHeaderContent;
