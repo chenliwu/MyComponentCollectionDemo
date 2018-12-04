@@ -30,7 +30,8 @@ export default class CategoryItem extends React.Component {
         this.setState({
             selected: !this.state.selected, //切换选中状态
         });
-        this.props.onPress && this.props.onPress(item);
+        //回调父组件的点击事件
+        this.props.onPress && this.props.onPress(item,this.props.parent);
         //this.props.toggleItemSelected(item,this.props.parent);
     };
 

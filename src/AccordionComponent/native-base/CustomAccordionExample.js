@@ -31,6 +31,7 @@ class AccordionCustomHeaderContent extends Component {
         ///准备的数据
         const dataList = [
             {
+                id: '1',
                 name: '筛选标题1',
                 data: [
                     {
@@ -42,6 +43,7 @@ class AccordionCustomHeaderContent extends Component {
                 ],
             },
             {
+                id: '2',
                 name: '筛选标题2',
                 data: [
                     {
@@ -53,6 +55,7 @@ class AccordionCustomHeaderContent extends Component {
                 ],
             },
             {
+                id: '3',
                 name: '筛选标题3',
                 data: [
                     {
@@ -64,9 +67,10 @@ class AccordionCustomHeaderContent extends Component {
                 ],
             }
         ];
+
         this.state = {
             dataList: dataList,
-            selectedListMap: new Map(),
+            selectedItemMap: new Map(),//统计不同筛选条件选中的个数,筛选条件组的id作为key
         };
 
     }
@@ -80,6 +84,10 @@ class AccordionCustomHeaderContent extends Component {
      * @private
      */
     _renderHeader(item, expanded) {
+        let selectedItemMap = this.state.selectedItemMap;
+        let selectedItemList = selectedItemMap.get(item.id);
+        let isShowSelectedNumber = selectedItemList && selectedItemList.length >= 1;
+
         return (
             <View
                 style={{
@@ -97,12 +105,17 @@ class AccordionCustomHeaderContent extends Component {
                     justifyContent: 'center',
                     alignItems: 'center'
                 }}>
-                    <Text style={{
-                        color: '#6991f8',
-                        marginRight: 10
-                    }}>
-                        88
-                    </Text>
+                    {
+                        isShowSelectedNumber ?
+                            <Text style={{
+                                color: '#6991f8',
+                                marginRight: 10
+                            }}>
+                                {this.state.selectedItemMap.get(item.id).length}
+                            </Text> : null
+                    }
+
+
                     {
                         expanded
                             ? <Image source={require("./../../assets/icons/icon_list_down.png")}/>
@@ -114,26 +127,6 @@ class AccordionCustomHeaderContent extends Component {
         );
     }
 
-    _renderItemContainer = (dataList, topItem) => {
-        return (
-            dataList.map((itemB, indexB) => {
-                return <CategoryItem key={itemB.id} parent={topItem} item={itemB} onPress={(item) => {
-                    ///点击筛选条件按钮的回调事件
-                    let selectItem = this.state.selectItem;
-                    if (item.selected) {
-                        //选中状态，加入数组
-                        selectItem.push(item);
-                    } else {
-                        //非选中状态，在数组中去除   返回false则去除
-                        selectItem = selectItem.filter(({name}) => name !== item.name);
-                    }
-                    this.setState({selectItem: selectItem});
-
-                }}/>
-            })
-        );
-    };
-
 
     /**
      * 渲染手风琴的主体内容
@@ -143,6 +136,7 @@ class AccordionCustomHeaderContent extends Component {
      * @private
      */
     _renderContent(topItem) {
+
         let dataList = topItem.data;
         let array = [];
         let rowNumber = 0;  //条件行数
@@ -163,21 +157,58 @@ class AccordionCustomHeaderContent extends Component {
                     {
                         ///固定个数的小数组再次拆分绘制数据
                         array.map((itemA, indexA) => {
+                            //初始化
+                            // let selectedItemMap = this.state.selectedItemMap;
+                            // selectedItemMap = selectedItemMap.set(indexA.id, []);
+                            // this.setState({
+                            //     selectedItemMap: selectedItemMap
+                            // });
+
                             return itemA.map((itemB, indexB) => {
 
-                                return <CategoryItem key={itemB.id} parent={topItem} item={itemB} onPress={(item) => {
-                                    ///点击筛选条件按钮的回调事件
-                                    // let selectItem = this.state.selectItem;
-                                    // if (item.selected) {
-                                    //     //选中状态，加入数组
-                                    //     selectItem.push(item);
-                                    // } else {
-                                    //     //非选中状态，在数组中去除   返回false则去除
-                                    //     selectItem = selectItem.filter(({name}) => name !== item.name);
-                                    // }
-                                    // this.setState({selectItem: selectItem});
+                                return (
+                                    <CategoryItem
+                                        key={itemB.id} parent={topItem} item={itemB}
+                                        onPress={(item, parentItem) => {
+                                            //alert(parentItem.name);
+                                            let selectedItemMap = this.state.selectedItemMap;
+                                            let selectedItemList = [];
 
-                                }}/>
+                                            if (selectedItemMap.has(parentItem.id)) {
+                                                selectedItemList = selectedItemMap.get(parentItem.id);
+                                            } else {
+                                                selectedItemList = new Array();
+                                            }
+
+                                            if (item.selected) {
+                                                //选中状态，加入数组
+                                                selectedItemList.push(item);
+                                            } else {
+                                                //非选中状态，在数组中移除
+                                                selectedItemList = selectedItemList.filter(({name}) => name !== item.name);
+                                            }
+
+                                            selectedItemMap = selectedItemMap.set(parentItem.id, selectedItemList);
+                                            this.setState({
+                                                selectedItemMap: selectedItemMap
+                                            });
+
+
+
+                                            // ///点击筛选条件按钮的回调事件
+                                            // let selectItem = this.state.selectItem;
+                                            // if (item.selected) {
+                                            //     //选中状态，加入数组
+                                            //     selectItem.push(item);
+                                            // } else {
+                                            //     //非选中状态，在数组中去除   返回false则去除
+                                            //     selectItem = selectItem.filter(({name}) => name !== item.name);
+                                            // }
+                                            // this.setState({selectItem: selectItem});
+
+                                        }}
+                                    />
+                                );
                             });
                         })
                     }
@@ -189,6 +220,9 @@ class AccordionCustomHeaderContent extends Component {
 
 
     render() {
+
+        ///this._renderHeader.bind(this)
+        ///bind(this)的作用，可以让绑定的函数获取到父组件的所有属性和状态
         const dataArray = this.state.dataList;
         return (
             <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -196,8 +230,8 @@ class AccordionCustomHeaderContent extends Component {
                     dataArray={dataArray}
                     animation={true}
                     expanded={true}
-                    renderHeader={this._renderHeader}
-                    renderContent={this._renderContent}
+                    renderHeader={this._renderHeader.bind(this)}
+                    renderContent={this._renderContent.bind(this)}
                 />
             </SafeAreaView>
         );

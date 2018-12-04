@@ -114,12 +114,11 @@ export default class Category extends React.Component {
                             }}>
                                 {
                                     this.state.selectItem.length >= 1 ?
-                                        <Badge style={{
-                                            backgroundColor: '#6991f8',
+                                        <Text style={{
+                                            color: '#6991f8',
+                                            fontSize: 16,
                                             marginRight: 10
-                                        }}>
-                                            <NativeBaseText style={{color: 'white'}}>{this.state.selectItem.length}</NativeBaseText>
-                                        </Badge>
+                                        }}>{this.state.selectItem.length}</Text>
                                         : null
                                 }
 
