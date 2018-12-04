@@ -13,10 +13,19 @@ import MySwipeExample from './swipeComponent/react-native-swipe-list-view/MySwip
 import SwipeoutExample from './swipeComponent/react-native-swipeout/SwipeoutExample';
 import MySwipeoutExample from './swipeComponent/react-native-swipeout/MySwipeoutExample';
 
+//手风琴组件
+import AccordionNavigator from './AccordionComponent/AccordionNavigator';
+import NativeBaseCustomAccordionExample from './AccordionComponent/native-base/CustomAccordionExample';
+import ConditionPage from './AccordionComponent/native-base/ConditionPage';
+
+
+
 import {
     SafeAreaView,
-    createStackNavigator
+    createStackNavigator,
+    createSwitchNavigator
 } from 'react-navigation';
+
 
 /**
  * 2018-12-2
@@ -28,7 +37,6 @@ import {
  *
  *
  */
-
 class AppNavigatorPage extends Component {
 
     static navigationOptions = {
@@ -48,6 +56,10 @@ class AppNavigatorPage extends Component {
         dataList.push({
             id: 'SwipeoutExample',
             name: 'react-native-swipeout侧滑组件'
+        });
+        dataList.push({
+            id: 'AccordionNavigator',
+            name: '手风琴'
         });
 
         this.state = {
@@ -130,7 +142,18 @@ export default createStackNavigator(
         SwipeoutExample:{
             //screen:SwipeoutExample
             screen:MySwipeoutExample
-        }
+        },
+
+        //手风琴组件
+        AccordionNavigator:{
+            screen:AccordionNavigator
+        },
+        NativeBaseCustomAccordionExample:{
+            screen:NativeBaseCustomAccordionExample,
+        },
+        ConditionPage:{
+            screen:ConditionPage,
+        },
     },
     {
         initialRouteName: 'AppNavigatorPage',
