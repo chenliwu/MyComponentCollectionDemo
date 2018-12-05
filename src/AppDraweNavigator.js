@@ -11,6 +11,8 @@ import SwipeComponentNavigator from './swipeComponent/SwipeComponentNavigator';
 ///手风琴
 import AccordionComponentNavigator from './AccordionComponent/AccordionComponentNavigator';
 
+//对话框组件
+import DialogsComponentNavigator from './DialogComponent/DialogsComponentNavigator';
 
 
 import {
@@ -68,6 +70,14 @@ export default createDrawerNavigator(
             screen: AccordionComponentNavigator,
             navigationOptions:{
                 drawerLabel: '手风琴',
+            }
+        },
+
+        //DialogsComponentNavigator
+        DialogsComponentNavigator: {
+            screen: DialogsComponentNavigator,
+            navigationOptions:{
+                drawerLabel: '对话框',
             }
         },
     },
