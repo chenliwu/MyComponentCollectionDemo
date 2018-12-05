@@ -27,6 +27,10 @@ export default class TestBaseDialogComponentExample extends BaseDialogComponent 
 
     constructor(props) {
         super(props);
+        this.state={
+            loadingDialogVisible: false,
+            loadingHintText: null
+        };
     }
 
 

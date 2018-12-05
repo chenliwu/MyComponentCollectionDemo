@@ -16,16 +16,27 @@ import Dialog, {
 
 import GlobalLoadingDialogStyle from './../GlobalLoadingDialogStyle';
 
+/**
+ * 2018-12-5
+ * chenlw
+ * work：封装基类的Dialog类，以提高代码重用，降低代码冗余。
+ *
+ * 使用方法：
+ * （1）需要显示Dialog的页面继承BaseDialogComponent类。
+ * （2）页面引入Dialog组件，并在state设置loadingDialogVisible和loadingHintText属性。如下面render方法注释中的Dialog。
+ * （3）显示或关闭Dialog，就调用基类对应的方法。
+ *
+ */
 export default class BaseDialogComponent extends React.Component {
 
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            loadingDialogVisible: false,
-            loadingHintText: null
-        }
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         loadingDialogVisible: false,
+    //         loadingHintText: null
+    //     }
+    // }
 
 
     componentWillUpdate(){
