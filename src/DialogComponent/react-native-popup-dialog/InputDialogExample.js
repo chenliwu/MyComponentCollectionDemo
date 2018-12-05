@@ -64,7 +64,7 @@ export default class LoadingDialogExample extends React.Component {
                         <DialogTitle
                             title="密码校验"
                             textStyle={{
-                                color:'#fff'
+                                color: '#fff'
                             }}
                             style={{
                                 backgroundColor: '#337ab7',
@@ -78,7 +78,7 @@ export default class LoadingDialogExample extends React.Component {
                         <DialogButton
                             text="确定"
                             textStyle={{
-                                color:'#337ab7'
+                                color: '#337ab7'
                             }}
                             onPress={() => {
                                 alert(this.state.password);
@@ -89,7 +89,7 @@ export default class LoadingDialogExample extends React.Component {
                         <DialogButton
                             text="取消"
                             textStyle={{
-                                color:'#337ab7'
+                                color: '#337ab7'
                             }}
                             onPress={() => {
                                 this.setState({defaultAnimationDialog: false});
@@ -101,7 +101,10 @@ export default class LoadingDialogExample extends React.Component {
                 >
                     <DialogContent
                         style={{
-                            backgroundColor: '#F7F7F8',
+                            padding: 20,
+                            justifyContent: 'center',
+                            //alignItems:'center',
+                            //backgroundColor: 'red',
                         }}
                     >
                         <TextInput

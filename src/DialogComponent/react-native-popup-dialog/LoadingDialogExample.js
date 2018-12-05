@@ -52,7 +52,7 @@ export default class LoadingDialogExample extends React.Component {
                         this.setState({defaultAnimationDialog: false});
                     }}
                     width={0.4}
-                    height={0.2}
+                    height={0.15}
                     visible={this.state.defaultAnimationDialog}
                     rounded
                     containerStyle={{   //设置dialog容器样式，这个容器布满整个屏幕
