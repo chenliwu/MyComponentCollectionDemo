@@ -14,6 +14,8 @@ import PopupDialogExample from './react-native-popup-dialog/PopupDialogExample';
 
 import LoadingDialogExample from './react-native-popup-dialog/LoadingDialogExample';
 import InputDialogExample from './react-native-popup-dialog/InputDialogExample';
+import TestBaseDialogComponentExample from './react-native-popup-dialog/TestBaseDialogComponentExample';
+
 
 class DialogsComponentNavigator extends React.Component{
 
@@ -38,6 +40,11 @@ class DialogsComponentNavigator extends React.Component{
         dataList.push({
             id: 'InputDialogExample',
             name: '输入对话框'
+        });
+
+        dataList.push({
+            id: 'TestBaseDialogComponentExample',
+            name: '测试基类Dialog'
         });
 
 
@@ -121,6 +128,9 @@ export default createStackNavigator(
         },
         InputDialogExample:{
             screen:InputDialogExample,
+        },
+        TestBaseDialogComponentExample:{
+            screen:TestBaseDialogComponentExample,
         },
     },
     {
