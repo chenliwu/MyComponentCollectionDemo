@@ -14,6 +14,10 @@ import AccordionComponentNavigator from './AccordionComponent/AccordionComponent
 //对话框组件
 import DialogsComponentNavigator from './DialogComponent/DialogsComponentNavigator';
 
+//Toast组件
+import ToastNavigator from './Toast/ToastNavigator';
+
+
 
 import {
     SafeAreaView,
@@ -78,6 +82,13 @@ export default createDrawerNavigator(
             screen: DialogsComponentNavigator,
             navigationOptions:{
                 drawerLabel: '对话框',
+            }
+        },
+
+        ToastNavigator: {
+            screen: ToastNavigator,
+            navigationOptions:{
+                drawerLabel: 'Toast提示',
             }
         },
     },

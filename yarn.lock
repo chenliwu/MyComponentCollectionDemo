@@ -4232,6 +4232,21 @@ react-native-popup-dialog@^0.16.5:
     prop-types "^15.6.0"
     react-native-general-siblings "^1.0.0"
 
+react-native-root-siblings@^2.2.0:
+  version "2.2.0"
+  resolved "http://registry.npm.taobao.org/react-native-root-siblings/download/react-native-root-siblings-2.2.0.tgz#57bb2f7b0a5399c48e14b36d5f3ae7015cd3fb95"
+  integrity sha1-V7svewpTmcSOFLNtXzrnAVzT+5U=
+  dependencies:
+    static-container "^1.0.0"
+
+react-native-root-tips@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-root-tips/download/react-native-root-tips-1.0.0.tgz#6da796891d67ef1a1f196af16762557a05813910"
+  integrity sha1-baeWiR1n7xofGWrxZ2JVegWBORA=
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-root-siblings "^2.2.0"
+
 react-native-safe-area-view@0.11.0:
   version "0.11.0"
   resolved "http://registry.npm.taobao.org/react-native-safe-area-view/download/react-native-safe-area-view-0.11.0.tgz#4f3dda43c2bace37965e7c6aef5fc83d4f19d174"
