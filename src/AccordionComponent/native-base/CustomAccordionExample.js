@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import {
     Image,
-    FlatList,
-    Text
+    Text,
+    View
 } from 'react-native';
 import {
     Accordion,
-    Text as NativeBaseText,
-    View,
 } from "native-base";
 
 import CategoryItem from "./CategoryItem";
@@ -220,7 +218,6 @@ class AccordionCustomHeaderContent extends Component {
 
 
     render() {
-
         ///this._renderHeader.bind(this)
         ///bind(this)的作用，可以让绑定的函数获取到父组件的所有属性和状态
         const dataArray = this.state.dataList;
