@@ -6,15 +6,17 @@ import {
     FlatList
 } from 'react-native';
 import {
-    SafeAreaView
+    SafeAreaView,
+    createStackNavigator
 } from 'react-navigation';
 
 import NativeBaseCustomAccordionExample from './native-base/CustomAccordionExample';
+import ConditionPage from './native-base/conditionDemo/ConditionPage';
 
-export default class AccordionNavigatorPage extends React.Component{
+class AccordionNavigatorPage extends React.Component{
 
     static navigationOptions = {
-        headerTitle: '手风琴'
+        headerTitle: '手风琴',
     };
 
     flatListComponent = null;
@@ -29,7 +31,7 @@ export default class AccordionNavigatorPage extends React.Component{
         });
         dataList.push({
             id: 'ConditionPage',
-            name: 'ConditionPage'
+            name: '筛选条件运用手风琴'
         });
 
         this.state = {
@@ -59,7 +61,7 @@ export default class AccordionNavigatorPage extends React.Component{
                     height: 50,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundColor: 'red'
+                    //backgroundColor: 'red'
                 }}
                 onPress={() => {
                     this._onPressItem(item);
@@ -80,6 +82,8 @@ export default class AccordionNavigatorPage extends React.Component{
                         //获取FlatList组件的引用
                         this.flatListComponent = flatList;
                     }}
+                    ItemSeparatorComponent={() => <View
+                        style={{ height: 1, backgroundColor: '#f5f5f9', }} />}
                     data={this.state.dataList}
                     keyExtractor={(item, index) => {
                         return item.id;
@@ -97,3 +101,24 @@ export default class AccordionNavigatorPage extends React.Component{
         );
     }
 }
+
+
+export default createStackNavigator(
+    {
+        AccordionNavigatorPage:{
+            screen:AccordionNavigatorPage
+        },
+        NativeBaseCustomAccordionExample: {
+            screen: NativeBaseCustomAccordionExample
+        },
+        ConditionPage:{
+            screen:ConditionPage
+        },
+    },
+    {
+        initialRouteName: 'AccordionNavigatorPage',
+        //headerMode: 'center'
+    }
+);
+
+

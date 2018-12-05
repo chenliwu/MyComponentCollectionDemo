@@ -1,45 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
     View,
     Text,
     TouchableOpacity,
     FlatList
 } from 'react-native';
-
-///滑动删除组件
-import SwipeListViewExample from './swipeComponent/react-native-swipe-list-view/SwipeExample';
-import MySwipeExample from './swipeComponent/react-native-swipe-list-view/MySwipeExample';
-
-import SwipeoutExample from './swipeComponent/react-native-swipeout/SwipeoutExample';
-import MySwipeoutExample from './swipeComponent/react-native-swipeout/MySwipeoutExample';
-
-//手风琴组件
-import AccordionNavigator from './AccordionComponent/AccordionNavigator';
-import NativeBaseCustomAccordionExample from './AccordionComponent/native-base/CustomAccordionExample';
-import ConditionPage from './AccordionComponent/native-base/conditionDemo/ConditionPage';
-
-
-
 import {
     SafeAreaView,
     createStackNavigator
 } from 'react-navigation';
 
+import SwipeListViewExample from './react-native-swipe-list-view/SwipeExample';
+import SwipeoutExample from './react-native-swipeout/SwipeoutExample';
+import MySwipeoutExample from './react-native-swipeout/MySwipeoutExample';
 
-/**
- * 2018-12-2
- * FlatList常用属性 props
- * （1）data：指定要显示的数据列表，这是一个数组。data属性目前只支持普通数组结构，不支持其他数据结构。
- * （2）renderItem：渲染数据行的函数。参数为Item，即数组的成员
- *      renderItem: (info: {item: ItemT, index: number}) => ?React.Element<any> #
- *
- *
- *
- */
-class AppNavigatorPage extends Component {
+class SwipeComponentNavigatorPage extends React.Component{
 
     static navigationOptions = {
-        headerTitle: 'AppNavigatorPage'
+        headerTitle: '侧滑组件',
+        drawerLabel: '侧滑组件',
     };
 
     flatListComponent = null;
@@ -50,15 +29,11 @@ class AppNavigatorPage extends Component {
 
         dataList.push({
             id: 'SwipeListViewExample',
-            name: 'react-native-swipe-list-view侧滑组件'
+            name: 'react-native-swipe-list-view'
         });
         dataList.push({
             id: 'SwipeoutExample',
-            name: 'react-native-swipeout侧滑组件'
-        });
-        dataList.push({
-            id: 'AccordionNavigator',
-            name: '手风琴'
+            name: 'react-native-swipeout'
         });
 
         this.state = {
@@ -72,8 +47,7 @@ class AppNavigatorPage extends Component {
      * @private
      */
     _onPressItem = (item) => {
-        //alert("item:" + item.name);
-        this.props.navigation.push(item.id);
+        this.props.navigation.navigate(item.id);
     };
 
     /**
@@ -89,7 +63,7 @@ class AppNavigatorPage extends Component {
                     height: 50,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    backgroundColor: 'red'
+                    //backgroundColor: 'red'
                 }}
                 onPress={() => {
                     this._onPressItem(item);
@@ -104,13 +78,16 @@ class AppNavigatorPage extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1,backgroundColor:'#fff'}}>
                 <FlatList
                     ref={(flatList) => {
                         //获取FlatList组件的引用
                         this.flatListComponent = flatList;
                     }}
                     data={this.state.dataList}
+
+                    ItemSeparatorComponent={() => <View
+                        style={{ height: 1, backgroundColor: '#ddd', }} />}
                     keyExtractor={(item, index) => {
                         return item.id;
                     }}
@@ -126,13 +103,13 @@ class AppNavigatorPage extends Component {
             </SafeAreaView>
         );
     }
-
 }
+
 
 export default createStackNavigator(
     {
-        AppNavigatorPage: {
-            screen: AppNavigatorPage
+        SwipeComponentNavigatorPage:{
+            screen:SwipeComponentNavigatorPage
         },
         SwipeListViewExample: {
             screen: SwipeListViewExample
@@ -142,22 +119,10 @@ export default createStackNavigator(
             //screen:SwipeoutExample
             screen:MySwipeoutExample
         },
-
-        //手风琴组件
-        AccordionNavigator:{
-            screen:AccordionNavigator
-        },
-        NativeBaseCustomAccordionExample:{
-            screen:NativeBaseCustomAccordionExample,
-        },
-        ConditionPage:{
-            screen:ConditionPage,
-        },
     },
     {
-        initialRouteName: 'AppNavigatorPage',
+        initialRouteName: 'SwipeComponentNavigatorPage',
         //headerMode: 'center'
     }
 );
-
 
