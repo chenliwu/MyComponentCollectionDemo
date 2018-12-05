@@ -28,6 +28,15 @@ export default class BaseDialogComponent extends React.Component {
     }
 
 
+    componentWillUpdate(){
+        console.log("BaseDialogComponent---componentWillUpdate");
+    }
+
+    componentDidUpdate(){
+        console.log("BaseDialogComponent---componentDidUpdate");
+    }
+
+
     /**
      * 打开加载对话框
      * @param loadingHintText 提示文本

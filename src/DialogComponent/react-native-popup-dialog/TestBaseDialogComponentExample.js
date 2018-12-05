@@ -29,6 +29,18 @@ export default class TestBaseDialogComponentExample extends BaseDialogComponent 
         super(props);
     }
 
+
+    componentWillUpdate(){
+        console.log("TestBaseDialogComponentExample---componentWillUpdate");
+    }
+
+    componentDidUpdate(){
+        console.log("TestBaseDialogComponentExample---componentDidUpdate");
+    }
+
+
+
+
     render() {
         return (
             <View style={{
