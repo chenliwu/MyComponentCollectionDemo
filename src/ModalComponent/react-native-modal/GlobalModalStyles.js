@@ -18,7 +18,7 @@ const GlobalModalStyle = {
     },
 
     loadingModalBodyStyle: {
-        height: Dimensions.get('window').height / 6,
+        height: Dimensions.get('window').height / 5.5,
         width: Dimensions.get('window').width / 2.5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -35,6 +35,9 @@ const GlobalModalStyle = {
 
     //模态框遮盖层透明度
     backdropOpacity: 0,
+
+    animationIn: 'fadeIn',
+    animationOut: 'fadeOut',
 
 };
 
