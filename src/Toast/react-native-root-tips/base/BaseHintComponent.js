@@ -19,7 +19,7 @@ export default class BaseHintComponent extends React.Component {
 
     showSimpleToast = (message) => {
         Tips.show(message, {
-            backgroundColor: 'rgba(0,0,0,0.8)',
+            //backgroundColor: 'rgba(0,0,0,0.8)',
             position: -50,
             shadow: false,
         });
