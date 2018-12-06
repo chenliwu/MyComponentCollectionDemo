@@ -10,17 +10,15 @@ import {
     createStackNavigator
 } from 'react-navigation';
 
-import RootTipsExample from './react-native-root-tips/RootTipsExample';
-import MyRootTipsExample from './react-native-root-tips/MyRootTipsExample';
 
-import RootToastExample from './react-native-root-toast/TestToast';
+import ReactNativeModalExample from './react-native-modal/Example';
 
 
 
-class ToastNavigator extends React.Component {
+class ModalComponentNavigator extends React.Component {
 
     static navigationOptions = {
-        headerTitle: 'Toast提示组件',
+        headerTitle: 'Modal模态框',
     };
 
     flatListComponent = null;
@@ -30,17 +28,8 @@ class ToastNavigator extends React.Component {
         let dataList = new Array();
 
         dataList.push({
-            id: 'RootTipsExample',
-            name: 'react-native-root-tips'
-        });
-        dataList.push({
-            id: 'MyRootTipsExample',
-            name: '封装react-native-root-tips'
-        });
-
-        dataList.push({
-            id: 'RootToastExample',
-            name: 'react-native-root-toast'
+            id: 'ReactNativeModalExample',
+            name: 'react-native-modal'
         });
 
         this.state = {
@@ -70,7 +59,6 @@ class ToastNavigator extends React.Component {
                     height: 50,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    //backgroundColor: 'red'
                 }}
                 onPress={() => {
                     this._onPressItem(item);
@@ -117,22 +105,15 @@ class ToastNavigator extends React.Component {
 
 export default createStackNavigator(
     {
-        ToastNavigator: {
-            screen: ToastNavigator
+        ModalComponentNavigator: {
+            screen: ModalComponentNavigator
         },
-        RootTipsExample: {
-            screen: RootTipsExample
-        },
-        MyRootTipsExample: {
-            screen: MyRootTipsExample
-        },
-
-        RootToastExample: {
-            screen: RootToastExample
-        },
+        ReactNativeModalExample:{
+            screen:ReactNativeModalExample
+        }
     },
     {
-        initialRouteName: 'ToastNavigator',
+        initialRouteName: 'ModalComponentNavigator',
         //headerMode: 'center'
     }
 );

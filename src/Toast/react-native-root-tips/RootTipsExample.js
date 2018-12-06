@@ -4,10 +4,13 @@ import {
     View,
     Text,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator,
+    Platform
 } from 'react-native';
 
 import Tips from 'react-native-root-tips';
+
+const isAndroid = Platform.OS === 'android';
 
 
 export default class RootTipsExample extends React.Component {
@@ -46,9 +49,9 @@ export default class RootTipsExample extends React.Component {
 
                 <Button title={'masking'} onPress={() => {
                     this._sampleMask();
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         Tips.hide();
-                    },5000);
+                    }, 5000);
                 }}/>
             </View>
         )
@@ -95,8 +98,9 @@ export default class RootTipsExample extends React.Component {
         //when showing, you can't touch anything
         this.loadingTips = Tips.show('masking...', {
             mask: true,
-            duration:300000,
+            duration: 300000,
             showLoading: true,
+            //image: isAndroid ? require('./../../assets/images/loadingAndroid.gif') : null,
             //maskOpacity: true,
             //maskColor: 'rgba(0,0,0,0)'
         });

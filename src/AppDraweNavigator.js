@@ -17,6 +17,9 @@ import DialogsComponentNavigator from './DialogComponent/DialogsComponentNavigat
 //Toast组件
 import ToastNavigator from './Toast/ToastNavigator';
 
+//Modal模态框
+import ModalComponentNavigator from './ModalComponent/ModalComponentNavigator';
+
 
 
 import {
@@ -89,6 +92,13 @@ export default createDrawerNavigator(
             screen: ToastNavigator,
             navigationOptions:{
                 drawerLabel: 'Toast提示',
+            }
+        },
+
+        ModalComponentNavigator: {
+            screen: ModalComponentNavigator,
+            navigationOptions:{
+                drawerLabel: 'Modal模态框',
             }
         },
     },
