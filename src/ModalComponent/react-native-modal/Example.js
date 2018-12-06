@@ -62,6 +62,16 @@ export default class ReactNativeModalExample extends Component {
     };
 
     render() {
+
+        const fadeIn = {
+            from: {
+                opacity: 0,
+            },
+            to: {
+                opacity: 1,
+            },
+        };
+
         return (
             <View style={styles.container}>
                 {this.renderButton("Default modal", () =>
@@ -89,12 +99,15 @@ export default class ReactNativeModalExample extends Component {
                     this.setState({visibleModal: 8})
                 )}
                 <Modal isVisible={this.state.visibleModal === 1}
+                       animationIn="fadeIn"
+                       animationOut="fadeOut"
                        animationType={'fade'}
                 >
                     {this.renderModalContent()}
                 </Modal>
                 <Modal
                     isVisible={this.state.visibleModal === 2}
+                    //animationIn="slideInLeft"
                     animationIn="slideInLeft"
                     animationOut="slideOutRight"
                 >

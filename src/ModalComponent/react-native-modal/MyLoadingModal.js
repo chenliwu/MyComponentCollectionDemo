@@ -5,12 +5,13 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Modal,
     Button,
     Alert,
     Text,
     ActivityIndicator,
 } from 'react-native';
+
+import Modal from "react-native-modal";
 
 import GlobalModalStyles from './GlobalModalStyles';
 
@@ -46,21 +47,19 @@ export default class ModalDemo extends Component {
                     this.showLoadingModal();
 
                     setTimeout(() => {
+                        alert('closeLoadingModal');
                         this.closeLoadingModal();
                     }, 3000)
 
                 }}/>
 
                 <Modal
-                    style={GlobalModalStyles.LoadingModalStyle}
-                    visible={this.state.loadingModalVisible}
-                    transparent={true}
-                    onRequestClose={() => {
-                        //android 按返回键时回调
-                    }}
-                    onShow={() => {
-                        //modal显示时回调
-                    }}>
+                    //style={GlobalModalStyles.LoadingModalStyle}
+                    isVisible={this.state.loadingModalVisible}
+                    backdropOpacity={0}     //遮盖层背景透明度
+                    animationIn="fadeIn"
+                    animationOut="fadeOut"
+                >
                     <View style={GlobalModalStyles.loadingModalContentContainerStyle}>
                         <View style={GlobalModalStyles.loadingModalBodyStyle}>
                             <ActivityIndicator size="large"/>

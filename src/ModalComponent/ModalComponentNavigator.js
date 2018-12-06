@@ -12,6 +12,7 @@ import {
 
 
 import ReactNativeModalExample from './react-native-modal/Example';
+import MyLoadingModal from './react-native-modal/MyLoadingModal';
 
 
 
@@ -29,7 +30,12 @@ class ModalComponentNavigator extends React.Component {
 
         dataList.push({
             id: 'ReactNativeModalExample',
-            name: 'react-native-modal'
+            name: 'react-native-modal使用demo'
+        });
+
+        dataList.push({
+            id: 'MyLoadingModal',
+            name: 'react-native-modal加载模态框'
         });
 
         this.state = {
@@ -110,6 +116,9 @@ export default createStackNavigator(
         },
         ReactNativeModalExample:{
             screen:ReactNativeModalExample
+        },
+        MyLoadingModal:{
+            screen:MyLoadingModal
         }
     },
     {

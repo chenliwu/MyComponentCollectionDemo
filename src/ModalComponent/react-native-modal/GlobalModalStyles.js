@@ -11,13 +11,13 @@ import {StyleSheet} from 'react-native';
 
 
 const GlobalModalStyle = StyleSheet.create({
-    loadingModalContentContainerStyle:{
-        flex:1,
+    loadingModalContentContainerStyle: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        //backgroundColor: 'rgba(0,0,0,0.8)',
+        //backgroundColor: 'rgba(0,0,0,0)',
     },
-    loadingModalBodyStyle:{
+    loadingModalBodyStyle: {
         height: Dimensions.get('window').height / 6,
         width: Dimensions.get('window').width / 2.5,
         justifyContent: 'center',
@@ -26,7 +26,7 @@ const GlobalModalStyle = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.8)',
     },
     //loading模态框 提示文本样式
-    loadingModalTitleStyle:{
+    loadingModalTitleStyle: {
         fontSize: 18,
         color: '#fff',
         paddingTop: 15
