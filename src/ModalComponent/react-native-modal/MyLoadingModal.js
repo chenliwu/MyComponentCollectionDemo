@@ -13,6 +13,8 @@ import {
 
 import Modal from "react-native-modal";
 
+import ToastUtils from './../../utils/ToastUtils';
+
 import GlobalModalStyles from './GlobalModalStyles';
 
 export default class ModalDemo extends Component {
@@ -47,16 +49,16 @@ export default class ModalDemo extends Component {
                     this.showLoadingModal();
 
                     setTimeout(() => {
-                        alert('closeLoadingModal');
+                        //alert('closeLoadingModal');
+                        ToastUtils.showBottomShortToast('closeLoadingModal');
                         this.closeLoadingModal();
                     }, 3000)
 
                 }}/>
 
                 <Modal
-                    //style={GlobalModalStyles.LoadingModalStyle}
                     isVisible={this.state.loadingModalVisible}
-                    backdropOpacity={0}     //遮盖层背景透明度
+                    backdropOpacity={GlobalModalStyles.backdropOpacity}
                     animationIn="fadeIn"
                     animationOut="fadeOut"
                 >
@@ -66,7 +68,6 @@ export default class ModalDemo extends Component {
                             <Text style={GlobalModalStyles.loadingModalTitleStyle}>登录中...</Text>
 
                         </View>
-
                     </View>
 
                 </Modal>

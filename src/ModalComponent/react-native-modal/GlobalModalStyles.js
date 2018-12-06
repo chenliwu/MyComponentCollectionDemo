@@ -1,6 +1,5 @@
 import {Dimensions} from "react-native";
 
-import {StyleSheet} from 'react-native';
 
 /**
  * 2018-11-28
@@ -10,13 +9,14 @@ import {StyleSheet} from 'react-native';
  */
 
 
-const GlobalModalStyle = StyleSheet.create({
+const GlobalModalStyle = {
     loadingModalContentContainerStyle: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         //backgroundColor: 'rgba(0,0,0,0)',
     },
+
     loadingModalBodyStyle: {
         height: Dimensions.get('window').height / 6,
         width: Dimensions.get('window').width / 2.5,
@@ -25,12 +25,17 @@ const GlobalModalStyle = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: 'rgba(0,0,0,0.8)',
     },
+
     //loading模态框 提示文本样式
     loadingModalTitleStyle: {
         fontSize: 18,
         color: '#fff',
         paddingTop: 15
-    }
-});
+    },
+
+    //模态框遮盖层透明度
+    backdropOpacity: 0,
+
+};
 
 export default GlobalModalStyle;
