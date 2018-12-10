@@ -10,8 +10,6 @@ import {
 } from 'react-native';
 
 
-const CITY_NAMES = ['北京', '上海', '广州', '杭州', '苏州'];
-
 export default class FlatListDemo extends Component<Props> {
     static navigationOptions = {
         title: 'SwipeableFlatList',
@@ -20,33 +18,69 @@ export default class FlatListDemo extends Component<Props> {
 
     SwipeableFlatList = null;
 
-    //侧滑菜单渲染
-    getQuickActions = () => {
-        return <View style={styles.quickAContent}>
-            <TouchableHighlight
-                onPress={() => alert("确认删除？")}
-            >
-                <View style={styles.quick}>
-                    <Text style={styles.delete}>删除</Text>
-                </View>
-            </TouchableHighlight>
-        </View>
+
+    constructor(props) {
+        super(props);
+        const dataList = [
+            {id: 'beijing', name: '北京'},
+            {id: 'shanghai', name: '上海'},
+            {id: 'guangzhou', name: '广州'},
+            {id: 'shenzhen', name: '深圳'},
+        ];
+        this.state = {
+            dataList: dataList
+        };
+    }
+
+
+    /**
+     * 绘制侧滑菜单
+     * @returns {*}
+     */
+    getQuickActions = ({item, index}) => {
+        return (
+            <View style={styles.quickAContent}>
+                <TouchableHighlight
+                    onPress={() => {
+                        console.log('click item');
+                        console.log(item);
+                        this.SwipeableFlatList.setState({
+                            openRowKey: null,   //关闭侧滑菜单
+                        });
+                        let dataList = this.state.dataList;
+                        const list = dataList.filter(i => i.id !== item.id);
+                        this.setState({
+                            dataList: list
+                        });
+
+                    }}
+                >
+                    <View style={styles.quick}>
+                        <Text style={styles.delete}>删除</Text>
+                    </View>
+                </TouchableHighlight>
+            </View>
+        );
     };
 
 
+    keyExtractor = (item: any, index: number) => {
+        return index.toString();
+    };
+
     renderItem = ({item, index}) => {
         return (
-            <TouchableWithoutFeedback onPress={() => {
+            <TouchableWithoutFeedback key={item.id} onPress={() => {
                 console.log(this.SwipeableFlatList);
                 console.log(item);
                 //state.openRowKey 标识哪一行打开了侧滑菜单;值为null则表示没有行打开侧滑菜单
                 this.SwipeableFlatList.setState({
-                    openRowKey: null
-                })
+                    openRowKey: null,   //关闭侧滑菜单
+                });
 
             }}>
                 <View style={styles.item}>
-                    <Text style={styles.text}>{item}</Text>
+                    <Text style={styles.text}>{item.name}</Text>
                 </View>
             </TouchableWithoutFeedback>
         )
@@ -60,15 +94,19 @@ export default class FlatListDemo extends Component<Props> {
                     ref={(ref) => {
                         this.SwipeableFlatList = ref;
                     }}
+
+                    ItemSeparatorComponent={() => <View
+                        style={{height: 1, backgroundColor: '#ddd',}}/>}
+
                     //1数据的获取和渲染
-                    bounceFirstRowOnMount={false}
-                    data={CITY_NAMES}
+                    data={this.state.dataList}
+                    keyExtractor={this.keyExtractor}
                     renderItem={this.renderItem}
 
                     //2创建侧滑菜单
-                    renderQuickActions={() => this.getQuickActions()}//创建侧滑菜单
-                    maxSwipeDistance={75}//可展开（滑动）的距离
-                    // bounceFirstRowOnMount={false}//进去的时候不展示侧滑效果
+                    renderQuickActions={this.getQuickActions}//创建侧滑菜单
+                    maxSwipeDistance={75}   //可展开（滑动）的距离
+                    bounceFirstRowOnMount={false}//进去的时候不展示侧滑效果
                 />
             </View>
         );
@@ -82,9 +120,6 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: '#fff',
         height: 100,
-        // marginRight: 15,
-        // marginLeft: 15,
-        //marginBottom: 10,
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 5,//漂浮的效果
@@ -99,8 +134,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        //marginRight:15,
-        //marginBottom:10,
+        backgroundColor: 'transparent'
     },
     quick: {
         backgroundColor: "#ff1d49",
@@ -113,7 +147,8 @@ const styles = StyleSheet.create({
 
     },
     delete: {
-        color: "#d8fffa",
+        color: "#fff",
+        fontSize: 16,
         //marginRight:30
     }
 });

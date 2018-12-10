@@ -47,7 +47,7 @@ class SwipeComponentNavigatorPage extends React.Component {
 
         dataList.push({
             id: 'SwipeableFlatListExample',
-            name: '官方侧滑组件'
+            name: '官方侧滑组件SwipeableFlatList'
         });
 
         this.state = {
@@ -73,6 +73,7 @@ class SwipeComponentNavigatorPage extends React.Component {
     _renderItem = ({item, index}) => {
         return (
             <TouchableOpacity
+                key={index}
                 style={{
                     height: 50,
                     justifyContent: 'center',
