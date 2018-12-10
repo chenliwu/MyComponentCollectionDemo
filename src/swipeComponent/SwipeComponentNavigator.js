@@ -13,9 +13,12 @@ import {
 import SwipeListViewExample from './react-native-swipe-list-view/SwipeExample';
 import SwipeoutExample from './react-native-swipeout/SwipeoutExample';
 import MySwipeoutExample from './react-native-swipeout/MySwipeoutExample';
+
+import SwipeableExample from './react-native-swipeable/SwipeableExample';
+import MySwipeableExample from './react-native-swipeable/MySwipeableExample';
+
+
 import MySwipeComponent from './MySwipeComponent/MySwipeExample';
-
-
 import SwipeableFlatListExample from './SwipeableFlatList/SwipeableFlatList';
 
 class SwipeComponentNavigatorPage extends React.Component {
@@ -38,6 +41,14 @@ class SwipeComponentNavigatorPage extends React.Component {
         dataList.push({
             id: 'SwipeoutExample',
             name: 'react-native-swipeout'
+        });
+        dataList.push({
+            id: 'SwipeableExample',
+            name: 'react-native-swipeable'
+        });
+        dataList.push({
+            id: 'MySwipeableExample',
+            name: 'react-native-swipeable集成'
         });
 
         dataList.push({
@@ -130,6 +141,16 @@ export default createStackNavigator(
             screen: SwipeListViewExample
             //screen: MySwipeExample
         },
+
+        SwipeableExample: {
+            screen: SwipeableExample
+            //screen: MySwipeExample
+        },
+        MySwipeableExample: {
+            screen: MySwipeableExample
+            //screen: MySwipeExample
+        },
+
         SwipeoutExample: {
             //screen:SwipeoutExample
             screen: MySwipeoutExample

@@ -22,61 +22,90 @@ export default class MySwipeExample extends Component {
 
     constructor(props) {
         super(props);
+        const dataList = [
+            {id: 'beijing', name: '北京'},
+            {id: 'shanghai', name: '上海'},
+            {id: 'guangzhou', name: '广州'},
+            {id: 'shenzhen', name: '深圳'},
+        ];
+        this.state = {
+            dataList: dataList
+        };
     }
+
+    /**
+     * item点击事件
+     * @param item
+     * @private
+     */
+    _onPressItem = (item) => {
+        this.props.navigation.navigate(item.id);
+    };
+
+    /**
+     * 渲染item组件（数据行）
+     * @param item
+     * @returns {*}
+     * @private
+     */
+    _renderItem = ({item, index}) => {
+        return (
+            <MySwipeRow key={'swipe1'} ref={(ref) => {
+                this.MySwipeRow = ref;
+            }} style={{marginTop: 200}}>
+                {/*绝对在底部的view*/}
+                <TouchableOpacity
+                    style={styles.delTextContainer}
+                    onPress={() => {
+                        this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
+                        alert('ss');
+                    }}
+                >
+                    <Text style={styles.deleteTextStyle}>删除</Text>
+                </TouchableOpacity>
+                {/*内容content*/}
+                <TouchableWithoutFeedback
+                    onPress={()=>{
+                        this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
+                    }}>
+                    <View style={styles.content}>
+                        <Text>item.name</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            </MySwipeRow>
+        )
+    };
 
     render() {
         return (
             <View style={styles.container}>
+                <FlatList
+                    ref={(flatList) => {
+                        //获取FlatList组件的引用
+                        this.flatListComponent = flatList;
+                    }}
+                    data={this.state.dataList}
+
+                    ItemSeparatorComponent={() => <View style={{height: 1, backgroundColor: '#ddd',}}/>}
+                    keyExtractor={(item, index) => {
+                        return item.id;
+                    }}
+                    renderItem={({item, index}) => {
+                        return this._renderItem({item, index});
+                    }}
+
+                    getItemLayout={(item, index) => (
+                        {length: 50, offset: (50 + 2) * index, index}
+                    )}
+
+                />
+
+
                 <Button title={'关闭Swipe'} onPress={() => {
                     console.log(this.MySwipeRow);
                     this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
                 }}/>
-                <MySwipeRow key={'swipe1'} ref={(ref) => {
-                    this.MySwipeRow = ref;
-                }} style={{marginTop: 200}}>
-                    {/*绝对在底部的view*/}
-                    <TouchableOpacity
-                        style={styles.delTextContainer}
-                        onPress={() => {
-                            this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
-                            alert('ss');
-                        }}
-                    >
-                        <Text
-                            style={styles.deleteTextStyle}
-                        >删除</Text>
-                    </TouchableOpacity>
-                    {/*内容content*/}
-                    <TouchableWithoutFeedback
-                        onPress={()=>{
-                        this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
-                    }}>
-                        <View style={styles.content}>
-                            <Text>我是item的内容1</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
-                </MySwipeRow>
 
-                {/*<MySwipeRow key={'swipe2'} ref={(ref)=>{*/}
-                {/*this.MySwipeRow = ref;*/}
-                {/*}} style={{marginTop: 200}}>*/}
-                {/*/!*绝对在底部的view*!/*/}
-                {/*<TouchableOpacity*/}
-                {/*style={styles.delTextContainer}*/}
-                {/*onPress={() => {*/}
-                {/*this.MySwipeRow && this.MySwipeRow._closeSwipeRow();*/}
-                {/*alert('ss');*/}
-                {/*}}*/}
-                {/*>*/}
-                {/*<Text*/}
-                {/*style={styles.deleteTextStyle}*/}
-                {/*>删除</Text>*/}
-                {/*</TouchableOpacity>*/}
-                {/*/!*内容content*!/*/}
-                {/*<View style={styles.content}>*/}
-                {/*<Text>我是item的内容2</Text>*/}
-                {/*</View>*/}
-                {/*</MySwipeRow>*/}
 
             </View>
         );

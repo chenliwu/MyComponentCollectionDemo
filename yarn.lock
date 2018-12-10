@@ -4286,6 +4286,13 @@ react-native-swipe-list-view@^1.5.0:
   version "1.5.0"
   resolved "http://registry.npm.taobao.org/react-native-swipe-list-view/download/react-native-swipe-list-view-1.5.0.tgz#c197c9afe21889de68df2f63a7dd0162eb6fc411"
 
+react-native-swipeable@^0.6.0:
+  version "0.6.0"
+  resolved "http://registry.npm.taobao.org/react-native-swipeable/download/react-native-swipeable-0.6.0.tgz#0fe551330018b83c754d27f505709a594f554370"
+  integrity sha1-D+VRMwAYuDx1TSf1BXCaWU9VQ3A=
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-swipeout@^2.3.6:
   version "2.3.6"
   resolved "http://registry.npm.taobao.org/react-native-swipeout/download/react-native-swipeout-2.3.6.tgz#47dac8a835825cf3f2eef9e495574a3d9ab6d3fa"

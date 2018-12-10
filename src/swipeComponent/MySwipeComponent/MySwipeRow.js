@@ -198,8 +198,3 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end'
     },
 });
-// ---------------------
-//     作者：vv_小虫
-// 来源：CSDN
-// 原文：https://blog.csdn.net/vv_bug/article/details/79551403
-//     版权声明：本文为博主原创文章，转载请附上博文链接！
