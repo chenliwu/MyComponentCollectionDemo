@@ -3,7 +3,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    FlatList
+    FlatList,
 } from 'react-native';
 import {
     SafeAreaView,
@@ -13,8 +13,12 @@ import {
 import SwipeListViewExample from './react-native-swipe-list-view/SwipeExample';
 import SwipeoutExample from './react-native-swipeout/SwipeoutExample';
 import MySwipeoutExample from './react-native-swipeout/MySwipeoutExample';
+import MySwipeComponent from './MySwipeComponent/MySwipeExample';
 
-class SwipeComponentNavigatorPage extends React.Component{
+
+import SwipeableFlatListExample from './SwipeableFlatList/SwipeableFlatList';
+
+class SwipeComponentNavigatorPage extends React.Component {
 
     static navigationOptions = {
         headerTitle: '侧滑组件',
@@ -34,6 +38,16 @@ class SwipeComponentNavigatorPage extends React.Component{
         dataList.push({
             id: 'SwipeoutExample',
             name: 'react-native-swipeout'
+        });
+
+        dataList.push({
+            id: 'MySwipeComponent',
+            name: '自定义滑动删除组件'
+        });
+
+        dataList.push({
+            id: 'SwipeableFlatListExample',
+            name: '官方侧滑组件'
         });
 
         this.state = {
@@ -78,7 +92,7 @@ class SwipeComponentNavigatorPage extends React.Component{
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1,backgroundColor:'#fff'}}>
+            <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
                 <FlatList
                     ref={(flatList) => {
                         //获取FlatList组件的引用
@@ -87,7 +101,7 @@ class SwipeComponentNavigatorPage extends React.Component{
                     data={this.state.dataList}
 
                     ItemSeparatorComponent={() => <View
-                        style={{ height: 1, backgroundColor: '#ddd', }} />}
+                        style={{height: 1, backgroundColor: '#ddd',}}/>}
                     keyExtractor={(item, index) => {
                         return item.id;
                     }}
@@ -108,16 +122,23 @@ class SwipeComponentNavigatorPage extends React.Component{
 
 export default createStackNavigator(
     {
-        SwipeComponentNavigatorPage:{
-            screen:SwipeComponentNavigatorPage
+        SwipeComponentNavigatorPage: {
+            screen: SwipeComponentNavigatorPage
         },
         SwipeListViewExample: {
             screen: SwipeListViewExample
             //screen: MySwipeExample
         },
-        SwipeoutExample:{
+        SwipeoutExample: {
             //screen:SwipeoutExample
-            screen:MySwipeoutExample
+            screen: MySwipeoutExample
+        },
+        MySwipeComponent: {
+            screen: MySwipeComponent
+        },
+
+        SwipeableFlatListExample: {
+            screen: SwipeableFlatListExample
         },
     },
     {
