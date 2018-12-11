@@ -17,7 +17,6 @@ export default class MySwipeableExample extends Component {
 
     handleScroll = () => {
         const {currentlyOpenSwipeable} = this.state;
-
         if (currentlyOpenSwipeable) {
             currentlyOpenSwipeable.recenter();
         }
@@ -38,15 +37,6 @@ export default class MySwipeableExample extends Component {
     }
 
     /**
-     * item点击事件
-     * @param item
-     * @private
-     */
-    _onPressItem = (item) => {
-        this.props.navigation.navigate(item.id);
-    };
-
-    /**
      * 渲染item组件（数据行）
      * @param item
      * @returns {*}
@@ -59,10 +49,13 @@ export default class MySwipeableExample extends Component {
                 if (currentlyOpenSwipeable && currentlyOpenSwipeable !== swipeable) {
                     //如果滑动其他行的组件，则关闭当前行的滑动菜单
                     currentlyOpenSwipeable.recenter();
+                    this.setState({currentlyOpenSwipeable: null});
+                }else{
+                    this.setState({currentlyOpenSwipeable: swipeable});
                 }
                 console.log('onOpen');
                 console.log(swipeable);
-                this.setState({currentlyOpenSwipeable: swipeable});
+
             },
             onClose: () => {
                 console.log('onClose');
@@ -75,11 +68,23 @@ export default class MySwipeableExample extends Component {
                 onPressItem={(item) => {
                     alert(item.name);
                     currentlyOpenSwipeable.recenter();
+                    this.setState({currentlyOpenSwipeable: null});
                 }}
-                onPressDelete={(item) => {
+                onPressDeleteItem={(item) => {
                     //删除
-                    alert('删除' + item.name);
+                    //alert('删除' + item.name);
+
                     currentlyOpenSwipeable.recenter();
+                    this.setState({currentlyOpenSwipeable: null});
+
+                    setTimeout(()=>{
+                        let dataList = this.state.dataList;
+                        const list = dataList.filter(i => i.id !== item.id);
+                        this.setState({
+                            dataList: list
+                        });
+                    },300);
+
                 }}
                 {...itemProps}
             />
@@ -113,7 +118,7 @@ export default class MySwipeableExample extends Component {
 
 
 /**
- *
+ * 绘制右侧滑动删除按钮
  * @param item
  * @param onPressItem
  * @param onPressDelete
@@ -122,13 +127,13 @@ export default class MySwipeableExample extends Component {
  * @returns {*}
  * @constructor
  */
-function Example1({item, onPressItem, onPressDelete, onOpen, onClose}) {
+function Example1({item, onPressItem, onPressDeleteItem, onOpen, onClose}) {
     return (
         <Swipeable
             rightButtons={[
                 <TouchableWithoutFeedback onPress={() => {
                     //回调点击事件
-                    onPressDelete(item);
+                    onPressDeleteItem(item);
                 }}>
                     <View style={{
                         flex: 1,

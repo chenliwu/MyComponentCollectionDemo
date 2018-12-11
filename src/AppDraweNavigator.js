@@ -5,7 +5,7 @@ import {
     Button
 } from 'react-native';
 
-///滑动删除组件
+///滑动删除组件 2018-12-5
 import SwipeComponentNavigator from './swipeComponent/SwipeComponentNavigator';
 
 ///手风琴
@@ -17,8 +17,12 @@ import DialogsComponentNavigator from './DialogComponent/DialogsComponentNavigat
 //Toast组件
 import ToastNavigator from './Toast/ToastNavigator';
 
-//Modal模态框
+//Modal模态框 2018-12-6
 import ModalComponentNavigator from './ModalComponent/ModalComponentNavigator';
+
+
+//动画 2018-12-10
+import AnimationNavigator from './Animation/AnimationNavigator';
 
 
 
@@ -101,6 +105,15 @@ export default createDrawerNavigator(
                 drawerLabel: 'Modal模态框',
             }
         },
+
+
+        AnimationNavigator: {
+            screen: AnimationNavigator,
+            navigationOptions:{
+                drawerLabel: '动画库',
+            }
+        },
+
     },
     {
         initialRouteName: 'AppNavigatorPage',
