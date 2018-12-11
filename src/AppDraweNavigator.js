@@ -22,8 +22,6 @@ import ModalComponentNavigator from './ModalComponent/ModalComponentNavigator';
 
 
 //动画 2018-12-10
-import AnimationNavigator from './Animation/AnimationNavigator';
-
 
 
 import {
@@ -107,12 +105,6 @@ export default createDrawerNavigator(
         },
 
 
-        AnimationNavigator: {
-            screen: AnimationNavigator,
-            navigationOptions:{
-                drawerLabel: '动画库',
-            }
-        },
 
     },
     {
