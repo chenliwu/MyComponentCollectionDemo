@@ -11,6 +11,9 @@ import {
 } from 'react-navigation';
 
 import SwipeListViewExample from './react-native-swipe-list-view/SwipeExample';
+import MySwipeListViewExample from './react-native-swipe-list-view/MySwipeListViewExample';
+
+
 import SwipeoutExample from './react-native-swipeout/SwipeoutExample';
 import MySwipeoutExample from './react-native-swipeout/MySwipeoutExample';
 
@@ -137,22 +140,24 @@ export default createStackNavigator(
         SwipeComponentNavigatorPage: {
             screen: SwipeComponentNavigatorPage
         },
+
+
         SwipeListViewExample: {
-            screen: SwipeListViewExample
-            //screen: MySwipeExample
+            //screen: SwipeListViewExample
+            screen: MySwipeListViewExample
         },
 
         SwipeableExample: {
             screen: SwipeableExample
-            //screen: MySwipeExample
         },
+
+
+
         MySwipeableExample: {
             screen: MySwipeableExample
-            //screen: MySwipeExample
         },
 
         SwipeoutExample: {
-            //screen:SwipeoutExample
             screen: MySwipeoutExample
         },
         MySwipeComponent: {
