@@ -115,8 +115,7 @@ class SwipeComponentNavigatorPage extends React.Component {
                     }}
                     data={this.state.dataList}
 
-                    ItemSeparatorComponent={() => <View
-                        style={{height: 1, backgroundColor: '#ddd',}}/>}
+                    ItemSeparatorComponent={() => <View style={{height: 1, backgroundColor: '#ddd',}}/>}
                     keyExtractor={(item, index) => {
                         return item.id;
                     }}

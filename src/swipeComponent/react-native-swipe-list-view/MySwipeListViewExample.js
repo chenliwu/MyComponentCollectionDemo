@@ -76,13 +76,9 @@ class MySwipeListViewExample extends Component {
                     } else {
                         this.currentOpenRow = this.swipeRowMap.get(item.id);
                     }
-                    console.log('onRowOpen');
-                    console.log(this.currentOpenRow);
                 }}
                 onRowClose={(obj) => {
                     //当滑动行的动画处于关闭状态时调用
-                    console.log('onRowClose');
-                    console.log(this.currentOpenRow);
                     if (this.currentOpenRow && this.currentOpenRow === this.swipeRowMap.get(item.id)) {
                         //不是已打开行的不关闭
                         this.currentOpenRow = null;
@@ -163,6 +159,7 @@ class MySwipeListViewExample extends Component {
 
                 <FlatList
                     data={this.state.dataList}
+                    ItemSeparatorComponent={() => <View style={{height: 1, backgroundColor: '#ddd',}}/>}
                     renderItem={({item, index}) => {
                         return this._renderItem({item, index});
                     }}

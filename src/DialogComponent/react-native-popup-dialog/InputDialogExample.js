@@ -15,7 +15,7 @@ import Dialog, {
     ScaleAnimation,
 } from 'react-native-popup-dialog';
 
-export default class LoadingDialogExample extends React.Component {
+export default class InputDialogExample extends React.Component {
 
     static navigationOptions = {
         headerTitle: '输入对话框',
