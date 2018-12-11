@@ -50,9 +50,13 @@ export default class MySwipeExample extends Component {
      */
     _renderItem = ({item, index}) => {
         return (
-            <MySwipeRow key={'swipe1'} ref={(ref) => {
+            <MySwipeRow key={index} ref={(ref) => {
                 this.MySwipeRow = ref;
-            }} style={{marginTop: 200}}>
+            }} style={{
+                flex: 1,
+                backgroundColor:'red',
+                width: '100%',
+            }}>
                 {/*绝对在底部的view*/}
                 <TouchableOpacity
                     style={styles.delTextContainer}
@@ -63,15 +67,24 @@ export default class MySwipeExample extends Component {
                 >
                     <Text style={styles.deleteTextStyle}>删除</Text>
                 </TouchableOpacity>
+
                 {/*内容content*/}
-                <TouchableWithoutFeedback
-                    onPress={()=>{
-                        this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
-                    }}>
-                    <View style={styles.content}>
-                        <Text>item.name</Text>
-                    </View>
-                </TouchableWithoutFeedback>
+                <View style={{flex: 1}}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
+                        }}>
+                        <View style={{
+                            width: '100%',
+                            height: 100,
+                            backgroundColor: '#fff',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <Text>{item.name}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </MySwipeRow>
         )
     };
@@ -94,9 +107,9 @@ export default class MySwipeExample extends Component {
                         return this._renderItem({item, index});
                     }}
 
-                    getItemLayout={(item, index) => (
-                        {length: 50, offset: (50 + 2) * index, index}
-                    )}
+                    // getItemLayout={(item, index) => (
+                    //     {length: 50, offset: (50 + 2) * index, index}
+                    // )}
 
                 />
 

@@ -12,7 +12,7 @@ import {
     TouchableOpacity,
     TouchableHighlight,
     TouchableWithoutFeedback,
-    View
+    View,
 } from 'react-native';
 
 import {SwipeListView, SwipeRow} from 'react-native-swipe-list-view';
@@ -64,10 +64,10 @@ class MySwipeListViewExample extends Component {
                 ref={(ref) => {
                     this.swipeRowMap.set(item.id, ref);
                 }}
-                disableRightSwipe={true}
-                //leftOpenValue={75}
-                rightOpenValue={-60}
-                stopRightSwipe={-80} //右侧侧侧滑X的最大偏移量(负数)
+                tension={20}    //打开关闭动画的张力
+                disableRightSwipe={true}    //禁止右边滑动
+                rightOpenValue={-60}    //右侧侧滑X的偏移量(负数)
+                stopRightSwipe={-80}    //右侧侧侧滑X的最大偏移量(负数)
                 onRowOpen={(obj) => {
                     //当滑动行的动画处于开启状态时调用
                     if (this.currentOpenRow && this.currentOpenRow.isOpen) {
@@ -99,6 +99,10 @@ class MySwipeListViewExample extends Component {
                     <View></View>
                     <TouchableWithoutFeedback onPress={() => {
                         alert('删除'+item.id);
+                        if (this.currentOpenRow) {
+                            this.currentOpenRow.closeRow();
+                            this.currentOpenRow = null;
+                        }
                     }}>
                         <View style={{
                             height:50,width:60,
