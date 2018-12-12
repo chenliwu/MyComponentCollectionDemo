@@ -16,6 +16,9 @@ import Dialog, {
 
 import GlobalLoadingDialogStyle from './GlobalLoadingDialogStyle';
 
+/**
+ * dialog-component分支
+ */
 export default class LoadingDialogExample extends React.Component {
 
     static navigationOptions = {
