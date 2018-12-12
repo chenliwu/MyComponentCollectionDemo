@@ -48,9 +48,7 @@ class MySwipeListViewExample extends Component {
 
 
     currentOpenRow = null;
-
     swipeRowMap = new Map();
-
 
     /**
      * 渲染item组件（数据行）
@@ -67,7 +65,7 @@ class MySwipeListViewExample extends Component {
                 tension={20}    //打开关闭动画的张力
                 disableRightSwipe={true}    //禁止右边滑动
                 rightOpenValue={-60}    //右侧侧滑X的偏移量(负数)
-                stopRightSwipe={-80}    //右侧侧侧滑X的最大偏移量(负数)
+                stopRightSwipe={-90}    //右侧侧侧滑X的最大偏移量(负数)
                 onRowOpen={(obj) => {
                     //当滑动行的动画处于开启状态时调用
                     if (this.currentOpenRow) {
@@ -80,7 +78,6 @@ class MySwipeListViewExample extends Component {
                 onRowClose={(obj) => {
                     //当滑动行的动画处于关闭状态时调用
                     if (this.currentOpenRow && this.currentOpenRow === this.swipeRowMap.get(item.id)) {
-                        //不是已打开行的不关闭
                         this.currentOpenRow = null;
                     }
                 }}
@@ -95,7 +92,7 @@ class MySwipeListViewExample extends Component {
                 }}>
                     <View></View>
                     <TouchableWithoutFeedback onPress={() => {
-                        alert('删除' + item.id);
+                        //alert('删除' + item.id);
                         if (this.currentOpenRow) {
                             this.currentOpenRow.closeRow();
                             this.currentOpenRow = null;
@@ -111,12 +108,11 @@ class MySwipeListViewExample extends Component {
                 </View>
 
                 <TouchableWithoutFeedback onPress={() => {
-                    console.log(this.currentOpenRow);
                     if (this.currentOpenRow) {
                         this.currentOpenRow.closeRow();
                         this.currentOpenRow = null;
                     }
-                    alert(item.id);
+                    //alert(item.id);
                 }}>
                     <View style={{
                         alignItems: 'center',
