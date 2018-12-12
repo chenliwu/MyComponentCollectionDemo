@@ -14,6 +14,7 @@ import PopupDialogExample from './react-native-popup-dialog/PopupDialogExample';
 
 import LoadingDialogExample from './react-native-popup-dialog/LoadingDialogExample';
 import InputDialogExample from './react-native-popup-dialog/InputDialogExample';
+import InputDialogExample1 from './react-native-popup-dialog/InputDialogExample1';
 import TestBaseDialogComponentExample from './react-native-popup-dialog/TestBaseDialogComponentExample';
 
 
@@ -127,7 +128,7 @@ export default createStackNavigator(
             screen:LoadingDialogExample,
         },
         InputDialogExample:{
-            screen:InputDialogExample,
+            screen:InputDialogExample1,
         },
         TestBaseDialogComponentExample:{
             screen:TestBaseDialogComponentExample,
