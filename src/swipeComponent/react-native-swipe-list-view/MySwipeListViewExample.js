@@ -156,6 +156,13 @@ class MySwipeListViewExample extends Component {
             </View>
         );
     }
+
+    componentWillUnmount(): void {
+        //清空数据
+        DeleteSwipeRow.currentOpenRow = null;
+        DeleteSwipeRow.swipeRowMap && DeleteSwipeRow.swipeRowMap.clear();
+        DeleteSwipeRow.swipeRowMap = null;
+    }
 }
 
 /**
@@ -196,14 +203,16 @@ class DeleteSwipeRow extends React.Component {
                 rightOpenValue={-60}        //右侧侧滑X的偏移量(负数)
                 stopRightSwipe={-80}        //右侧侧侧滑X的最大偏移量(负数)
                 onRowOpen={() => {
-                    //当滑动行的动画处于开启状态时调用
-                    if (DeleteSwipeRow.currentOpenRow) {
+                    //滑动菜单打开前执行
+                    if (DeleteSwipeRow.currentOpenRow &&
+                        DeleteSwipeRow.currentOpenRow !== DeleteSwipeRow.swipeRowMap.get(item.id)) {
+                        //当滑动其他行时，关闭当前已经打开滑动菜单的行；滑动当前行则不关闭
                         DeleteSwipeRow.currentOpenRow.closeRow();
                     }
                     DeleteSwipeRow.currentOpenRow = DeleteSwipeRow.swipeRowMap.get(item.id);
                 }}
-                onRowClose={() => {
-                    //当滑动行的动画处于关闭状态时调用
+                onRowDidClose={() => {
+                    //滑动菜单关闭后执行
                     if (DeleteSwipeRow.currentOpenRow &&
                         DeleteSwipeRow.currentOpenRow === DeleteSwipeRow.swipeRowMap.get(item.id)) {
                         //不是已打开行的不关闭
@@ -256,8 +265,6 @@ class DeleteSwipeRow extends React.Component {
             </SwipeRow>
         );
     }
-
-
 }
 
 const styles = StyleSheet.create({
