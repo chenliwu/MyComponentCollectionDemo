@@ -1683,6 +1683,11 @@ event-target-shim@^1.0.5:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/event-target-shim/download/event-target-shim-1.1.1.tgz#a86e5ee6bdaa16054475da797ccddf0c55698491"
 
+eventemitter3@^1.1.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/eventemitter3/download/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
+  integrity sha1-HIaZHYFq0eUEdQ5zh0Ik7PO+xQg=
+
 eventemitter3@^3.0.0:
   version "3.1.0"
   resolved "http://registry.npm.taobao.org/eventemitter3/download/eventemitter3-3.1.0.tgz#090b4d6cdbd645ed10bf750d4b5407942d7ba163"
@@ -4229,6 +4234,13 @@ react-native-keyboard-aware-scroll-view@0.5.0:
   dependencies:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
+
+react-native-keyboardevents@^0.4.5:
+  version "0.4.5"
+  resolved "http://registry.npm.taobao.org/react-native-keyboardevents/download/react-native-keyboardevents-0.4.5.tgz#341f37fe739012718f5bae577af0b5b19bdd8948"
+  integrity sha1-NB83/nOQEnGPW65XevC1sZvdiUg=
+  dependencies:
+    eventemitter3 "^1.1.0"
 
 react-native-modal@^7.0.1:
   version "7.0.1"

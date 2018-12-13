@@ -24,6 +24,10 @@ import ModalComponentNavigator from './ModalComponent/ModalComponentNavigator';
 //动画 2018-12-10
 
 
+
+//键盘事件 2018-12-12
+import KeyboardExample from './Keyboard/KeyboardExample';
+
 import {
     SafeAreaView,
     createDrawerNavigator
@@ -101,6 +105,14 @@ export default createDrawerNavigator(
             screen: ModalComponentNavigator,
             navigationOptions:{
                 drawerLabel: 'Modal模态框',
+            }
+        },
+
+
+        KeyboardExample: {
+            screen: KeyboardExample,
+            navigationOptions:{
+                drawerLabel: '键盘事件',
             }
         },
 
