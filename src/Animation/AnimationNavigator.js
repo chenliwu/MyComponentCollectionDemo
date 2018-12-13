@@ -10,13 +10,17 @@ import {
     createStackNavigator
 } from 'react-navigation';
 
-import NativeBaseCustomAccordionExample from './native-base/CustomAccordionExample';
-import ConditionPage from './native-base/conditionDemo/ConditionPage';
+import ScrollViewExample from './ScrollViewAnimation/ScrollViewExample';
 
-class AccordionNavigatorPage extends React.Component{
+
+import LayoutAnimationExample from './LayoutAnimation/LayoutAnimationExample';
+import AnimatedExample from './Animated/AnimatedExample';
+
+
+class AnimationNavigator extends React.Component {
 
     static navigationOptions = {
-        headerTitle: '手风琴',
+        headerTitle: 'ScrollViewExample组件练习',
     };
 
     flatListComponent = null;
@@ -26,12 +30,17 @@ class AccordionNavigatorPage extends React.Component{
         let dataList = new Array();
 
         dataList.push({
-            id: 'NativeBaseCustomAccordionExample',
-            name: 'native-base手风琴'
+            id: 'ScrollViewExample',
+            name: 'ScrollViewExample组件练习'
         });
         dataList.push({
-            id: 'ConditionPage',
-            name: '筛选条件运用手风琴'
+            id: 'LayoutAnimationExample',
+            name: 'LayoutAnimation动画'
+        });
+
+        dataList.push({
+            id: 'AnimatedExample',
+            name: 'Animated动画'
         });
 
         this.state = {
@@ -61,7 +70,6 @@ class AccordionNavigatorPage extends React.Component{
                     height: 50,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    //backgroundColor: 'red'
                 }}
                 onPress={() => {
                     this._onPressItem(item);
@@ -76,14 +84,17 @@ class AccordionNavigatorPage extends React.Component{
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{
+                flex: 1,
+                backgroundColor:'#fff'
+            }}>
                 <FlatList
                     ref={(flatList) => {
                         //获取FlatList组件的引用
                         this.flatListComponent = flatList;
                     }}
                     ItemSeparatorComponent={() => <View
-                        style={{ height: 1, backgroundColor: '#f5f5f9', }} />}
+                        style={{height: 1, backgroundColor: '#f5f5f9',}}/>}
                     data={this.state.dataList}
                     keyExtractor={(item, index) => {
                         return item.id;
@@ -105,18 +116,25 @@ class AccordionNavigatorPage extends React.Component{
 
 export default createStackNavigator(
     {
-        AccordionNavigatorPage:{
-            screen:AccordionNavigatorPage
+        AnimationNavigator: {
+            screen: AnimationNavigator
         },
-        NativeBaseCustomAccordionExample: {
-            screen: NativeBaseCustomAccordionExample
+
+        ScrollViewExample: {
+            screen: ScrollViewExample
         },
-        ConditionPage:{
-            screen:ConditionPage
+
+        LayoutAnimationExample: {
+            screen: LayoutAnimationExample
+        },
+
+
+        AnimatedExample: {
+            screen: AnimatedExample
         },
     },
     {
-        initialRouteName: 'AccordionNavigatorPage',
+        initialRouteName: 'AnimationNavigator',
         //headerMode: 'center'
     }
 );
