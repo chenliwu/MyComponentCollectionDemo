@@ -7,12 +7,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "native-base": "^2.8.1",
     "react": "16.6.1",
     "react-native": "0.57.7",
-    "react-native-keyboardevents": "^0.4.5",
-    "react-native-modal": "^7.0.1",
-    "react-native-popup-dialog": "^0.16.5",
     "react-native-root-tips": "^1.0.0",
     "react-native-root-toast": "^3.0.1",
     "react-native-swipe-list-view": "^1.5.0",
