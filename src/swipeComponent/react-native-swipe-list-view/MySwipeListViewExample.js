@@ -65,17 +65,16 @@ class MySwipeListViewExample extends Component {
                 tension={20}    //打开关闭动画的张力
                 disableRightSwipe={true}    //禁止右边滑动
                 rightOpenValue={-60}    //右侧侧滑X的偏移量(负数)
-                stopRightSwipe={-90}    //右侧侧侧滑X的最大偏移量(负数)
-                onRowOpen={(obj) => {
+                stopRightSwipe={-100}    //右侧侧侧滑X的最大偏移量(负数)
+                onRowOpen={() => {
                     //当滑动行的动画处于开启状态时调用
                     if (this.currentOpenRow) {
                         this.currentOpenRow.closeRow();
-                        this.currentOpenRow = this.swipeRowMap.get(item.id);
-                    } else {
-                        this.currentOpenRow = this.swipeRowMap.get(item.id);
+
                     }
+                    this.currentOpenRow = this.swipeRowMap.get(item.id);
                 }}
-                onRowClose={(obj) => {
+                onRowClose={() => {
                     //当滑动行的动画处于关闭状态时调用
                     if (this.currentOpenRow && this.currentOpenRow === this.swipeRowMap.get(item.id)) {
                         this.currentOpenRow = null;
@@ -127,23 +126,16 @@ class MySwipeListViewExample extends Component {
         )
     };
 
-    _renderItem1=({item,index})=>{
+    _renderItem1 = ({item, index}) => {
         return (
             <DeleteSwipeRow
                 item={item}
-                onPressItem={(item)=>{
-                    alert('onPressItem:'+item.id);
+                onPressItem={(item) => {
+                    alert('onPressItem:' + item.id);
                 }}
-                onDeleteItem={(item)=>{
-                    alert('onDeleteItem:'+item.id);
+                onDeleteItem={(item) => {
+                    alert('onDeleteItem:' + item.id);
                 }}
-                currentOpenRow={this.state.currentOpenRow}
-                setCurrentOpenRow={(currentOpenRow)=>{
-                    this.setState({
-                        currentOpenRow:currentOpenRow
-                    });
-                }}
-                //clearCurrentOpenRow={()}
             />
         )
     };
@@ -157,7 +149,8 @@ class MySwipeListViewExample extends Component {
                     data={this.state.dataList}
                     ItemSeparatorComponent={() => <View style={{height: 1, backgroundColor: '#ddd',}}/>}
                     renderItem={({item, index}) => {
-                        return this._renderItem({item, index});
+                        //return this._renderItem({item, index});
+                        return this._renderItem1({item, index});
                     }}
                 />
             </View>
@@ -166,87 +159,104 @@ class MySwipeListViewExample extends Component {
 }
 
 /**
- * 绘制滑动删除组件
- * @param item
- * @param onPressItem
- * @param onDeleteItem
- * @param currentOpenRow
- * @param swipeRowMap
- * @returns {*}
- * @constructor
+ * 2018-12-13
+ * chenlw
+ * work: 封装带有滑动删除功能的item行组件
  */
-function DeleteSwipeRow ({item,onPressItem,onDeleteItem,currentOpenRow,swipeRowMap,setCurrentOpenRow}){
+class DeleteSwipeRow extends React.Component {
 
-    return (
-        <SwipeRow
-            ref={(ref) => {
-                swipeRowMap.set(item.id, ref);
-            }}
-            tension={20}    //打开关闭动画的张力
-            disableRightSwipe={true}    //禁止右边滑动
-            rightOpenValue={-60}    //右侧侧滑X的偏移量(负数)
-            stopRightSwipe={-80}    //右侧侧侧滑X的最大偏移量(负数)
-            onRowOpen={(obj) => {
-                //当滑动行的动画处于开启状态时调用
-                if (currentOpenRow) {
-                    currentOpenRow.closeRow();
-                    currentOpenRow = swipeRowMap.get(item.id);
-                } else {
-                    currentOpenRow = swipeRowMap.get(item.id);
-                }
-                setCurrentOpenRow(currentOpenRow);
-            }}
-            onRowClose={(obj) => {
-                //当滑动行的动画处于关闭状态时调用
-                if (currentOpenRow && currentOpenRow === swipeRowMap.get(item.id)) {
-                    //不是已打开行的不关闭
-                    currentOpenRow = null;
-                }
-            }}
-        >
-            <View style={{
-                backgroundColor: 'red',
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                //padding: 15
-            }}>
-                <View></View>
-                <TouchableWithoutFeedback onPress={() => {
-                    alert('删除' + item.id);
-                    if (currentOpenRow) {
-                        currentOpenRow.closeRow();
-                        currentOpenRow = null;
+    /**
+     * 内部维护一个记住所有滑动组件行的map
+     *
+     * @type {Map<any, any>}
+     */
+    static swipeRowMap = new Map();
+
+    /**
+     * 当前已打开侧滑菜单的行
+     * @type {null}
+     */
+    static currentOpenRow = null;
+
+    constructor(props) {
+        super(props);
+    }
+
+
+    render() {
+        const {item, onPressItem, onDeleteItem} = this.props;
+        return (
+            <SwipeRow
+                ref={(ref) => {
+                    //记录对组件的引用
+                    DeleteSwipeRow.swipeRowMap.set(item.id, ref);
+                }}
+                tension={20}    //打开关闭动画的张力
+                disableRightSwipe={true}    //禁止右边滑动
+                rightOpenValue={-60}        //右侧侧滑X的偏移量(负数)
+                stopRightSwipe={-80}        //右侧侧侧滑X的最大偏移量(负数)
+                onRowOpen={() => {
+                    //当滑动行的动画处于开启状态时调用
+                    if (DeleteSwipeRow.currentOpenRow) {
+                        DeleteSwipeRow.currentOpenRow.closeRow();
                     }
+                    DeleteSwipeRow.currentOpenRow = DeleteSwipeRow.swipeRowMap.get(item.id);
+                }}
+                onRowClose={() => {
+                    //当滑动行的动画处于关闭状态时调用
+                    if (DeleteSwipeRow.currentOpenRow &&
+                        DeleteSwipeRow.currentOpenRow === DeleteSwipeRow.swipeRowMap.get(item.id)) {
+                        //不是已打开行的不关闭
+                        DeleteSwipeRow.currentOpenRow = null;
+                    }
+                }}
+            >
+                <View style={{
+                    backgroundColor: 'red',
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}>
+                    <View></View>
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (DeleteSwipeRow.currentOpenRow) {
+                            DeleteSwipeRow.currentOpenRow.closeRow();
+                            DeleteSwipeRow.currentOpenRow = null;
+                        }
+                        //回调删除事件
+                        onDeleteItem && onDeleteItem(item);
+                    }}>
+                        <View style={{
+                            height: 50, width: 60,
+                            justifyContent: 'center', alignItems: 'center',
+                        }}>
+                            <Text style={{color: '#FFF'}}>删除</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </View>
+
+                <TouchableWithoutFeedback onPress={() => {
+                    if (DeleteSwipeRow.currentOpenRow) {
+                        DeleteSwipeRow.currentOpenRow.closeRow();
+                        DeleteSwipeRow.currentOpenRow = null;
+                    }
+                    //回调item的点击事件
+                    onPressItem && onPressItem(item);
                 }}>
                     <View style={{
-                        height: 50, width: 60,
-                        justifyContent: 'center', alignItems: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#fff',
+                        justifyContent: 'center',
+                        height: 50,
                     }}>
-                        <Text style={{color: '#FFF'}}>删除</Text>
+                        <Text>{item.name}</Text>
                     </View>
                 </TouchableWithoutFeedback>
-            </View>
+            </SwipeRow>
+        );
+    }
 
-            <TouchableWithoutFeedback onPress={() => {
-                if (currentOpenRow) {
-                    currentOpenRow.closeRow();
-                    currentOpenRow = null;
-                }
-                alert(item.id);
-            }}>
-                <View style={{
-                    alignItems: 'center',
-                    backgroundColor: '#fff',
-                    justifyContent: 'center',
-                    height: 50,
-                }}>
-                    <Text>{item.name}</Text>
-                </View>
-            </TouchableWithoutFeedback>
-        </SwipeRow>
-    );
 
 }
 

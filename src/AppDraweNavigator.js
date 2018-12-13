@@ -11,15 +11,6 @@ import SwipeComponentNavigator from './swipeComponent/SwipeComponentNavigator';
 //Toast组件
 import ToastNavigator from './Toast/ToastNavigator';
 
-
-
-//动画 2018-12-10
-
-
-
-//键盘事件 2018-12-12
-import KeyboardExample from './Keyboard/KeyboardExample';
-
 import {
     SafeAreaView,
     createDrawerNavigator
