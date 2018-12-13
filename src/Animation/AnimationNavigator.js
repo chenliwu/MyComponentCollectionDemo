@@ -40,7 +40,7 @@ class AnimationNavigator extends React.Component {
 
         dataList.push({
             id: 'AnimatedExample',
-            name: 'Animated动画'
+            name: 'Animated简单动画'
         });
 
         this.state = {

@@ -10,7 +10,7 @@ import {
     LayoutAnimation
 } from 'react-native';
 
-import MyAnimation from './MyAnimation';
+import MySpringAnimation from './MySpringAnimation';
 
 /**
  * 2018-12-13
@@ -33,17 +33,34 @@ export default class AnimatedExample extends React.Component {
 
     constructor(props) {
         super(props);
-
+        this.state = {
+            springAnimationVisible: false,
+        }
     }
 
     render() {
         return (
             <View style={{
                 flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center'
+                backgroundColor:'#fff'
             }}>
-                <MyAnimation width={200} height={200} ></MyAnimation>
+                <Button title={'弹跳动画'} onPress={() => {
+                    this.setState({
+                        springAnimationVisible: !this.state.springAnimationVisible,
+                    });
+                }}/>
+                <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+
+                    {
+                        this.state.springAnimationVisible ?
+                            <MySpringAnimation width={200} height={200}/> : null
+                    }
+
+                </View>
             </View>
         )
     }

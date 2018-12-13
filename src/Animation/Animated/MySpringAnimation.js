@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 
-export default class MyAnimation extends React.Component {
+export default class MySpringAnimation extends React.Component {
 
 
     constructor(props) {
