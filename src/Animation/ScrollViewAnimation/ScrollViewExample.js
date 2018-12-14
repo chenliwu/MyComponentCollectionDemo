@@ -9,6 +9,11 @@ import {
     Dimensions
 } from 'react-native';
 
+import MySpringAnimation from './MySpringAnimation';
+
+
+const screenWidth = Dimensions.get('window').width;
+
 /**
  * 2018-12-13
  * chenlw
@@ -20,8 +25,20 @@ export default class ScrollViewExample extends React.Component {
 
         console.log(navigation);
         console.log(navigationOptions);
-        const headerTitle = navigation.getParam('headerTitle',"");
+        const headerTitle = navigation.getParam('headerTitle', "");
+        const headerVisibleFlag = navigation.getParam('headerVisibleFlag', 0);
+        if (headerVisibleFlag === 2) {
+            return ({
+                headerStyle: {
+                    //marginBottom: -50,
+                },
+                header:<MySpringAnimation width={screenWidth} height={70}
+                    style={{flex: 1, height: 70, width: '100%', backgroundColor: 'red'}}></MySpringAnimation>,
+                headerLeft: null,
+                headerTransparent: true,
+            });
 
+        }
         return ({
             // header:
             //     <View style={{
@@ -56,18 +73,31 @@ export default class ScrollViewExample extends React.Component {
                         this.ScrollView = ref;
                     }}
                     style={{flex: 1}}
-                    //scrollEventThrottle={200}
+                    scrollEventThrottle={200}
                     onScroll={(event) => {
                         console.log('onScroll');
                         console.log(event);
                         let endposition = event.nativeEvent.contentOffset.y;//取得拖拉后的位置
 
                         this.props.navigation.setParams({
-                            headerTitle:"title："+ endposition,
+                            headerTitle: "title：" + endposition,
                         });
+
+                        if (endposition <= 10) {
+                            this.props.navigation.setParams({
+                                headerTitle: "title：" + endposition,
+                                headerVisibleFlag: 1,
+                            });
+                        } else {
+                            this.props.navigation.setParams({
+                                headerTitle: "title：" + endposition,
+                                headerVisibleFlag: 2,
+                            });
+                        }
+
                     }}
 
-                // 开始拖拽
+                    // 开始拖拽
                     onScrollBeginDrag={(event) => {
                         console.log("scroll drag begin...");
                         console.log(event);
