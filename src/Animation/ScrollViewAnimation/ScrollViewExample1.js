@@ -81,6 +81,20 @@ export default class ScrollViewExample1 extends React.Component {
                 console.log(event.nativeEvent);
                 console.log('nativeEvent----');
                 this._handlePanResponderGrant(event, gestureState);
+
+                if (gestureState.dy > 0) {
+                    this.setState({
+                        swipeDirection:'向上滑动',
+                    });
+                    if (this._previousScrollValue == this._switchScrollBottom) {
+
+                    }
+                }else{
+                    this.setState({
+                        swipeDirection:'向下滑动',
+                    });
+                }
+
                 // 开始手势操作。给用户一些视觉反馈，让他们知道发生了什么事情！
                 // gestureState.{x,y} 现在会被设置为0
             },
@@ -97,18 +111,7 @@ export default class ScrollViewExample1 extends React.Component {
             onPanResponderRelease: (evt, gestureState) => {
                 console.log('onPanResponderRelease');
                 console.log(gestureState);
-                if (gestureState.dy > 0) {
-                    this.setState({
-                        swipeDirection:'向上滑动',
-                    });
-                    if (this._previousScrollValue == this._switchScrollBottom) {
 
-                    }
-                }else{
-                    this.setState({
-                        swipeDirection:'向下滑动',
-                    });
-                }
                 // 用户放开了所有的触摸点，且此时视图已经成为了响应者。
                 // 一般来说这意味着一个手势操作已经成功完成。
             },
