@@ -11,13 +11,14 @@ import {
 } from 'react-navigation';
 
 import ScrollViewExample from './ScrollViewAnimation/ScrollViewExample';
+import ScrollViewExample1 from './ScrollViewAnimation/ScrollViewExample1';
 
 
 import LayoutAnimationExample from './LayoutAnimation/LayoutAnimationExample';
 import AnimatedExample from './Animated/AnimatedExample';
 
 
-class AnimationNavigator extends React.Component {
+class AnimationNavigatorPage extends React.Component {
 
     static navigationOptions = {
         headerTitle: 'ScrollViewExample组件练习',
@@ -33,6 +34,12 @@ class AnimationNavigator extends React.Component {
             id: 'ScrollViewExample',
             name: 'ScrollViewExample组件练习'
         });
+        dataList.push({
+            id: 'ScrollViewExample1',
+            name: 'ScrollViewExample组件练习1'
+        });
+
+
         dataList.push({
             id: 'LayoutAnimationExample',
             name: 'LayoutAnimation动画'
@@ -114,14 +121,17 @@ class AnimationNavigator extends React.Component {
 }
 
 
-export default createStackNavigator(
+const AnimationNavigator = createStackNavigator(
     {
         AnimationNavigator: {
-            screen: AnimationNavigator
+            screen: AnimationNavigatorPage
         },
 
         ScrollViewExample: {
             screen: ScrollViewExample
+        },
+        ScrollViewExample1: {
+            screen: ScrollViewExample1
         },
 
         LayoutAnimationExample: {
@@ -138,5 +148,20 @@ export default createStackNavigator(
         //headerMode: 'center'
     }
 );
+
+AnimationNavigator.navigationOptions = ({ navigation }) => {
+    let drawerLockMode = 'unlocked';
+    if (navigation.state.index > 0) {
+        drawerLockMode = 'locked-closed';
+    }
+
+    return {
+        drawerLockMode,
+    };
+};
+
+export default AnimationNavigator;
+
+// export default AnimationNavigatorPage;
 
 

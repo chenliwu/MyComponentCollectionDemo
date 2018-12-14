@@ -23,8 +23,8 @@ export default class ScrollViewExample extends React.Component {
 
     static navigationOptions = ({navigation, navigationOptions}) => {
 
-        console.log(navigation);
-        console.log(navigationOptions);
+        //console.log(navigation);
+        //console.log(navigationOptions);
         const headerTitle = navigation.getParam('headerTitle', "");
         const headerVisibleFlag = navigation.getParam('headerVisibleFlag', 0);
         if (headerVisibleFlag === 2) {
@@ -32,10 +32,15 @@ export default class ScrollViewExample extends React.Component {
                 headerStyle: {
                     //marginBottom: -50,
                 },
-                header:<MySpringAnimation width={screenWidth} height={70}
-                    style={{flex: 1, height: 70, width: '100%', backgroundColor: 'red'}}></MySpringAnimation>,
+                // header:<View width={screenWidth} height={50}
+                //     style={{ height: 50, width: '100%', backgroundColor: 'red'}}></View>,
+                header: null,
                 headerLeft: null,
                 headerTransparent: true,
+                //禁止打开菜单
+                drawerLockMode: "locked-closed",
+                //允许使用返回手势
+                gesturesEnabled: true,
             });
 
         }
@@ -48,7 +53,11 @@ export default class ScrollViewExample extends React.Component {
             //         <Text>111</Text>
             //     </View>,
             // headerStyle: navigationOptions.headerStyle,
-            headerTitle: headerTitle
+            headerTitle: headerTitle,
+            //禁止打开菜单
+            drawerLockMode: "locked-closed",
+            //允许使用返回手势
+            gesturesEnabled: true,
         });
 
     };
@@ -75,15 +84,15 @@ export default class ScrollViewExample extends React.Component {
                     style={{flex: 1}}
                     scrollEventThrottle={200}
                     onScroll={(event) => {
-                        console.log('onScroll');
-                        console.log(event);
+                        //console.log('onScroll');
+                        //console.log(event);
                         let endposition = event.nativeEvent.contentOffset.y;//取得拖拉后的位置
 
                         this.props.navigation.setParams({
                             headerTitle: "title：" + endposition,
                         });
 
-                        if (endposition <= 10) {
+                        if (endposition <= 20) {
                             this.props.navigation.setParams({
                                 headerTitle: "title：" + endposition,
                                 headerVisibleFlag: 1,
@@ -99,8 +108,10 @@ export default class ScrollViewExample extends React.Component {
 
                     // 开始拖拽
                     onScrollBeginDrag={(event) => {
-                        console.log("scroll drag begin...");
-                        console.log(event);
+                        // console.log("scroll drag begin...");
+                        // console.log('contentOffset----');
+                        // console.log(event.nativeEvent.contentOffset);
+                        // console.log('contentOffset----');
                     }}
                     // // 停止拖拽
                     // onScrollEndDrag={(event)=>{
@@ -110,11 +121,11 @@ export default class ScrollViewExample extends React.Component {
                     // 停止拖拽
                     onScrollEndDrag={(event) => {
 
-                        console.log('onScrollEndDrag');
-
-                        console.log('contentOffset----');
-                        console.log(event.nativeEvent.contentOffset);
-                        console.log('contentOffset----');
+                        // console.log('onScrollEndDrag');
+                        //
+                        // console.log('contentOffset----');
+                        // console.log(event.nativeEvent.contentOffset);
+                        // console.log('contentOffset----');
 
                         // let endposition = event.nativeEvent.contentOffset.y;//取得拖拉后的位置
                         //
@@ -140,6 +151,22 @@ export default class ScrollViewExample extends React.Component {
                         // }
                     }}
 
+                    onResponderMove={(event)=>{ //当用户正在屏幕上移动手指时调用这个函数
+
+                        console.log('onResponderMove');
+
+                        console.log('contentOffset----');
+                        console.log(event.nativeEvent.contentOffset);
+                        console.log('contentOffset----');
+                    }}
+
+                    onMomentumScrollStart={(event)=>{ // 滚动动画开始时调用此函数
+
+                        console.log('onMomentumScrollStart');
+                        console.log('contentOffset----');
+                        console.log(event.nativeEvent.contentOffset);
+                        console.log('contentOffset----');
+                    }}
 
                 >
 

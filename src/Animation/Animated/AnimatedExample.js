@@ -26,7 +26,11 @@ export default class AnimatedExample extends React.Component {
         // const headerTitle = navigation.getParam('headerTitle',"");
 
         return ({
-            headerTitle: 'AnimatedExample'
+            headerTitle: 'AnimatedExample',
+            //禁止打开菜单
+            drawerLockMode: "locked-closed",
+            //允许使用返回手势
+            gesturesEnabled: true,
         });
 
     };
