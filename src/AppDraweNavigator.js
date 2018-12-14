@@ -5,33 +5,14 @@ import {
     Button
 } from 'react-native';
 
-///滑动删除组件 2018-12-5
-import SwipeComponentNavigator from './swipeComponent/SwipeComponentNavigator';
-
-///手风琴
-import AccordionComponentNavigator from './AccordionComponent/AccordionComponentNavigator';
-
-//对话框组件
-import DialogsComponentNavigator from './DialogComponent/DialogsComponentNavigator';
-
-//Toast组件
-import ToastNavigator from './Toast/ToastNavigator';
-
-//Modal模态框 2018-12-6
-import ModalComponentNavigator from './ModalComponent/ModalComponentNavigator';
-
-
-//动画 2018-12-10
-
-
-
-//键盘事件 2018-12-12
-import KeyboardExample from './Keyboard/KeyboardExample';
 
 import {
     SafeAreaView,
     createDrawerNavigator
 } from 'react-navigation';
+
+//2018-12-14
+import WebViewNavigator from './react-native-component/WebViewNavigator';
 
 
 class AppNavigatorPage extends Component {
@@ -73,50 +54,13 @@ export default createDrawerNavigator(
                 drawerLabel: "首页",
             }
         },
-        SwipeComponentNavigator: {
-            screen: SwipeComponentNavigator,
+
+        WebViewNavigator: {
+            screen: WebViewNavigator,
             navigationOptions:{
-                drawerLabel: '侧滑组件',
+                drawerLabel: "WebView组件",
             }
         },
-        AccordionComponentNavigator: {
-            screen: AccordionComponentNavigator,
-            navigationOptions:{
-                drawerLabel: '手风琴',
-            }
-        },
-
-        //DialogsComponentNavigator
-        DialogsComponentNavigator: {
-            screen: DialogsComponentNavigator,
-            navigationOptions:{
-                drawerLabel: '对话框',
-            }
-        },
-
-        ToastNavigator: {
-            screen: ToastNavigator,
-            navigationOptions:{
-                drawerLabel: 'Toast提示',
-            }
-        },
-
-        ModalComponentNavigator: {
-            screen: ModalComponentNavigator,
-            navigationOptions:{
-                drawerLabel: 'Modal模态框',
-            }
-        },
-
-
-        KeyboardExample: {
-            screen: KeyboardExample,
-            navigationOptions:{
-                drawerLabel: '键盘事件',
-            }
-        },
-
-
 
     },
     {
