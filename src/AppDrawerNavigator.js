@@ -5,14 +5,16 @@ import {
     Button
 } from 'react-native';
 
-//Toast组件
-import ToastNavigator from './Toast/ToastNavigator';
 
 //Animation动画 2018-12-13
 import AnimationNavigator from './Animation/AnimationNavigator';
 
 
 //动画 2018-12-10
+
+
+//手势操作 2018-12-15
+import PanResponderNavigator from './PanResponder/PanResponderNavigator';
 
 import {
     SafeAreaView,
@@ -60,17 +62,17 @@ export default createDrawerNavigator(
             }
         },
 
-        ToastNavigator: {
-            screen: ToastNavigator,
-            navigationOptions:{
-                drawerLabel: 'Toast提示',
-            }
-        },
-
         AnimationNavigator: {
             screen: AnimationNavigator,
             navigationOptions:{
                 drawerLabel: '动画相关',
+            }
+        },
+
+        PanResponderNavigator: {
+            screen: PanResponderNavigator,
+            navigationOptions:{
+                drawerLabel: '手势操作',
             }
         },
 

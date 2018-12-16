@@ -9,6 +9,10 @@ import {
     Dimensions
 } from 'react-native';
 
+import {
+    SafeAreaView
+} from 'react-navigation';
+
 import MySpringAnimation from './MySpringAnimation';
 
 
@@ -53,7 +57,7 @@ export default class ScrollViewExample extends React.Component {
             //         <Text>111</Text>
             //     </View>,
             // headerStyle: navigationOptions.headerStyle,
-            headerTitle: headerTitle,
+            headerTitle: 'ScrollViewExample',
             //禁止打开菜单
             drawerLockMode: "locked-closed",
             //允许使用返回手势
@@ -75,7 +79,7 @@ export default class ScrollViewExample extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <SafeAreaView style={{flex: 1}}>
                 <Text>positionY:{this.state.positionY}</Text>
                 <ScrollView
                     ref={(ref) => {
@@ -174,7 +178,7 @@ export default class ScrollViewExample extends React.Component {
                         this.renderItem()
                     }
                 </ScrollView>
-            </View>
+            </SafeAreaView>
         )
     }
 

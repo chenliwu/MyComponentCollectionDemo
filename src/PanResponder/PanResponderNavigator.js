@@ -3,24 +3,22 @@ import {
     View,
     Text,
     TouchableOpacity,
-    FlatList
+    FlatList,
+    Easing,
+    Animated
 } from 'react-native';
 import {
     SafeAreaView,
     createStackNavigator
 } from 'react-navigation';
 
-import RootTipsExample from './react-native-root-tips/RootTipsExample';
-import MyRootTipsExample from './react-native-root-tips/MyRootTipsExample';
-
-import RootToastExample from './react-native-root-toast/TestToast';
+import PanResponderExample from './Example/PanResponderExample';
 
 
-
-class ToastNavigator extends React.Component {
+class PanResponderNavigator extends React.Component {
 
     static navigationOptions = {
-        headerTitle: 'Toast提示组件',
+        headerTitle: 'PanResponder手势响应',
     };
 
     flatListComponent = null;
@@ -30,18 +28,10 @@ class ToastNavigator extends React.Component {
         let dataList = new Array();
 
         dataList.push({
-            id: 'RootTipsExample',
-            name: 'react-native-root-tips'
-        });
-        dataList.push({
-            id: 'MyRootTipsExample',
-            name: '封装react-native-root-tips'
+            id: 'PanResponderExample',
+            name: 'PanResponderExample'
         });
 
-        dataList.push({
-            id: 'RootToastExample',
-            name: 'react-native-root-toast'
-        });
 
         this.state = {
             dataList: dataList
@@ -70,7 +60,6 @@ class ToastNavigator extends React.Component {
                     height: 50,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    //backgroundColor: 'red'
                 }}
                 onPress={() => {
                     this._onPressItem(item);
@@ -87,7 +76,7 @@ class ToastNavigator extends React.Component {
         return (
             <SafeAreaView style={{
                 flex: 1,
-                backgroundColor:'#fff'
+                backgroundColor: '#fff'
             }}>
                 <FlatList
                     ref={(flatList) => {
@@ -115,26 +104,33 @@ class ToastNavigator extends React.Component {
 }
 
 
-export default createStackNavigator(
+const AnimationNavigator = createStackNavigator(
     {
-        ToastNavigator: {
-            screen: ToastNavigator
-        },
-        RootTipsExample: {
-            screen: RootTipsExample
-        },
-        MyRootTipsExample: {
-            screen: MyRootTipsExample
+        PanResponderNavigator: {
+            screen: PanResponderNavigator
         },
 
-        RootToastExample: {
-            screen: RootToastExample
+        PanResponderExample: {
+            screen: PanResponderExample
         },
     },
     {
-        initialRouteName: 'ToastNavigator',
-        //headerMode: 'center'
+        initialRouteName: 'PanResponderNavigator',
+        onTransitionStart: (obj) => {
+            console.log('onTransitionStart');
+            console.log(obj);
+        },
+        onTransitionEnd: (obj) => {
+            console.log('onTransitionEnd');
+            console.log(obj);
+        }
     }
 );
+
+
+
+export default AnimationNavigator;
+
+// export default AnimationNavigatorPage;
 
 

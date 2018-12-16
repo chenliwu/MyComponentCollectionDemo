@@ -3,7 +3,9 @@ import {
     View,
     Text,
     TouchableOpacity,
-    FlatList
+    FlatList,
+    Easing,
+    Animated
 } from 'react-native';
 import {
     SafeAreaView,
@@ -16,6 +18,9 @@ import ScrollViewExample1 from './ScrollViewAnimation/ScrollViewExample1';
 
 import LayoutAnimationExample from './LayoutAnimation/LayoutAnimationExample';
 import AnimatedExample from './Animated/AnimatedExample';
+
+
+import FadeInViewExample from './FadeInView/FadeInViewExample';
 
 
 class AnimationNavigatorPage extends React.Component {
@@ -48,6 +53,11 @@ class AnimationNavigatorPage extends React.Component {
         dataList.push({
             id: 'AnimatedExample',
             name: 'Animated简单动画'
+        });
+
+        dataList.push({
+            id: 'FadeInViewExample',
+            name: 'FadeInView动画'
         });
 
         this.state = {
@@ -93,7 +103,7 @@ class AnimationNavigatorPage extends React.Component {
         return (
             <SafeAreaView style={{
                 flex: 1,
-                backgroundColor:'#fff'
+                backgroundColor: '#fff'
             }}>
                 <FlatList
                     ref={(flatList) => {
@@ -142,14 +152,57 @@ const AnimationNavigator = createStackNavigator(
         AnimatedExample: {
             screen: AnimatedExample
         },
+
+        FadeInViewExample: {
+            screen: FadeInViewExample
+        },
     },
     {
         initialRouteName: 'AnimationNavigator',
+        navigationOptions: {
+            headerStyle: {
+                height: 50,
+                backgroundColor: 'pink'
+            }
+        },
+        //headerTransitionPreset:'uikit',
+        onTransitionStart: (obj) => {
+            console.log('onTransitionStart');
+            console.log(obj);
+        },
+        onTransitionEnd: (obj) => {
+            console.log('onTransitionEnd');
+            console.log(obj);
+        }
+        // transitionConfig: () => ({
+        //     transitionSpec: {
+        //         duration: 300,
+        //         easing: Easing.out(Easing.poly(4)),
+        //         timing: Animated.timing,
+        //     },
+        //     screenInterpolator: sceneProps => {
+        //         const { layout, position, scene } = sceneProps;
+        //         const { index } = scene;
+        //
+        //         const height = layout.initHeight;
+        //         const translateY = position.interpolate({
+        //             inputRange: [index - 1, index, index + 1],
+        //             outputRange: [height, 0, 0],
+        //         });
+        //
+        //         const opacity = position.interpolate({
+        //             inputRange: [index - 1, index - 0.99, index],
+        //             outputRange: [0, 1, 1],
+        //         });
+        //
+        //         return { opacity, transform: [{ translateY }] };
+        //     },
+        // }),
         //headerMode: 'center'
     }
 );
 
-AnimationNavigator.navigationOptions = ({ navigation }) => {
+AnimationNavigator.navigationOptions = ({navigation}) => {
     let drawerLockMode = 'unlocked';
     if (navigation.state.index > 0) {
         drawerLockMode = 'locked-closed';
