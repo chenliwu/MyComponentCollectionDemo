@@ -14,6 +14,8 @@ import {
 
 import ScrollViewExample from './ScrollViewAnimation/ScrollViewExample';
 import ScrollViewExample1 from './ScrollViewAnimation/ScrollViewExample1';
+import ScrollViewExample2 from './ScrollViewAnimation/ScrollViewExample2';
+import ScrollViewExample3 from './ScrollViewAnimation/ScrollViewExample3';
 
 
 import LayoutAnimationExample from './LayoutAnimation/LayoutAnimationExample';
@@ -26,7 +28,7 @@ import FadeInViewExample from './FadeInView/FadeInViewExample';
 class AnimationNavigatorPage extends React.Component {
 
     static navigationOptions = {
-        headerTitle: 'ScrollViewExample组件练习',
+        headerTitle: '动画相关',
     };
 
     flatListComponent = null;
@@ -42,6 +44,15 @@ class AnimationNavigatorPage extends React.Component {
         dataList.push({
             id: 'ScrollViewExample1',
             name: 'ScrollViewExample组件练习1'
+        });
+        dataList.push({
+            id: 'ScrollViewExample2',
+            name: 'ScrollViewExample动画'
+        });
+
+        dataList.push({
+            id: 'ScrollViewExample3',
+            name: 'react-native 滚动头部置顶'
         });
 
 
@@ -143,6 +154,14 @@ const AnimationNavigator = createStackNavigator(
         ScrollViewExample1: {
             screen: ScrollViewExample1
         },
+        ScrollViewExample2: {
+            screen: ScrollViewExample2
+        },
+        ScrollViewExample3: {
+            screen: ScrollViewExample3
+        },
+
+
 
         LayoutAnimationExample: {
             screen: LayoutAnimationExample
