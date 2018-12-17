@@ -71,7 +71,7 @@ export default class ScrollViewExample extends React.Component {
         this.ScrollView = null;
 
         this.state = {
-            positionY: 0,//初始屏幕所在位置
+            contentOffsetY: 0,//初始屏幕所在位置
             dimensionsY: Dimensions.get('window').height//取得手机屏幕高度
         };
     }
@@ -80,7 +80,7 @@ export default class ScrollViewExample extends React.Component {
     render() {
         return (
             <SafeAreaView style={{flex: 1}}>
-                <Text>positionY:{this.state.positionY}</Text>
+                <Text>event.nativeEvent.contentOffset.y:{this.state.contentOffsetY}</Text>
                 <ScrollView
                     ref={(ref) => {
                         this.ScrollView = ref;
@@ -92,21 +92,25 @@ export default class ScrollViewExample extends React.Component {
                         //console.log(event);
                         let endposition = event.nativeEvent.contentOffset.y;//取得拖拉后的位置
 
-                        this.props.navigation.setParams({
-                            headerTitle: "title：" + endposition,
+                        this.setState({
+                            contentOffsetY: endposition,
                         });
 
-                        if (endposition <= 20) {
-                            this.props.navigation.setParams({
-                                headerTitle: "title：" + endposition,
-                                headerVisibleFlag: 1,
-                            });
-                        } else {
-                            this.props.navigation.setParams({
-                                headerTitle: "title：" + endposition,
-                                headerVisibleFlag: 2,
-                            });
-                        }
+                        // this.props.navigation.setParams({
+                        //     headerTitle: "title：" + endposition,
+                        // });
+                        //
+                        // if (endposition <= 20) {
+                        //     this.props.navigation.setParams({
+                        //         headerTitle: "title：" + endposition,
+                        //         headerVisibleFlag: 1,
+                        //     });
+                        // } else {
+                        //     this.props.navigation.setParams({
+                        //         headerTitle: "title：" + endposition,
+                        //         headerVisibleFlag: 2,
+                        //     });
+                        // }
 
                     }}
 
@@ -155,7 +159,7 @@ export default class ScrollViewExample extends React.Component {
                         // }
                     }}
 
-                    onResponderMove={(event)=>{ //当用户正在屏幕上移动手指时调用这个函数
+                    onResponderMove={(event) => { //当用户正在屏幕上移动手指时调用这个函数
 
                         console.log('onResponderMove');
 
@@ -164,7 +168,7 @@ export default class ScrollViewExample extends React.Component {
                         console.log('contentOffset----');
                     }}
 
-                    onMomentumScrollStart={(event)=>{ // 滚动动画开始时调用此函数
+                    onMomentumScrollStart={(event) => { // 滚动动画开始时调用此函数
 
                         console.log('onMomentumScrollStart');
                         console.log('contentOffset----');

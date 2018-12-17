@@ -16,6 +16,7 @@ import ScrollViewExample from './ScrollViewAnimation/ScrollViewExample';
 import ScrollViewExample1 from './ScrollViewAnimation/ScrollViewExample1';
 import ScrollViewExample2 from './ScrollViewAnimation/ScrollViewExample2';
 import ScrollViewExample3 from './ScrollViewAnimation/ScrollViewExample3';
+import ScrollViewExample4 from './ScrollViewAnimation/ScrollViewExample4';
 
 
 import LayoutAnimationExample from './LayoutAnimation/LayoutAnimationExample';
@@ -53,6 +54,10 @@ class AnimationNavigatorPage extends React.Component {
         dataList.push({
             id: 'ScrollViewExample3',
             name: 'react-native 滚动头部置顶'
+        });
+        dataList.push({
+            id: 'ScrollViewExample4',
+            name: 'react-native 实现header渐变'
         });
 
 
@@ -159,6 +164,9 @@ const AnimationNavigator = createStackNavigator(
         },
         ScrollViewExample3: {
             screen: ScrollViewExample3
+        },
+        ScrollViewExample4: {
+            screen: ScrollViewExample4
         },
 
 
