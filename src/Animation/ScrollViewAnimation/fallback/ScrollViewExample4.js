@@ -34,11 +34,17 @@ export default class ScrollViewExample4 extends Component {
             return ({
                 headerTitle: 'header渐变',
                 headerStyle: {
-                    opacity: headerOpacity,
+                    opacity: 1,
                     backgroundColor: 'red',
                     //iPhone X设置header高度为0，但header仍然会显示，因为navigation原生header里面使用了headerForceInset
                     height: headerHeight,
                 },
+                //headerForceInset:{top:'never'}
+                //header: null,
+                // header: <View style={{
+                //     height:70,
+                //     backgroundColor:'red'
+                // }}></View>
             });
         }
         return ({
@@ -49,7 +55,12 @@ export default class ScrollViewExample4 extends Component {
                 //iPhone X设置header高度为0，但header仍然会显示，因为navigation原生header里面使用了headerForceInset
                 height: headerHeight,
             },
-
+            //headerForceInset:{top:'never'}
+            //header: null,
+            // header: <View style={{
+            //     height:70,
+            //     backgroundColor:'red'
+            // }}></View>
         });
 
     };
@@ -57,9 +68,10 @@ export default class ScrollViewExample4 extends Component {
     constructor(props) {
         super(props);
         this._refHeader = null;
+        this.headerOpacity = 0;
 
         this.props.navigation.setParams({
-            headerOpacity: 1,
+            headerOpacity: 0,
             headerHeight: headerHeight
         });
     }
@@ -73,7 +85,6 @@ export default class ScrollViewExample4 extends Component {
             //动态改变header的高度
             this.props.navigation.setParams({
                 headerHeight: headerHeight - Y,
-                headerOpacity: (headerHeight - Y) * (1 / headerHeight),
             });
         }
 
@@ -99,9 +110,37 @@ export default class ScrollViewExample4 extends Component {
     render() {
         return (
             <View>
+
+                <View ref={(ref) => {
+                    this._refHeader = ref;
+                }} style={{
+                    opacity: 0,
+                    backgroundColor: "blue",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: 100,
+                    position: "absolute",
+                    left: 0,
+                    right: 0,
+                    zIndex: 2
+                }}>
+
+                    <TouchableOpacity
+                        style={{
+                            flex: 1,
+                        }}
+                        onPress={() => {
+                            alert('点击header');
+                        }}>
+
+                        <Text>首页</Text>
+                    </TouchableOpacity>
+                </View>
+
+
                 <ScrollView
                     onScroll={this._onScroll}
-                    scrollEventThrottle={10}
+                    scrollEventThrottle={5}
                 >
                     <Text style={{height: 30, backgroundColor: 'pink'}}>--------1111111---------</Text>
                     <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
