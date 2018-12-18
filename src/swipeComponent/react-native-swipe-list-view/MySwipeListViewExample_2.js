@@ -42,7 +42,11 @@ class MySwipeListViewExample extends Component {
         for (let i = 0; i < 100; i++) {
             item = {};
             item.id = i;
-            item.name = i + new Date().toDateString();
+            if (i % 2 === 0) {
+                item.name = i + new Date().toDateString() + ','
+                    + new Date().toDateString() + ',' + new Date().toDateString() + new Date().toDateString();
+            }
+
             dataList.push(item);
             this.rowTranslateAnimatedValues[`${item.id}`] = new Animated.Value(1);
         }
@@ -175,7 +179,6 @@ class MySwipeListViewExample extends Component {
 
                 <SwipeListView
                     useFlatList
-
                     // 空布局
                     ListEmptyComponent={this._createEmptyView}
                     //添加头尾布局
@@ -207,10 +210,19 @@ class MySwipeListViewExample extends Component {
                             >
                                 <View style={{
                                     flex: 1,
+                                    padding: 15,
+                                    flexWrap: 'wrap',
                                     backgroundColor: '#fff',
-                                    height: 50,
+                                    //height: 50,
                                 }}>
-                                    <Text>I am {data.item.name} in a SwipeListView</Text>
+                                    <View style={{
+                                        flex: 1,
+                                        //padding: 15,
+                                    }}>
+
+                                        <Text>I am {data.item.name} in a SwipeListView</Text>
+
+                                    </View>
                                 </View>
                             </TouchableWithoutFeedback>
                         )
@@ -232,6 +244,14 @@ class MySwipeListViewExample extends Component {
                                         //关闭滑动菜单栏
                                         rowMap[data.item.id].closeRow();
                                     }
+                                    //删除Item
+                                    const newData = [...this.state.dataList];
+                                    const prevIndex = this.state.dataList.findIndex(item => item.id === data.item.id);
+                                    newData.splice(prevIndex, 1);
+                                    this.setState({
+                                        dataList: newData
+                                    });
+
                                 }}>
                                 <View style={{
                                     width: 60,
@@ -254,9 +274,6 @@ class MySwipeListViewExample extends Component {
                     // }}
 
                     onRowOpen={(rowKey, rowMap) => {    //滑动菜单打开前调用
-                        console.log('onRowOpen');
-                        console.log(rowKey);
-                        console.log(rowMap);
                         if (this.openSwipeRow && this.openSwipeRow != rowMap[rowKey]) {
                             this.openSwipeRow.closeRow();
                         }
