@@ -88,10 +88,10 @@ export default class ScrollViewExample extends React.Component {
                     style={{flex: 1}}
                     scrollEventThrottle={200}
                     onScroll={(event) => {
-                        //console.log('onScroll');
-                        //console.log(event);
-                        let endposition = event.nativeEvent.contentOffset.y;//取得拖拉后的位置
+                        console.log('onScroll');
+                        console.log(event.nativeEvent);
 
+                        let endposition = event.nativeEvent.contentOffset.y;//取得拖拉后的位置
                         this.setState({
                             contentOffsetY: endposition,
                         });

@@ -106,6 +106,12 @@ export default class HomePage3 extends Component {
 
     /**
      * 绘制固定的header组件
+     *
+     * 基本思路：
+     * （1）初始化不显示固定的Header组件
+     * （2）当ScrollView滑动时，使用Animated.event动态绑定固定的Header组件的布局样式
+     * （3）显示或隐藏固定的Header组件
+     *
      * @returns {*}
      * @private
      */
@@ -141,6 +147,10 @@ export default class HomePage3 extends Component {
         }, 2000)
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     render() {
         return (
             <View style={{flex: 1, backgroundColor: "#f3f3f3"}}>

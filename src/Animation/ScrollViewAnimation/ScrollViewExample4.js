@@ -47,11 +47,14 @@ export default class ScrollViewExample4 extends Component {
         const headerOpacity = navigation.getParam('headerOpacity', 1);
         const headerHeight = navigation.getParam('headerHeight', globalHeaderHeight);
 
-        if (headerHeight <= globalHeaderHeight / 2) {
+        if (headerHeight <= globalHeaderHeight / 1.5) {
             return ({
-                header: <View style={{
-                    height: 20,
-                }}></View>
+                headerLeft: <View/>,
+                headerTitle: <View/>,
+                title: '审批详情',
+                headerStyle: {
+                    height: headerHeight,
+                },
             });
         }
 
@@ -88,41 +91,60 @@ export default class ScrollViewExample4 extends Component {
         });
     }
 
+    /**
+     * ScrollView滑动回调事件
+     * @param event
+     * @private
+     */
     _onScroll = (event) => {
         let Y = event.nativeEvent.contentOffset.y;
-        console.log(Y);
-        console.log(this._refHeader);
+        if (Y >= 0) {
+            if (Y <= globalHeaderHeight) {
+                //页眉变化的动画
+                //LayoutAnimation.configureNext(CustomLayoutAnimation);
+                LayoutAnimation.easeInEaseOut();
 
-        if (Y >= 0 && Y <= globalHeaderHeight) {
-            LayoutAnimation.configureNext(CustomLayoutAnimation);
-            //动态改变header的高度
-            this.props.navigation.setParams({
-                headerHeight: globalHeaderHeight - Y,
-                //headerOpacity: (headerHeight - Y) * (1 / headerHeight),
-            });
-        } else {
-            LayoutAnimation.configureNext(CustomLayoutAnimation);
-            this.props.navigation.setParams({
-                headerHeight: 0,
-            });
+                //动态改变header的高度
+                this.props.navigation.setParams({
+                    headerHeight: globalHeaderHeight - Y,
+                });
+            } else {
+                //LayoutAnimation.configureNext(CustomLayoutAnimation);
+                LayoutAnimation.easeInEaseOut();
+
+                this.props.navigation.setParams({
+                    headerHeight: 0,
+                });
+            }
         }
+    };
 
-        // if (Y < 100) {
-        //     //当组件往下滑动的时候，event.nativeEvent.contentOffset.y的值会不断增大
-        //     this.headerOpacity = Y * 0.01;
-        //     this.props.navigation.setParams({
-        //         headerOpacity: this.headerOpacity,
-        //     });
-        // } else {
-        //     //滑动值超过100
-        //     this.headerOpacity = 1;
-        //     this.props.navigation.setParams({
-        //         headerOpacity: this.headerOpacity,
-        //     });
-        // }
-        // this._refHeader.setNativeProps({
-        //     opacity: this.headerOpacity
-        // });
+    /**
+     * 滑动停止回调事件
+     * @param event
+     * @private
+     */
+    _onScrollEndDrag = (event) => {
+        let Y = event.nativeEvent.contentOffset.y;
+        if (Y >= 0) {
+            if (Y <= globalHeaderHeight) {
+                //页眉变化的动画
+                //LayoutAnimation.configureNext(CustomLayoutAnimation);
+                LayoutAnimation.easeInEaseOut();
+
+                //动态改变header的高度
+                this.props.navigation.setParams({
+                    headerHeight: globalHeaderHeight,
+                });
+            } else {
+                //LayoutAnimation.configureNext(CustomLayoutAnimation);
+                LayoutAnimation.easeInEaseOut();
+
+                this.props.navigation.setParams({
+                    headerHeight: 0,
+                });
+            }
+        }
     };
 
 
@@ -131,6 +153,7 @@ export default class ScrollViewExample4 extends Component {
             <View>
                 <ScrollView
                     onScroll={this._onScroll}
+                    onScrollEndDrag={this._onScrollEndDrag}
                     scrollEventThrottle={5}
                 >
                     <Text style={{height: 30, backgroundColor: 'pink'}}>--------1111111---------</Text>
