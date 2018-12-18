@@ -35,7 +35,7 @@ export default class ScrollViewExample4 extends Component {
                 headerTitle: 'header渐变',
                 headerStyle: {
                     opacity: headerOpacity,
-                    backgroundColor: 'red',
+                    //backgroundColor: 'red',
                     //iPhone X设置header高度为0，但header仍然会显示，因为navigation原生header里面使用了headerForceInset
                     height: headerHeight,
                 },
@@ -44,12 +44,11 @@ export default class ScrollViewExample4 extends Component {
         return ({
             headerTitle: 'header渐变',
             headerStyle: {
-                opacity: 1,
-                backgroundColor: 'red',
+                opacity: headerOpacity,
+                //backgroundColor: 'red',
                 //iPhone X设置header高度为0，但header仍然会显示，因为navigation原生header里面使用了headerForceInset
                 height: headerHeight,
             },
-
         });
 
     };
@@ -101,7 +100,7 @@ export default class ScrollViewExample4 extends Component {
             <View>
                 <ScrollView
                     onScroll={this._onScroll}
-                    scrollEventThrottle={10}
+                    scrollEventThrottle={5}
                 >
                     <Text style={{height: 30, backgroundColor: 'pink'}}>--------1111111---------</Text>
                     <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
