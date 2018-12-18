@@ -195,96 +195,24 @@ class MySwipeListViewExample extends Component {
                     keyExtractor={this.keyExtractor}
                     ItemSeparatorComponent={this._renderItemSeparatorComponent}
 
-                    renderItem={(data, rowMap) => {
-                        return (
-                            <TouchableWithoutFeedback
-                                onPress={() => {
-                                    if (this.openSwipeRow) {
-                                        //关闭滑动菜单栏
-                                        rowMap[data.item.id].closeRow();
-                                        this.openSwipeRow = null;
-                                    } else {
-                                        alert('on click');
-                                    }
-                                }}
-                            >
-                                <View style={{
-                                    flex: 1,
-                                    padding: 15,
-                                    flexWrap: 'wrap',
-                                    backgroundColor: '#fff',
-                                    //height: 50,
-                                }}>
-                                    <View style={{
-                                        flex: 1,
-                                        //padding: 15,
-                                    }}>
-
-                                        <Text>I am {data.item.name} in a SwipeListView</Text>
-
-                                    </View>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        )
-                    }}
+                    renderItem={this._renderItem}
 
                     //renderHiddenItem绘制滑动菜单
-                    renderHiddenItem={(data, rowMap) => (
-                        <View style={{
-                            flex: 1,
-                            alignItems: 'center',
-                            backgroundColor: 'red',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                        }}>
-                            <TouchableWithoutFeedback
-                                onPress={() => {
-                                    //alert(data.item.name);
-                                    if (rowMap[data.item.id]) {
-                                        //关闭滑动菜单栏
-                                        rowMap[data.item.id].closeRow();
-                                    }
-                                    //删除Item
-                                    const newData = [...this.state.dataList];
-                                    const prevIndex = this.state.dataList.findIndex(item => item.id === data.item.id);
-                                    newData.splice(prevIndex, 1);
-                                    this.setState({
-                                        dataList: newData
-                                    });
-
-                                }}>
-                                <View style={{
-                                    width: 60,
-                                    backgroundColor: 'red',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    position: 'absolute',
-                                    top: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                }}>
-                                    <Text style={{color: '#fff', fontSize: 16}}>删除</Text>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        </View>
-                    )}
-
-                    // onRowDidOpen={(rowKey, rowMap) => { //滑动菜单打开后调用
-                    //
-                    // }}
+                    renderHiddenItem={this._renderHiddenItem}
 
                     onRowOpen={(rowKey, rowMap) => {    //滑动菜单打开前调用
                         if (this.openSwipeRow && this.openSwipeRow != rowMap[rowKey]) {
+                            //新打开滑动菜单，则关闭已经打开的行
                             this.openSwipeRow.closeRow();
                         }
                         this.openSwipeRow = rowMap[rowKey];
                     }}
 
                     //previewFirstRow={false}
-                    disableRightSwipe={true} //禁止右边滑动
-                    rightOpenValue={-60}
+                    disableRightSwipe={true}    //禁止右边滑动
+                    rightOpenValue={-60}        //滑动菜单的宽度
                     stopRightSwipe={-80}        //右侧侧侧滑X的最大偏移量(负数)
-                    tension={20}    //打开关闭动画的张力
+                    tension={20}                //打开关闭动画的张力
                     closeOnRowPress={true}
                 />
             </View>
@@ -292,15 +220,86 @@ class MySwipeListViewExample extends Component {
     }
 
     /**
-     * 关闭滑动菜单栏
+     * 绘制Item
+     * @param data
      * @param rowMap
-     * @param rowKey
+     * @returns {*}
+     * @private
      */
-    closeRow(rowMap, rowKey) {
-        if (rowMap[rowKey]) {
-            rowMap[rowKey].closeRow();
-        }
-    }
+    _renderItem=(data,rowMap)=>{
+        return (
+            <TouchableWithoutFeedback
+                onPress={() => {
+                    if (this.openSwipeRow) {
+                        //关闭滑动菜单栏
+                        rowMap[data.item.id].closeRow();
+                        this.openSwipeRow = null;
+                    } else {
+                        alert('on click');
+                    }
+                }}
+            >
+                <View style={{
+                    flex: 1,
+                    padding: 15,
+                    flexWrap: 'wrap',
+                    backgroundColor: '#fff',
+                    //height: 50,
+                }}>
+                    <View style={{
+                        flex: 1,
+                        //padding: 15,
+                    }}>
+
+                        <Text>I am {data.item.name} in a SwipeListView</Text>
+
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+        );
+    };
+
+    _renderHiddenItem=(data,rowMap)=>{
+        return(
+            <View style={{
+                flex: 1,
+                alignItems: 'center',
+                backgroundColor: 'red',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+            }}>
+                <TouchableWithoutFeedback
+                    onPress={() => {
+                        //alert(data.item.name);
+                        if (rowMap[data.item.id]) {
+                            //关闭滑动菜单栏
+                            rowMap[data.item.id].closeRow();
+                        }
+                        //删除Item
+                        const newData = [...this.state.dataList];
+                        const prevIndex = this.state.dataList.findIndex(item => item.id === data.item.id);
+                        newData.splice(prevIndex, 1);
+                        this.setState({
+                            dataList: newData
+                        });
+
+                    }}>
+                    <View style={{
+                        width: 60,
+                        backgroundColor: 'red',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'absolute',
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                    }}>
+                        <Text style={{color: '#fff', fontSize: 16}}>删除</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+        );
+    };
 
     /**
      * 这个方法生成的关键字会作为方法回调参数
