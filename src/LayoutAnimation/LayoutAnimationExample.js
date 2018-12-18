@@ -3,19 +3,14 @@ import {
     View,
     Text,
     Button,
-    ActivityIndicator,
-    ScrollView,
-    StyleSheet,
-    Dimensions,
-    LayoutAnimation
 } from 'react-native';
 
-import MyAnimation from './MyAnimation';
+import MyLayoutAnimation from './MyLayoutAnimation';
 
 /**
  * 2018-12-13
  * chenlw
- * work：  LayoutAnimation API学习
+ * work：  MyLayoutAnimation API学习
  */
 export default class LayoutAnimationExample extends React.Component {
 
@@ -26,7 +21,7 @@ export default class LayoutAnimationExample extends React.Component {
         // const headerTitle = navigation.getParam('headerTitle',"");
 
         return ({
-            headerTitle: 'LayoutAnimation',
+            headerTitle: '布局动画',
             //禁止打开菜单
             drawerLockMode: "locked-closed",
             //允许使用返回手势
@@ -37,7 +32,9 @@ export default class LayoutAnimationExample extends React.Component {
 
     constructor(props) {
         super(props);
-
+        this.state = {
+            layoutAnimationVisible: false,
+        };
     }
 
     render() {
@@ -47,7 +44,16 @@ export default class LayoutAnimationExample extends React.Component {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <MyAnimation width={100} height={100} ></MyAnimation>
+                <Button title={'布局动画测试'} onPress={() => {
+                    this.setState({
+                        layoutAnimationVisible: !this.state.layoutAnimationVisible,
+                    });
+                }}/>
+                {
+                    this.state.layoutAnimationVisible ?
+                        <MyLayoutAnimation width={100} height={100}></MyLayoutAnimation> : null
+                }
+
             </View>
         )
     }

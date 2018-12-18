@@ -15,7 +15,7 @@ import MySpringAnimation from './MySpringAnimation';
 /**
  * 2018-12-13
  * chenlw
- * work：  LayoutAnimation API学习
+ * work：  MyLayoutAnimation API学习
  */
 export default class AnimatedExample extends React.Component {
 

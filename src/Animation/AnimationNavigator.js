@@ -4,8 +4,6 @@ import {
     Text,
     TouchableOpacity,
     FlatList,
-    Easing,
-    Animated
 } from 'react-native';
 import {
     SafeAreaView,
@@ -19,7 +17,6 @@ import ScrollViewExample3 from './ScrollViewAnimation/ScrollViewExample3';
 import ScrollViewExample4 from './ScrollViewAnimation/ScrollViewExample4';
 
 
-import LayoutAnimationExample from './LayoutAnimation/LayoutAnimationExample';
 import AnimatedExample from './Animated/AnimatedExample';
 
 
@@ -60,11 +57,6 @@ class AnimationNavigatorPage extends React.Component {
             name: 'react-native 实现header渐变'
         });
 
-
-        dataList.push({
-            id: 'LayoutAnimationExample',
-            name: 'LayoutAnimation动画'
-        });
 
         dataList.push({
             id: 'AnimatedExample',
@@ -170,12 +162,6 @@ const AnimationNavigator = createStackNavigator(
         },
 
 
-
-        LayoutAnimationExample: {
-            screen: LayoutAnimationExample
-        },
-
-
         AnimatedExample: {
             screen: AnimatedExample
         },
@@ -187,10 +173,10 @@ const AnimationNavigator = createStackNavigator(
     {
         initialRouteName: 'AnimationNavigator',
         navigationOptions: {
-            headerStyle: {
-                height: 50,
-                backgroundColor: 'pink'
-            }
+            // headerStyle: {
+            //     height: 50,
+            //     backgroundColor: 'pink'
+            // }
         },
         //headerTransitionPreset:'uikit',
         onTransitionStart: (obj) => {

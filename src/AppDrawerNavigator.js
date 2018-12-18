@@ -10,7 +10,8 @@ import {
 import AnimationNavigator from './Animation/AnimationNavigator';
 
 
-//动画 2018-12-10
+//布局动画 2018-12-18
+import LayoutAnimationNavigator from './LayoutAnimation/LayoutAnimationNavigator';
 
 
 //手势操作 2018-12-15
@@ -66,6 +67,13 @@ export default createDrawerNavigator(
             screen: AnimationNavigator,
             navigationOptions:{
                 drawerLabel: '动画相关',
+            }
+        },
+
+        LayoutAnimationNavigator: {
+            screen: LayoutAnimationNavigator,
+            navigationOptions:{
+                drawerLabel: '布局动画',
             }
         },
 
