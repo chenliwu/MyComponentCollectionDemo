@@ -90,7 +90,7 @@ class MySwipeListViewExample extends Component {
     }
 
     /**
-     * 创建头部布局
+     * 创建尾部布局
      */
     _createListFooter() {
         return (

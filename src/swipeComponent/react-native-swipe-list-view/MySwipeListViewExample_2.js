@@ -88,7 +88,7 @@ class MySwipeListViewExample extends Component {
     }
 
     /**
-     * 创建头部布局
+     * 创建尾部布局
      */
     _createListFooter() {
         return (
@@ -100,21 +100,70 @@ class MySwipeListViewExample extends Component {
         )
     }
 
-    onSwipeValueChange = (swipeData) => {
-        const {id, value} = swipeData;
-        // 375 or however large your screen is (i.e. Dimensions.get('window').width)
-        if (value < -375 && !this.animationIsRunning) {
-            this.animationIsRunning = true;
-            Animated.timing(this.rowTranslateAnimatedValues[id], {toValue: 0, duration: 200}).start(() => {
-                const newData = [...this.state.dataList];
+    /**
+     * 空布局
+     */
+    _createEmptyView = () => {
+        return (
+            <View style={{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                <Text style={{fontSize: 16}}>
+                    暂无列表数据，下啦刷新
+                </Text>
+            </View>
+        );
+    };
 
-                const prevIndex = this.state.dataList.findIndex(item => item.id === id);
+    // onSwipeValueChange = (swipeData) => {
+    //     const {id, value} = swipeData;
+    //     // 375 or however large your screen is (i.e. Dimensions.get('window').width)
+    //     if (value < -375 && !this.animationIsRunning) {
+    //         this.animationIsRunning = true;
+    //         Animated.timing(this.rowTranslateAnimatedValues[id], {toValue: 0, duration: 200}).start(() => {
+    //             const newData = [...this.state.dataList];
+    //
+    //             const prevIndex = this.state.dataList.findIndex(item => item.id === id);
+    //
+    //             newData.splice(prevIndex, 1);
+    //
+    //             this.setState({dataList: newData});
+    //             this.animationIsRunning = false;
+    //         });
+    //     }
+    // };
 
-                newData.splice(prevIndex, 1);
 
-                this.setState({dataList: newData});
-                this.animationIsRunning = false;
-            });
+    /**
+     * 下拉刷新
+     * @private
+     */
+    _onRefresh = () => {
+        // 不处于 下拉刷新
+        if (!this.state.isRefresh) {
+            alert('_onRefresh');
+            setTimeout(() => {
+                // let datalist = this.state.dataList;
+                // let item = {};
+                // for (let i = 0; i < 10; i++) {
+                //     item = {};
+                //     item.id = new Date();
+                //     item.name = new Date();
+                //     datalist.push(item);
+                // }
+                // this.setState({
+                //     datalist: datalist
+                // });
+            }, 2000);
+        }
+    };
+
+    /**
+     * 加载更多
+     * @private
+     */
+    _onLoadMore = () => {
+        // 不处于正在加载更多 && 有下拉刷新过，因为没数据的时候 会触发加载
+        if (!this.state.isLoadMore && this.state.data.length > 0) {
+            alert('_onLoadMore');
         }
     };
 
@@ -125,6 +174,19 @@ class MySwipeListViewExample extends Component {
 
                 <SwipeListView
                     useFlatList
+
+                    // 空布局
+                    ListEmptyComponent={this._createEmptyView}
+                    //添加头尾布局
+                    ListHeaderComponent={this._createListHeader}
+                    ListFooterComponent={this._createListFooter}
+                    //下拉刷新相关
+                    onRefresh={() => this._onRefresh}
+                    refreshing={this.state.isRefresh}
+                    //加载更多
+                    onEndReached={() => this._onLoadMore}
+                    onEndReachedThreshold={0.1}
+
                     data={this.state.dataList}
                     keyExtractor={this.keyExtractor}
                     ItemSeparatorComponent={this._renderItemSeparatorComponent}
