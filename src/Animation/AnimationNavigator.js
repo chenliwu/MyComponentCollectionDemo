@@ -37,24 +37,24 @@ class AnimationNavigatorPage extends React.Component {
 
         dataList.push({
             id: 'ScrollViewExample',
-            name: 'ScrollViewExample组件练习'
+            name: 'ScrollView动画'
         });
         dataList.push({
             id: 'ScrollViewExample1',
-            name: 'ScrollViewExample组件练习1'
+            name: 'ScrollView动画1'
         });
         dataList.push({
             id: 'ScrollViewExample2',
-            name: 'ScrollViewExample动画'
+            name: 'ScrollView动画2'
         });
 
         dataList.push({
             id: 'ScrollViewExample3',
-            name: 'react-native 滚动头部置顶'
+            name: 'ScrollView滚动头部置顶'
         });
         dataList.push({
             id: 'ScrollViewExample4',
-            name: 'react-native 实现header渐变'
+            name: 'ScrollView实现header渐变'
         });
 
 

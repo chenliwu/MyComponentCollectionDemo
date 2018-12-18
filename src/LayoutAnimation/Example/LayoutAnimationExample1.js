@@ -7,8 +7,12 @@ import {
     LayoutAnimation,
 } from 'react-native';
 
+/**
+ * 自定义动画
+ * @type {{duration: number, create: {type: *, property: *}, update: {type: *}}}
+ */
 const CustomLayoutAnimation = {
-    duration: 200,
+    duration: 250,
     create: {
         type: LayoutAnimation.Types.linear,
         property: LayoutAnimation.Properties.opacity,
@@ -42,7 +46,24 @@ export default class AnimationExample extends React.Component {
     onPress(index) {
 
         // Uncomment to animate the next state change.
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+
+
+        /**
+         * 调用方式一
+         * （1）LayoutAnimation.Presets.spring    spring弹性动画
+         * （2）LayoutAnimation.Presets.linear  linear线性动画
+         * （3）LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+         */
+        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        LayoutAnimation.configureNext(CustomLayoutAnimation);
+
+        /**
+         * 调用方式二
+         * （1）LayoutAnimation.linear();  线性动画
+         * （2）LayoutAnimation.spring(); 弹性动画
+         * （3）LayoutAnimation.easeInEaseOut(); 淡入淡出动画
+         */
+        //LayoutAnimation.easeInEaseOut();
 
         // Or use a Custom Layout Animation
         // LayoutAnimation.configureNext(CustomLayoutAnimation);

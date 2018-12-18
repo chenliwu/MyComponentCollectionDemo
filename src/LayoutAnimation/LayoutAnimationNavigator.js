@@ -10,8 +10,8 @@ import {
     createStackNavigator
 } from 'react-navigation';
 
-import LayoutAnimationExample from './LayoutAnimationExample';
-import LayoutAnimationExample1 from './LayoutAnimationExample1';
+import LayoutAnimationExample from './Example/LayoutAnimationExample';
+import LayoutAnimationExample1 from './Example/LayoutAnimationExample1';
 
 
 class LayoutAnimationNavigatorPage extends React.Component {

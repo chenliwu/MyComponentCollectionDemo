@@ -12,15 +12,31 @@ import {
     View,
     ScrollView,
     StyleSheet,
-    Animated,
-    TouchableOpacity
+    LayoutAnimation
 } from 'react-native';
 
 import PhoneModelUtils from './../../utils/PhoneModelUtils';
 
-const headerHeight = 70;
+const globalHeaderHeight = 70;
 
 const isIphoneX = PhoneModelUtils.isIphoneX();
+
+/**
+ * 自定义动画
+ * @type {{duration: number, create: {type: *, property: *}, update: {type: *}}}
+ */
+const CustomLayoutAnimation = {
+    duration: 300,
+    delay: 50,
+    create: {
+        type: LayoutAnimation.Types.linear,
+        property: LayoutAnimation.Properties.opacity,
+    },
+    update: {
+        type: LayoutAnimation.Types.curveEaseInEaseOut,
+        //type: LayoutAnimation.Types.linear,
+    },
+};
 
 /**
  * react-native 实现header渐变
@@ -29,7 +45,16 @@ export default class ScrollViewExample4 extends Component {
 
     static navigationOptions = ({navigation, screenProps}) => {
         const headerOpacity = navigation.getParam('headerOpacity', 1);
-        const headerHeight = navigation.getParam('headerHeight', headerHeight);
+        const headerHeight = navigation.getParam('headerHeight', globalHeaderHeight);
+
+        if (headerHeight <= globalHeaderHeight / 2) {
+            return ({
+                header: <View style={{
+                    height: 20,
+                }}></View>
+            });
+        }
+
         if (isIphoneX) {
             return ({
                 headerTitle: 'header渐变',
@@ -59,7 +84,7 @@ export default class ScrollViewExample4 extends Component {
 
         this.props.navigation.setParams({
             headerOpacity: 1,
-            headerHeight: headerHeight
+            headerHeight: globalHeaderHeight
         });
     }
 
@@ -68,11 +93,17 @@ export default class ScrollViewExample4 extends Component {
         console.log(Y);
         console.log(this._refHeader);
 
-        if (Y >= 0 && Y <= headerHeight) {
+        if (Y >= 0 && Y <= globalHeaderHeight) {
+            LayoutAnimation.configureNext(CustomLayoutAnimation);
             //动态改变header的高度
             this.props.navigation.setParams({
-                headerHeight: headerHeight - Y,
-                headerOpacity: (headerHeight - Y) * (1 / headerHeight),
+                headerHeight: globalHeaderHeight - Y,
+                //headerOpacity: (headerHeight - Y) * (1 / headerHeight),
+            });
+        } else {
+            LayoutAnimation.configureNext(CustomLayoutAnimation);
+            this.props.navigation.setParams({
+                headerHeight: 0,
             });
         }
 
