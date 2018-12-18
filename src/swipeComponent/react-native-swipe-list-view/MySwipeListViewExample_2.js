@@ -57,6 +57,7 @@ class MySwipeListViewExample extends Component {
             // 加载更多
             isLoadMore: false
         };
+        this.openSwipeRow = null;
     }
 
 
@@ -195,10 +196,13 @@ class MySwipeListViewExample extends Component {
                         return (
                             <TouchableWithoutFeedback
                                 onPress={() => {
-                                    // if (rowMap[data.item.id]) {
-                                    //     //关闭滑动菜单栏
-                                    //     rowMap[data.item.id].closeRow();
-                                    // }
+                                    if (this.openSwipeRow) {
+                                        //关闭滑动菜单栏
+                                        rowMap[data.item.id].closeRow();
+                                        this.openSwipeRow = null;
+                                    } else {
+                                        alert('on click');
+                                    }
                                 }}
                             >
                                 <View style={{
@@ -244,8 +248,23 @@ class MySwipeListViewExample extends Component {
                             </TouchableWithoutFeedback>
                         </View>
                     )}
-                    previewFirstRow={false}
-                    disableRightSwipe={true}    //禁止右边滑动
+
+                    // onRowDidOpen={(rowKey, rowMap) => { //滑动菜单打开后调用
+                    //
+                    // }}
+
+                    onRowOpen={(rowKey, rowMap) => {    //滑动菜单打开前调用
+                        console.log('onRowOpen');
+                        console.log(rowKey);
+                        console.log(rowMap);
+                        if (this.openSwipeRow && this.openSwipeRow != rowMap[rowKey]) {
+                            this.openSwipeRow.closeRow();
+                        }
+                        this.openSwipeRow = rowMap[rowKey];
+                    }}
+
+                    //previewFirstRow={false}
+                    disableRightSwipe={true} //禁止右边滑动
                     rightOpenValue={-60}
                     stopRightSwipe={-80}        //右侧侧侧滑X的最大偏移量(负数)
                     tension={20}    //打开关闭动画的张力
@@ -255,9 +274,16 @@ class MySwipeListViewExample extends Component {
         );
     }
 
-    onRowDidOpen = (rowKey, rowMap) => {
-        console.log('This row opened', rowKey);
-    };
+    /**
+     * 关闭滑动菜单栏
+     * @param rowMap
+     * @param rowKey
+     */
+    closeRow(rowMap, rowKey) {
+        if (rowMap[rowKey]) {
+            rowMap[rowKey].closeRow();
+        }
+    }
 
     /**
      * 这个方法生成的关键字会作为方法回调参数
