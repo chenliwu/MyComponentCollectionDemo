@@ -11,7 +11,7 @@ import {
 } from 'react-navigation';
 
 import ScrollViewPanResponderExample from './Example/ScrollViewPanResponderExample';
-
+import ScrollViewPanResponderExample_1 from './Example/ScrollViewPanResponderExample_1';
 
 
 class ScrollViewPanResponderNavigatorPage extends React.Component {
@@ -29,6 +29,10 @@ class ScrollViewPanResponderNavigatorPage extends React.Component {
         dataList.push({
             id: 'ScrollViewPanResponderExample',
             name: 'ScrollViewPanResponderExample手势操作'
+        });
+        dataList.push({
+            id: 'ScrollViewPanResponderExample_1',
+            name: 'ScrollViewPanResponderExample手势操作1'
         });
 
 
@@ -111,6 +115,9 @@ const ScrollViewPanResponderNavigator = createStackNavigator(
 
         ScrollViewPanResponderExample: {
             screen: ScrollViewPanResponderExample
+        },
+        ScrollViewPanResponderExample_1: {
+            screen: ScrollViewPanResponderExample_1
         },
     },
     {
