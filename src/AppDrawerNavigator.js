@@ -17,6 +17,10 @@ import LayoutAnimationNavigator from './LayoutAnimation/LayoutAnimationNavigator
 //手势操作 2018-12-15
 import PanResponderNavigator from './PanResponder/PanResponderNavigator';
 
+
+//ScrollView  PanResponder 2018-12-19
+import ScrollViewPanResponderNavigator from './ScrollViewRanResponder/ScrollViewPanResponderNavigator';
+
 import {
     SafeAreaView,
     createDrawerNavigator
@@ -81,6 +85,13 @@ export default createDrawerNavigator(
             screen: PanResponderNavigator,
             navigationOptions:{
                 drawerLabel: '手势操作',
+            }
+        },
+
+        ScrollViewPanResponderNavigator: {
+            screen: ScrollViewPanResponderNavigator,
+            navigationOptions:{
+                drawerLabel: 'ScrollView手势操作',
             }
         },
 
