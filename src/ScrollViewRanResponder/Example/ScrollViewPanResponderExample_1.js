@@ -15,8 +15,25 @@ import {
     LayoutAnimation
 } from 'react-native';
 
+/**
+ * 自定义动画
+ * @type {{duration: number, create: {type: *, property: *}, update: {type: *}}}
+ */
+const CustomLayoutAnimation = {
+    duration: 150,
+    create: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        property: LayoutAnimation.Properties.opacity,
+    },
+    update: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+        //type: LayoutAnimation.Types.linear,
+    },
+};
+
 
 const absoluteViewHeight = 100;
+const globalHeaderHeight = 70;
 
 /**
  * ScrollView手势操作
@@ -24,8 +41,28 @@ const absoluteViewHeight = 100;
 export default class ScrollViewPanResponderExample_1 extends Component {
 
     static navigationOptions = ({navigation, screenProps}) => {
+        const headerOpacity = navigation.getParam('headerOpacity', 1);
+        const headerHeight = navigation.getParam('headerHeight', globalHeaderHeight);
+
+        if (headerHeight <= globalHeaderHeight / 1.5) {
+            return ({
+                headerLeft: <View/>,
+                headerTitle: <View/>,
+                title: 'ScrollView手势操作',
+                headerStyle: {
+                    height: headerHeight,
+                },
+            });
+        }
+
         return ({
-            headerTitle: 'ScrollView手势操作1',
+            headerTitle: 'ScrollView手势操作',
+            headerStyle: {
+                opacity: headerOpacity,
+                //backgroundColor: 'red',
+                //iPhone X设置header高度为0，但header仍然会显示，因为navigation原生header里面使用了headerForceInset
+                height: headerHeight,
+            },
         });
 
     };
@@ -36,11 +73,26 @@ export default class ScrollViewPanResponderExample_1 extends Component {
             swipePositionY: 0,   //记录ScrollView滑动停止的Y轴位置
             swipeState: '未滑动',
             absoluteBottom: 0,   //用于改变底部绝对定位组件的位置
+            headerHeight: globalHeaderHeight
         }
     }
 
+    /**
+     * 设置布局动画
+     */
     setLayoutAnimation = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        LayoutAnimation.configureNext(CustomLayoutAnimation);
+    };
+
+    /**
+     * 设置Header组件的高度
+     * @param height
+     */
+    setHeaderHeight=(height)=>{
+        this.props.navigation.setParams({
+            headerHeight: height,
+        });
     };
 
     /**
@@ -53,6 +105,27 @@ export default class ScrollViewPanResponderExample_1 extends Component {
         let Y = event.nativeEvent.contentOffset.y;
 
         this.setLayoutAnimation();
+
+
+        ////处理Header组件
+        if (Y > globalHeaderHeight) {
+            //动态改变header的高度
+            this.setHeaderHeight(0);
+        } else {
+            this.setHeaderHeight(globalHeaderHeight);
+        }
+
+
+
+
+        if (Y <= absoluteViewHeight / 2) {
+            //往上滑动，显示绝对定位的组件
+            if (this.state.absoluteBottom < 0) {
+                this.setState({
+                    absoluteBottom: 0,
+                });
+            }
+        }
 
         //通过比较swipePositionY与event.nativeEvent.contentOffset.y，判断滑动方向
         if (Y >= swipePositionY && Y >= 0) {
@@ -106,6 +179,16 @@ export default class ScrollViewPanResponderExample_1 extends Component {
             swipePositionY: Y,
         });
 
+
+        ////处理Header组件
+        if (Y > globalHeaderHeight) {
+            //动态改变header的高度
+            this.setHeaderHeight(0);
+        } else {
+            this.setHeaderHeight(globalHeaderHeight);
+        }
+
+
         //通过比较swipePositionY与event.nativeEvent.contentOffset.y，判断滑动方向
         // if (Y >= swipePositionY && Y >= 0) {
         //     //往下滑动时，隐藏绝对定位的组件
@@ -140,54 +223,45 @@ export default class ScrollViewPanResponderExample_1 extends Component {
                     onScroll={this._onScroll}
                     onScrollBeginDrag={this._onScrollBeginDrag}
                     onScrollEndDrag={this._onScrollEndDrag}
-                    scrollEventThrottle={1}
+                    scrollEventThrottle={5}
                 >
                     <Text style={{height: 30, backgroundColor: 'pink'}}>--------1111111---------</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
-                    <Text style={{height: 30, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+
 
                 </ScrollView>
                 <View style={{
