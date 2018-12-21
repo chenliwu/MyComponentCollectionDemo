@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
-import WebViewAutoHeight from './WebViewAutoheight'
+import WebViewAutoHeight from './WebViewAutoHeight';
 
 const HTML = `  
 <!DOCTYPEhtml>\n  
