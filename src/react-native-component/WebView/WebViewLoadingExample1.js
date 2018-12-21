@@ -105,8 +105,8 @@ export default class WebViewExample1 extends React.Component {
         this.state = {
             height: 200,
 
-            webViewIsLoading: true, //webView组件加载状态：true加载中;false加载完成
-            webViewLoadingBarWidth: 0,
+            webViewIsLoading: true,     //WebView组件加载状态：true加载中;false加载完成
+            webViewLoadingBarWidth: 0,  //WebView加载条的宽度
         };
     }
 
@@ -139,13 +139,9 @@ export default class WebViewExample1 extends React.Component {
         return (
             <View style={{flex: 1}}>
                 <ScrollView>
-
                     {
-                        this.state.webViewIsLoading ?
-                            <WebViewLoadingBar1 width={this.state.webViewLoadingBarWidth} color={'red'}/>
-                            : null
+                        this.renderWebViewLoadingBar()
                     }
-
                     <WebView
                         style={{flex: 1, height: this.state.height}}
                         source={{
@@ -214,9 +210,21 @@ export default class WebViewExample1 extends React.Component {
     }
 
     /**
+     * 绘制WebView组件加载条
+     * @returns {*}
+     */
+    renderWebViewLoadingBar = () => {
+        if (this.state.webViewIsLoading) {
+            return (
+                <WebViewLoadingBar1 width={this.state.webViewLoadingBarWidth} color={'red'}/>
+            );
+        }
+    };
+
+    /**
      * 显示WebView组件加载条
      */
-    showWebViewLoadingBar=()=>{
+    showWebViewLoadingBar = () => {
         this.webViewLoadingBarTimer = setInterval(
             () => {
 
@@ -235,7 +243,7 @@ export default class WebViewExample1 extends React.Component {
     /**
      * 关闭WebView组件加载条
      */
-    closeWebViewLoadingBar=()=>{
+    closeWebViewLoadingBar = () => {
         if (this.state.webViewLoadingBarWidth < ScreenWidth) {
             //WebView加载已完成，但是进度条的宽度未占满屏幕，需要更改宽度占满屏幕，然后再更改加载状态
             //使用setTimeout关闭加载状态是为了让进度条看上去是比较自然的
@@ -245,13 +253,13 @@ export default class WebViewExample1 extends React.Component {
             });
 
             //setTimeout设为700毫秒执行，是因为LayoutAnimation.Presets.linear的动画时间是500毫秒，设置比它长，看上去效果比较好
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.setState({
                     webViewIsLoading: false,
                 });
                 this.webViewLoadingBarTimer && clearTimeout(this.webViewLoadingBarTimer);
-            },700);
-        }else{
+            }, 700);
+        } else {
             this.setState({
                 webViewIsLoading: false,
             });
@@ -259,7 +267,8 @@ export default class WebViewExample1 extends React.Component {
         }
     }
 
-};
+}
+;
 
 const BaseScript =
     `

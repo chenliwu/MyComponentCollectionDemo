@@ -49,7 +49,7 @@ export default class WebViewLoadingBar extends Component {
             <View style={{
                 flex: 1,
                 width: loadingBarWidth,
-                height: 5,
+                height: 3,
                 backgroundColor: loadingBarColor
             }}>
             </View>
