@@ -229,7 +229,7 @@ export default class WebViewExample1 extends React.Component {
             () => {
 
                 if (this.state.webViewLoadingBarWidth < ScreenWidth) {
-                    LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+                    //LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
                     this.setState({
                         webViewLoadingBarWidth: this.state.webViewLoadingBarWidth + ScreenWidth / 3,
                     });
@@ -247,7 +247,7 @@ export default class WebViewExample1 extends React.Component {
         if (this.state.webViewLoadingBarWidth < ScreenWidth) {
             //WebView加载已完成，但是进度条的宽度未占满屏幕，需要更改宽度占满屏幕，然后再更改加载状态
             //使用setTimeout关闭加载状态是为了让进度条看上去是比较自然的
-            LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
+            //LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
             this.setState({
                 webViewLoadingBarWidth: ScreenWidth,
             });
