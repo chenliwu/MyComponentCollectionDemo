@@ -230,6 +230,8 @@ export default class ScrollViewPanResponderExample_1 extends Component {
         let swipePositionY = this.state.swipePositionY;
         let Y = event.nativeEvent.contentOffset.y;
 
+        console.log('_onScroll:swipePositionY='+Y);
+
         this.setLayoutAnimation();
 
 
@@ -343,7 +345,7 @@ export default class ScrollViewPanResponderExample_1 extends Component {
                     onScroll={this._onScroll}
                     onScrollBeginDrag={this._onScrollBeginDrag}
                     onScrollEndDrag={this._onScrollEndDrag}
-                    scrollEventThrottle={5}
+                    scrollEventThrottle={32}
                     {...this._panResponder.panHandlers}
                 >
                     <Text style={{height: 30, backgroundColor: 'pink'}}>--------1111111---------</Text>

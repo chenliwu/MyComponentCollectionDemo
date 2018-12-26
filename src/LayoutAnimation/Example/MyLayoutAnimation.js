@@ -35,7 +35,7 @@ export default class MyLayoutAnimation extends React.Component {
         this.setState({
             width: this.state.width + 100,
             height: this.state.height + 100,
-        })
+        });
     };
 
     render() {

@@ -54,8 +54,8 @@ export default class AnimationExample extends React.Component {
          * （2）LayoutAnimation.Presets.linear  linear线性动画
          * （3）LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
          */
-        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        LayoutAnimation.configureNext(CustomLayoutAnimation);
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        //LayoutAnimation.configureNext(CustomLayoutAnimation);
 
         /**
          * 调用方式二
