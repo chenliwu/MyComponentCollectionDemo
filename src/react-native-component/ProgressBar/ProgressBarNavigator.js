@@ -12,6 +12,7 @@ import {
 
 
 import ProgressBarAndroidExample from './Example/ProgressBarAndroidExample';
+import ProgressViewIOSExample from './Example/ProgressViewIOSExample';
 
 
 class ProgressBarNavigatorPage extends React.Component {
@@ -29,6 +30,11 @@ class ProgressBarNavigatorPage extends React.Component {
         dataList.push({
             id: 'ProgressBarAndroidExample',
             name: 'ProgressBarAndroidExample'
+        });
+
+        dataList.push({
+            id: 'ProgressViewIOSExample',
+            name: 'ProgressViewIOSExample'
         });
 
         this.state = {
@@ -110,6 +116,10 @@ const ProgressBarNavigator = createStackNavigator(
 
         ProgressBarAndroidExample: {
             screen: ProgressBarAndroidExample
+        },
+
+        ProgressViewIOSExample: {
+            screen: ProgressViewIOSExample
         },
 
     },
