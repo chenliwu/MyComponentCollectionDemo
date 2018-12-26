@@ -14,6 +14,8 @@ import {
 import ProgressBarAndroidExample from './Example/ProgressBarAndroidExample';
 import ProgressViewIOSExample from './Example/ProgressViewIOSExample';
 
+import CustomProgressBarExample from './CustomProgressBar/CustomProgressBarExample';
+
 
 class ProgressBarNavigatorPage extends React.Component {
 
@@ -35,6 +37,11 @@ class ProgressBarNavigatorPage extends React.Component {
         dataList.push({
             id: 'ProgressViewIOSExample',
             name: 'ProgressViewIOSExample'
+        });
+
+        dataList.push({
+            id: 'CustomProgressBarExample',
+            name: '自定义进度条组件'
         });
 
         this.state = {
@@ -120,6 +127,10 @@ const ProgressBarNavigator = createStackNavigator(
 
         ProgressViewIOSExample: {
             screen: ProgressViewIOSExample
+        },
+
+        CustomProgressBarExample: {
+            screen: CustomProgressBarExample
         },
 
     },
