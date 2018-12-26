@@ -14,6 +14,7 @@ import WebViewExample from './WebView/WebViewExample';
 import WebViewExample1 from './WebView/WebViewExample1';
 import WebViewLoadingExample from './WebView/WebViewLoadingExample';
 import WebViewLoadingExample1 from './WebView/WebViewLoadingExample1';
+import WebViewLoadingExample2 from './WebView/WebViewLoadingExample2';
 
 
 class WebViewNavigatorPage extends React.Component {
@@ -46,6 +47,11 @@ class WebViewNavigatorPage extends React.Component {
         dataList.push({
             id: 'WebViewLoadingExample1',
             name: 'WebView加载条Demo1'
+        });
+
+        dataList.push({
+            id: 'WebViewLoadingExample2',
+            name: 'WebView ProgressBar加载条'
         });
 
         this.state = {
@@ -137,6 +143,9 @@ const WebViewNavigator = createStackNavigator(
         },
         WebViewLoadingExample1: {
             screen: WebViewLoadingExample1
+        },
+        WebViewLoadingExample2: {
+            screen: WebViewLoadingExample2
         },
 
 
