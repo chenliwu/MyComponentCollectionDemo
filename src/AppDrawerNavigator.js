@@ -8,6 +8,7 @@ import {
 
 //Animation动画 2018-12-13
 import AnimationNavigator from './Animation/AnimationNavigator';
+import AnimationStudyNavigator from './AnimationStudy/AnimationStudyNavigator';
 
 
 //布局动画 2018-12-18
@@ -71,6 +72,13 @@ export default createDrawerNavigator(
             screen: AnimationNavigator,
             navigationOptions:{
                 drawerLabel: '动画相关',
+            }
+        },
+
+        AnimationStudyNavigator: {
+            screen: AnimationStudyNavigator,
+            navigationOptions:{
+                drawerLabel: 'Animated动画学习',
             }
         },
 
