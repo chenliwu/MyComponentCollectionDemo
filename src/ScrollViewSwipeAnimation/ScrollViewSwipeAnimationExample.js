@@ -12,6 +12,7 @@ import {
 
 
 import ScrollViewSwipeAnimationExample from './Example/ScrollViewSwipeAnimationExample';
+import ScrollViewSwipeAnimationExample_1 from './Example/ScrollViewSwipeAnimationExample_1';
 
 class ScrollViewSwipeAnimationPage extends React.Component {
 
@@ -28,6 +29,10 @@ class ScrollViewSwipeAnimationPage extends React.Component {
         dataList.push({
             id: 'ScrollViewSwipeAnimationExample',
             name: '根据Scroll或者手势来手动的控制动画（手动控制动画）'
+        });
+        dataList.push({
+            id: 'ScrollViewSwipeAnimationExample_1',
+            name: '根据Scroll或者手势来手动的控制动画(优化)'
         });
 
         this.state = {
@@ -109,6 +114,11 @@ const ScrollViewSwipeAnimationNavigator = createStackNavigator(
 
         ScrollViewSwipeAnimationExample: {
             screen: ScrollViewSwipeAnimationExample
+        },
+
+
+        ScrollViewSwipeAnimationExample_1: {
+            screen: ScrollViewSwipeAnimationExample_1
         },
 
 

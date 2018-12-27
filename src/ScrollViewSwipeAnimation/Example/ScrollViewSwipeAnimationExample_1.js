@@ -27,31 +27,25 @@ const isIphoneX = PhoneModelUtils.isIphoneX();
 /**
  * react-native 实现header渐变
  */
-export default class ScrollViewSwipeAnimationExample extends Component {
+export default class ScrollViewSwipeAnimationExample_1 extends Component {
 
     static navigationOptions = ({navigation, screenProps}) => {
 
-        const headerOpacity = navigation.getParam('headerOpacity', 1);
-        const headerHeight = navigation.getParam('headerHeight', globalHeaderHeight);
+        const scrollViewContentOffsetY = navigation.getParam('scrollViewContentOffsetY', 0);
+
+        //interpolate映射动画值，触发动画
+        //inputRange：输入值的区间，即响应动画的输入区间
+        //outputRange：输出值的区间，即动画变化的区间
+        const headerOpacity = scrollViewContentOffsetY === 0 ? 1 : scrollViewContentOffsetY.interpolate({
+            inputRange: [0, globalHeaderHeight],
+            outputRange: [1.0, 0.0]
+        });
 
         return ({
             title: 'ScrollView滑动动画',
             headerStyle: {
                 height: globalHeaderHeight,
-                //interpolate映射动画值，触发动画
-                //inputRange：输入值的区间，即响应动画的输入区间
-                //outputRange：输出值的区间，即动画变化的区间
-
-                // opacity: headerOpacity === 1 ? 1 : headerOpacity.interpolate({
-                //     inputRange: [0, globalHeaderHeight],
-                //     outputRange: [1.0, 0.0]
-                // }),
-
-                opacity: headerHeight === globalHeaderHeight ? 1 : headerHeight.interpolate({
-                    inputRange: [0, globalHeaderHeight],
-                    outputRange: [1.0, 0.0]
-                }),
-
+                opacity: headerOpacity,
             },
         });
 
@@ -59,17 +53,15 @@ export default class ScrollViewSwipeAnimationExample extends Component {
 
     constructor(props) {
         super(props);
-        this.headerOpacity = new Animated.Value(1.0);   //初始化动画值
         this.state = {
             headerHeight: new Animated.Value(0),
-            headerOpacity: new Animated.Value(1.0),   //初始化动画值
+            scrollViewContentOffsetY: new Animated.Value(0),//初始化动画值
         }
     }
 
     componentWillMount() {
         this.props.navigation.setParams({
-            headerOpacity: new Animated.Value(1.0),   //初始化动画值
-            headerHeight: globalHeaderHeight
+            scrollViewContentOffsetY: new Animated.Value(0.0),   //初始化动画值
         });
     }
 
@@ -81,12 +73,9 @@ export default class ScrollViewSwipeAnimationExample extends Component {
     _onScroll = (event) => {
 
         const offsetY = event.nativeEvent.contentOffset.y;
-        // this.headerOpacity.setValue(offsetY);
         this.props.navigation.setParams({
             //给动画赋新值
-            //headerOpacity: new Animated.Value(offsetY),
-            headerOpacity: this.state.headerOpacity,
-            headerHeight: this.state.headerHeight,
+            scrollViewContentOffsetY: this.state.scrollViewContentOffsetY,
         });
     };
 
@@ -97,12 +86,9 @@ export default class ScrollViewSwipeAnimationExample extends Component {
      */
     _onScrollEndDrag = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y;
-        // this.headerOpacity.setValue(offsetY);
         this.props.navigation.setParams({
             //给动画赋新值
-            //headerOpacity: new Animated.Value(offsetY),
-            headerOpacity: this.state.headerOpacity,
-            headerHeight: this.state.headerHeight,
+            scrollViewContentOffsetY: this.state.scrollViewContentOffsetY,
         });
     };
 
@@ -117,7 +103,7 @@ export default class ScrollViewSwipeAnimationExample extends Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: 'blue',
-                        height: this.state.headerHeight.interpolate({
+                        height: this.state.scrollViewContentOffsetY.interpolate({
                             inputRange: [0, globalHeaderHeight],
                             outputRange: [globalHeaderHeight, 0],
                             easing: Easing.linear,      //配置渐变函数
@@ -128,24 +114,6 @@ export default class ScrollViewSwipeAnimationExample extends Component {
                 >
                     {/*<Text>滑动改变组件高度</Text>*/}
                 </Animated.View>
-                {/*<Animated.View*/}
-                    {/*style={{*/}
-                        {/*justifyContent: 'center',*/}
-                        {/*alignItems: 'center',*/}
-                        {/*height: 100,*/}
-                        {/*backgroundColor: 'red',*/}
-                        {/*opacity: this.state.headerHeight.interpolate({*/}
-                            {/*inputRange: [0, globalHeaderHeight],*/}
-                            {/*outputRange: [1.0, 0.0],*/}
-                        {/*})*/}
-                        {/*// opacity: this.state.headerOpacity.interpolate({*/}
-                        {/*//     inputRange: [0, 100],*/}
-                        {/*//     outputRange: [1.0, 0.0]*/}
-                        {/*// }),*/}
-                    {/*}}*/}
-                {/*>*/}
-                    {/*<Text>滑动改变透明度</Text>*/}
-                {/*</Animated.View>*/}
 
 
                 <ScrollView
@@ -155,9 +123,8 @@ export default class ScrollViewSwipeAnimationExample extends Component {
                             [{
                                 nativeEvent: {
                                     contentOffset: {
-                                        //把contentOffset.x绑定给this.state.xOffset
-                                        //y: this.state.headerOpacity,
-                                        y: this.state.headerHeight,
+                                        //把contentOffset.x绑定给this.state.scrollViewContentOffsetY
+                                        y: this.state.scrollViewContentOffsetY,
                                     }
                                 }
                             }],
