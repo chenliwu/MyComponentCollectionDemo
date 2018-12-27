@@ -10,10 +10,10 @@ import {
     createStackNavigator
 } from 'react-navigation';
 
-import AnimatedEventExample from './Example/AnimatedEventExample';
-import AnimatedParallelExample from './Example/AnimatedParallelExample';
 
-class AnimationStudyNavigatorPage extends React.Component {
+import ScrollViewSwipeAnimationExample from './Example/ScrollViewSwipeAnimationExample';
+
+class ScrollViewSwipeAnimationPage extends React.Component {
 
     static navigationOptions = {
         headerTitle: 'Animated动画学习',
@@ -26,13 +26,8 @@ class AnimationStudyNavigatorPage extends React.Component {
         let dataList = new Array();
 
         dataList.push({
-            id: 'AnimatedEventExample',
+            id: 'ScrollViewSwipeAnimationExample',
             name: '根据Scroll或者手势来手动的控制动画（手动控制动画）'
-        });
-
-        dataList.push({
-            id: 'AnimatedParallelExample',
-            name: 'Animated并行动画'
         });
 
         this.state = {
@@ -106,23 +101,20 @@ class AnimationStudyNavigatorPage extends React.Component {
 }
 
 
-const AnimationStudyNavigator = createStackNavigator(
+const ScrollViewSwipeAnimationNavigator = createStackNavigator(
     {
-        AnimationStudyNavigatorPage: {
-            screen: AnimationStudyNavigatorPage
+        ScrollViewSwipeAnimationPage: {
+            screen: ScrollViewSwipeAnimationPage
         },
 
-        AnimatedEventExample: {
-            screen: AnimatedEventExample
+        ScrollViewSwipeAnimationExample: {
+            screen: ScrollViewSwipeAnimationExample
         },
 
-        AnimatedParallelExample: {
-            screen: AnimatedParallelExample
-        },
 
     },
     {
-        initialRouteName: 'AnimationStudyNavigatorPage',
+        initialRouteName: 'ScrollViewSwipeAnimationPage',
         navigationOptions: {
             // headerStyle: {
             //     height: 50,
@@ -132,7 +124,7 @@ const AnimationStudyNavigator = createStackNavigator(
     }
 );
 
-AnimationStudyNavigator.navigationOptions = ({navigation}) => {
+ScrollViewSwipeAnimationNavigator.navigationOptions = ({navigation}) => {
     let drawerLockMode = 'unlocked';
     if (navigation.state.index > 0) {
         drawerLockMode = 'locked-closed';
@@ -143,5 +135,5 @@ AnimationStudyNavigator.navigationOptions = ({navigation}) => {
     };
 };
 
-export default AnimationStudyNavigator;
+export default ScrollViewSwipeAnimationNavigator;
 

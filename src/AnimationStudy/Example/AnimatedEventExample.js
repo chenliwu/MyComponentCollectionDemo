@@ -27,8 +27,9 @@ const deviceHeight = Dimensions.get('window').height;
  学习总结：
  1、插值函数interpolate
  这个函数实现了数值大小、单位的映射转换，允许一个输入的区间范围映射到另外一个输入的区间范围。
- （1）inputRange：限定了输入数据的范围，即interpolate函数只处理这个范围的变化，将其映射到输出值。
- （2）outputRange：声明输出值的范围。例如opacity透明度设置，通常设置为[1.0,0]（透明度由1到0）或者[0,1.0]（透明度由0到1）
+ （1）inputRange：限定了输入数据的范围，即interpolate函数只处理这个范围的变化，将其映射到输出值。(输入值的区间，即响应动画的输入区间)
+
+ （2）outputRange：声明输出值的范围。例如opacity透明度设置，通常设置为[1.0,0]（透明度由1到0）或者[0,1.0]（透明度由0到1）。(输出值的区间，即动画变化的区间)
 
  2、当ScrollView滑动时，会触发onScroll滚动事件，onScroll回调函数的参数为event，这个event.nativeEvent记录了滚动的相关数据，比如滚动的位置。
  在这个例子当中，我们把把event.nativeEvent.contentOffset.x绑定给this.state.xOffset，这个绑定完成后就会触发
@@ -63,6 +64,11 @@ export default class AnimatedExample extends React.Component {
         };
     }
 
+    _onScroll=(event)=>{
+        console.log('_onScroll');
+        console.log(event);
+    };
+
 
     /**
      * 手动控制动画
@@ -90,7 +96,8 @@ export default class AnimatedExample extends React.Component {
                                     x: this.state.xOffset,
                                 }
                             }
-                        }]
+                        }],
+                        {listener:this._onScroll}
                     )}
                     scrollEventThrottle={100}//onScroll回调间隔
                 >
@@ -98,6 +105,7 @@ export default class AnimatedExample extends React.Component {
                                     style={{
                                         height: deviceHeight,
                                         width: deviceWidth,
+                                        //interpolate映射动画值，触发动画
                                         //outputRange:映射到0.0,1.0之间
                                         //inputRange:输入的值只处理0-375之间
                                         opacity: this.state.xOffset.interpolate({

@@ -22,6 +22,10 @@ import PanResponderNavigator from './PanResponder/PanResponderNavigator';
 //ScrollView  PanResponder 2018-12-19
 import ScrollViewPanResponderNavigator from './ScrollViewRanResponder/ScrollViewPanResponderNavigator';
 
+//ScrollView 滑动动画
+import ScrollViewSwipeAnimationExample from './ScrollViewSwipeAnimation/ScrollViewSwipeAnimationExample';
+
+
 import {
     SafeAreaView,
     createDrawerNavigator
@@ -100,6 +104,13 @@ export default createDrawerNavigator(
             screen: ScrollViewPanResponderNavigator,
             navigationOptions:{
                 drawerLabel: 'ScrollView手势操作',
+            }
+        },
+
+        ScrollViewSwipeAnimationExample: {
+            screen: ScrollViewSwipeAnimationExample,
+            navigationOptions:{
+                drawerLabel: 'ScrollView滑动动画',
             }
         },
 
