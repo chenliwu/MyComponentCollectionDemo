@@ -28,7 +28,7 @@ export default class AnimatedParallelExample extends Component {
     componentDidMount() {
         Animated.timing(this.state.grassTransY, {
             toValue: 200,
-            duration: 500,
+            duration: 250,
             //easing: Easing.bezier(0.15, 0.73, 0.37, 1.2)
             easing: Easing.linear
         }).start();

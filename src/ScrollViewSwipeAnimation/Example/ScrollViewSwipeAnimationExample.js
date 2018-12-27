@@ -13,7 +13,8 @@ import {
     ScrollView,
     StyleSheet,
     LayoutAnimation,
-    Animated
+    Animated,
+    Easing
 } from 'react-native';
 
 import PhoneModelUtils from './../../utils/PhoneModelUtils';
@@ -36,15 +37,21 @@ export default class ScrollViewSwipeAnimationExample extends Component {
         return ({
             title: 'ScrollView滑动动画',
             headerStyle: {
-                height: headerHeight,
+                height: globalHeaderHeight,
                 //interpolate映射动画值，触发动画
                 //inputRange：输入值的区间，即响应动画的输入区间
                 //outputRange：输出值的区间，即动画变化的区间
 
-                opacity: headerOpacity === 1 ? 1 : headerOpacity.interpolate({
+                // opacity: headerOpacity === 1 ? 1 : headerOpacity.interpolate({
+                //     inputRange: [0, globalHeaderHeight],
+                //     outputRange: [1.0, 0.0]
+                // }),
+
+                opacity: headerHeight === globalHeaderHeight ? 1 : headerHeight.interpolate({
                     inputRange: [0, globalHeaderHeight],
                     outputRange: [1.0, 0.0]
                 }),
+
             },
         });
 
@@ -54,7 +61,7 @@ export default class ScrollViewSwipeAnimationExample extends Component {
         super(props);
         this.headerOpacity = new Animated.Value(1.0);   //初始化动画值
         this.state = {
-            headerHeight: new Animated.Value(100),
+            headerHeight: new Animated.Value(0),
             headerOpacity: new Animated.Value(1.0),   //初始化动画值
         }
     }
@@ -74,12 +81,12 @@ export default class ScrollViewSwipeAnimationExample extends Component {
     _onScroll = (event) => {
 
         const offsetY = event.nativeEvent.contentOffset.y;
-        //
         // this.headerOpacity.setValue(offsetY);
         this.props.navigation.setParams({
             //给动画赋新值
             //headerOpacity: new Animated.Value(offsetY),
             headerOpacity: this.state.headerOpacity,
+            headerHeight: this.state.headerHeight,
         });
     };
 
@@ -89,26 +96,14 @@ export default class ScrollViewSwipeAnimationExample extends Component {
      * @private
      */
     _onScrollEndDrag = (event) => {
-        let Y = event.nativeEvent.contentOffset.y;
-        if (Y >= 0) {
-            if (Y <= globalHeaderHeight) {
-                //页眉变化的动画
-                //LayoutAnimation.configureNext(CustomLayoutAnimation);
-                LayoutAnimation.easeInEaseOut();
-
-                //动态改变header的高度
-                this.props.navigation.setParams({
-                    headerHeight: globalHeaderHeight,
-                });
-            } else {
-                //LayoutAnimation.configureNext(CustomLayoutAnimation);
-                LayoutAnimation.easeInEaseOut();
-
-                this.props.navigation.setParams({
-                    headerHeight: 0,
-                });
-            }
-        }
+        const offsetY = event.nativeEvent.contentOffset.y;
+        // this.headerOpacity.setValue(offsetY);
+        this.props.navigation.setParams({
+            //给动画赋新值
+            //headerOpacity: new Animated.Value(offsetY),
+            headerOpacity: this.state.headerOpacity,
+            headerHeight: this.state.headerHeight,
+        });
     };
 
 
@@ -116,20 +111,6 @@ export default class ScrollViewSwipeAnimationExample extends Component {
 
         return (
             <View>
-                <Animated.View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: 100,
-                        backgroundColor: 'red',
-                        opacity: this.state.headerOpacity.interpolate({
-                            inputRange: [0, 100],
-                            outputRange: [1.0, 0.0]
-                        }),
-                    }}
-                >
-                    <Text>滑动改变透明度</Text>
-                </Animated.View>
 
                 <Animated.View
                     style={{
@@ -137,13 +118,35 @@ export default class ScrollViewSwipeAnimationExample extends Component {
                         alignItems: 'center',
                         backgroundColor: 'blue',
                         height: this.state.headerHeight.interpolate({
-                            inputRange: [20, 100],
-                            outputRange: [20, 100]
+                            inputRange: [0, globalHeaderHeight],
+                            outputRange: [globalHeaderHeight, 0],
+                            easing: Easing.linear,      //配置渐变函数
+                            extrapolate: 'clamp',        //不允许超出区间
+                            extrapolateRight: 'clamp'
                         }),
                     }}
                 >
-                    <Text>滑动改变组件高度</Text>
+                    {/*<Text>滑动改变组件高度</Text>*/}
                 </Animated.View>
+                <Animated.View
+                    style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 100,
+                        backgroundColor: 'red',
+                        opacity: this.state.headerHeight.interpolate({
+                            inputRange: [0, globalHeaderHeight],
+                            outputRange: [1.0, 0.0],
+                        })
+                        // opacity: this.state.headerOpacity.interpolate({
+                        //     inputRange: [0, 100],
+                        //     outputRange: [1.0, 0.0]
+                        // }),
+                    }}
+                >
+                    <Text>滑动改变透明度</Text>
+                </Animated.View>
+
 
                 <ScrollView
                     //onScroll={this._onScroll}
@@ -153,27 +156,28 @@ export default class ScrollViewSwipeAnimationExample extends Component {
                                 nativeEvent: {
                                     contentOffset: {
                                         //把contentOffset.x绑定给this.state.xOffset
-                                        y: this.state.headerOpacity,
-                                        //y: this.state.headerHeight,
+                                        //y: this.state.headerOpacity,
+                                        y: this.state.headerHeight,
                                     }
                                 }
                             }],
                             {listener: this._onScroll}
                         )
                     }
-                    onScrollEndDrag={
-                        Animated.event(
-                            [{
-                                nativeEvent: {
-                                    contentOffset: {
-                                        //把contentOffset.x绑定给this.state.xOffset
-                                        y: this.state.headerOpacity,
-                                        //y: this.state.headerHeight,
-                                    }
-                                }
-                            }],
-                        )
-                    }
+                    // onScrollEndDrag={
+                    //     Animated.event(
+                    //         [{
+                    //             nativeEvent: {
+                    //                 contentOffset: {
+                    //                     //把contentOffset.x绑定给this.state.xOffset
+                    //                     //y: this.state.headerOpacity,
+                    //                     y: this.state.headerHeight,
+                    //                 }
+                    //             }
+                    //         }],
+                    //         {listener: this._onScrollEndDrag}
+                    //     )
+                    // }
                     decelerationRate={'fast'}       //滚动视图减速停下的速度。你也可以设置为"normal"或者"fast"
                     scrollEventThrottle={16}
                 >
