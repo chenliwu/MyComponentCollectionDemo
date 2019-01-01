@@ -31,15 +31,28 @@ export default class ScrollViewSwipeAnimationExample_1 extends Component {
 
     static navigationOptions = ({navigation, screenProps}) => {
 
+        const scrollViewContentOffsetYAnimation = navigation.getParam('scrollViewContentOffsetYAnimation', 0);
         const scrollViewContentOffsetY = navigation.getParam('scrollViewContentOffsetY', 0);
 
         //interpolate映射动画值，触发动画
         //inputRange：输入值的区间，即响应动画的输入区间
         //outputRange：输出值的区间，即动画变化的区间
-        const headerOpacity = scrollViewContentOffsetY === 0 ? 1 : scrollViewContentOffsetY.interpolate({
+        const headerOpacity = scrollViewContentOffsetYAnimation === 0 ? 1 : scrollViewContentOffsetYAnimation.interpolate({
             inputRange: [0, globalHeaderHeight],
             outputRange: [1.0, 0.0]
         });
+
+        //console.log('scrollViewContentOffsetY=' + scrollViewContentOffsetY);
+
+        if (scrollViewContentOffsetY > globalHeaderHeight) {
+            return ({
+                title: 'ScrollView滑动动画1',
+                headerStyle: {
+                    height: 0,
+                    opacity: headerOpacity,
+                },
+            });
+        }
 
         return ({
             title: 'ScrollView滑动动画',
@@ -51,17 +64,18 @@ export default class ScrollViewSwipeAnimationExample_1 extends Component {
 
     };
 
+    static scrollViewContentOffsetY = 1;    //记录ScrollView滚动的位置
+
     constructor(props) {
         super(props);
         this.state = {
-            headerHeight: new Animated.Value(0),
-            scrollViewContentOffsetY: new Animated.Value(0),//初始化动画值
+            scrollViewContentOffsetYAnimation: new Animated.Value(0),//初始化动画值
         }
     }
 
     componentWillMount() {
         this.props.navigation.setParams({
-            scrollViewContentOffsetY: new Animated.Value(0.0),   //初始化动画值
+            scrollViewContentOffsetYAnimation: new Animated.Value(0.0),   //初始化动画值
         });
     }
 
@@ -73,9 +87,13 @@ export default class ScrollViewSwipeAnimationExample_1 extends Component {
     _onScroll = (event) => {
 
         const offsetY = event.nativeEvent.contentOffset.y;
+
+        //ScrollViewSwipeAnimationExample_1.scrollViewContentOffsetY = offsetY;
+
         this.props.navigation.setParams({
             //给动画赋新值
-            scrollViewContentOffsetY: this.state.scrollViewContentOffsetY,
+            scrollViewContentOffsetYAnimation: this.state.scrollViewContentOffsetYAnimation,
+            scrollViewContentOffsetY: offsetY,
         });
     };
 
@@ -86,9 +104,12 @@ export default class ScrollViewSwipeAnimationExample_1 extends Component {
      */
     _onScrollEndDrag = (event) => {
         const offsetY = event.nativeEvent.contentOffset.y;
+
+        ScrollViewSwipeAnimationExample_1.scrollViewContentOffsetY = offsetY;
+
         this.props.navigation.setParams({
             //给动画赋新值
-            scrollViewContentOffsetY: this.state.scrollViewContentOffsetY,
+            scrollViewContentOffsetYAnimation: this.state.scrollViewContentOffsetYAnimation,
         });
     };
 
@@ -103,7 +124,7 @@ export default class ScrollViewSwipeAnimationExample_1 extends Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         backgroundColor: 'blue',
-                        height: this.state.scrollViewContentOffsetY.interpolate({
+                        height: this.state.scrollViewContentOffsetYAnimation.interpolate({
                             inputRange: [0, globalHeaderHeight],
                             outputRange: [globalHeaderHeight, 0],
                             easing: Easing.linear,      //配置渐变函数
@@ -124,7 +145,7 @@ export default class ScrollViewSwipeAnimationExample_1 extends Component {
                                 nativeEvent: {
                                     contentOffset: {
                                         //把contentOffset.x绑定给this.state.scrollViewContentOffsetY
-                                        y: this.state.scrollViewContentOffsetY,
+                                        y: this.state.scrollViewContentOffsetYAnimation,
                                     }
                                 }
                             }],

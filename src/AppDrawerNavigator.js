@@ -26,6 +26,9 @@ import ScrollViewPanResponderNavigator from './ScrollViewRanResponder/ScrollView
 import ScrollViewSwipeAnimationExample from './ScrollViewSwipeAnimation/ScrollViewSwipeAnimationExample';
 
 
+import RNTesterNavigator from './RNTester/RNTesterNavigator';
+
+
 import {
     SafeAreaView,
     createDrawerNavigator
@@ -111,6 +114,14 @@ export default createDrawerNavigator(
             screen: ScrollViewSwipeAnimationExample,
             navigationOptions:{
                 drawerLabel: 'ScrollView滑动动画',
+            }
+        },
+
+
+        RNTesterNavigator: {
+            screen: RNTesterNavigator,
+            navigationOptions:{
+                drawerLabel: 'React-Native官方动画源码',
             }
         },
 
