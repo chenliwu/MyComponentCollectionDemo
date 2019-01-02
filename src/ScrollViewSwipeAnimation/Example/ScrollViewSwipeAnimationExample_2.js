@@ -10,7 +10,8 @@ import {
     StyleSheet,
     LayoutAnimation,
     Animated,
-    Easing
+    Easing,
+    PanResponder
 } from 'react-native';
 
 import {
@@ -44,14 +45,72 @@ export default class ScrollViewSwipeAnimationExample extends Component {
 
             scrollViewContentOffsetYAnimation: new Animated.Value(0),//初始化动画值
             scrollViewContentOffsetY: 0,
+
             absoluteViewBottom: 0,
+            absoluteViewVisible: true,
         }
     }
 
     componentWillMount() {
-        this.props.navigation.setParams({
-            headerHeight: globalHeaderHeight
+
+        this._panResponder = PanResponder.create({
+            // 要求成为响应者：
+            //用户开始触摸屏幕的时候，是否愿意成为响应者；
+            onStartShouldSetPanResponder(event, gestureState) {
+                return true;
+            },
+            onMoveShouldSetPanResponderCapture: () => true,
+            onPanResponderGrant: (event, gesturesState) => {
+                //每次滑动前回调此方法
+                // View 现在要开始响应触摸事件了。这也是需要做高亮的时候，使用户知道他到底点到了哪里。
+
+                // const vy = gesturesState.vy;             //当前的纵向移动速度
+                // if (vy > 0) {
+                //     //往上滑动，显示底部绝对定位组件
+                //     this.showAbsoluteView();
+                // } else {
+                //     //往下滑动，隐藏底部绝对定位组件
+                //     this.hideAbsoluteView();
+                // }
+
+            },
+
+
+            onPanResponderMove: (event, gesturesState) => {
+                //用户正在屏幕上移动手指时（没有停下也没有离开屏幕）。
+                //// onPanResponderMove:最近一次的移动距离为gestureState.move{X,Y}
+
+
+                const vy = gesturesState.vy;             //当前的纵向移动速度
+                if (vy >= 1.5) {
+                    //纵向移动速度大于1时，表示滑动速度很快
+                    this.showAbsoluteView();
+                } else {
+                    if (this.state.scrollViewContentOffsetY > absoluteViewHeight) {
+
+                    }
+                }
+
+
+                // const vy = gesturesState.vy;             //当前的纵向移动速度
+                // if (vy > 0) {
+                //     //往上滑动，显示底部绝对定位组件
+                //     this.showAbsoluteView();
+                // } else {
+                //     //往下滑动，隐藏底部绝对定位组件
+                //     this.hideAbsoluteView();
+                // }
+            },
+            onPanResponderRelease: (event, gesturesState) => {
+                //触摸操作结束时触发，比如"touchUp"（手指抬起离开屏幕）。
+                // 用户放开了所有的触摸点，且此时视图已经成为了响应者。
+                // 一般来说这意味着一个手势操作已经成功完成。
+
+                //console.log('onPanResponderRelease');
+
+            }
         });
+
     }
 
     /**
@@ -69,7 +128,7 @@ export default class ScrollViewSwipeAnimationExample extends Component {
         } else {
             this.setState({
                 scrollViewContentOffsetY: offsetY,
-                absoluteViewBottom: -offsetY,
+                absoluteViewBottom: -offsetY,   //逐渐改变绝对定位组件的位置
             });
         }
 
@@ -89,18 +148,28 @@ export default class ScrollViewSwipeAnimationExample extends Component {
         if (offsetY > 0 && offsetY < absoluteViewHeight) {
             //滑动距离超过绝对定位组件高度的一般就隐藏，否则就显示
             if (Math.abs(this.state.absoluteViewBottom) < absoluteViewHeight / 2) {
-                this.setState({
-                    absoluteViewBottom: 0,
-                });
+                this.showAbsoluteView();
             } else {
-                this.setState({
-                    absoluteViewBottom: -absoluteViewHeight,
-                });
+                this.hideAbsoluteView();
             }
-
+        } else if (offsetY > absoluteViewHeight) {
+            //ScrollView滚动距离超过底部绝对定位组件则隐藏该组件
+            this.hideAbsoluteView();
         }
 
 
+    };
+
+    showAbsoluteView = () => {
+        this.setState({
+            absoluteViewBottom: 0,
+        });
+    };
+
+    hideAbsoluteView = () => {
+        this.setState({
+            absoluteViewBottom: -absoluteViewHeight,
+        });
     };
 
 
@@ -132,6 +201,7 @@ export default class ScrollViewSwipeAnimationExample extends Component {
 
 
                 <ScrollView
+                    {...this._panResponder.panHandlers} //添加手势监听
                     onScroll={
                         Animated.event(
                             [{
