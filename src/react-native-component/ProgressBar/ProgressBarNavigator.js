@@ -15,6 +15,7 @@ import ProgressBarAndroidExample from './Example/ProgressBarAndroidExample';
 import ProgressViewIOSExample from './Example/ProgressViewIOSExample';
 
 import CustomProgressBarExample from './CustomProgressBar/CustomProgressBarExample';
+import ReactNativeProgressExample from './react-native-progress/ReactNativeProgressExample';
 
 
 class ProgressBarNavigatorPage extends React.Component {
@@ -42,6 +43,11 @@ class ProgressBarNavigatorPage extends React.Component {
         dataList.push({
             id: 'CustomProgressBarExample',
             name: '自定义进度条组件'
+        });
+
+        dataList.push({
+            id: 'ReactNativeProgressExample',
+            name: 'react-native-progress库加载条'
         });
 
         this.state = {
@@ -87,7 +93,7 @@ class ProgressBarNavigatorPage extends React.Component {
         return (
             <SafeAreaView style={{
                 flex: 1,
-                backgroundColor:'#fff'
+                backgroundColor: '#fff'
             }}>
                 <FlatList
                     ref={(flatList) => {
@@ -131,6 +137,11 @@ const ProgressBarNavigator = createStackNavigator(
 
         CustomProgressBarExample: {
             screen: CustomProgressBarExample
+        },
+
+
+        ReactNativeProgressExample: {
+            screen: ReactNativeProgressExample
         },
 
     },
