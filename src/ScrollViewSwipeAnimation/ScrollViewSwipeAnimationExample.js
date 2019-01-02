@@ -13,11 +13,12 @@ import {
 
 import ScrollViewSwipeAnimationExample from './Example/ScrollViewSwipeAnimationExample';
 import ScrollViewSwipeAnimationExample_1 from './Example/ScrollViewSwipeAnimationExample_1';
+import ScrollViewSwipeAnimationExample_2 from './Example/ScrollViewSwipeAnimationExample_2';
 
 class ScrollViewSwipeAnimationPage extends React.Component {
 
     static navigationOptions = {
-        headerTitle: 'Animated动画学习',
+        headerTitle: 'ScrollView滑动动画学习',
     };
 
     flatListComponent = null;
@@ -33,6 +34,11 @@ class ScrollViewSwipeAnimationPage extends React.Component {
         dataList.push({
             id: 'ScrollViewSwipeAnimationExample_1',
             name: '根据Scroll或者手势来手动的控制动画(优化)'
+        });
+
+        dataList.push({
+            id: 'ScrollViewSwipeAnimationExample_2',
+            name: 'Safari浏览器底部组件滑动效果调试'
         });
 
         this.state = {
@@ -119,6 +125,10 @@ const ScrollViewSwipeAnimationNavigator = createStackNavigator(
 
         ScrollViewSwipeAnimationExample_1: {
             screen: ScrollViewSwipeAnimationExample_1
+        },
+
+        ScrollViewSwipeAnimationExample_2: {
+            screen: ScrollViewSwipeAnimationExample_2
         },
 
 

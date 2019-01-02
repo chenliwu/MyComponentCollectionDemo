@@ -46,6 +46,7 @@ const SQUARE_DIMENSIONS = 100;
  */
 export default class PanResponderExample1 extends React.Component {
 
+    finalY0 = 0;     //记录最近一次移动时的屏幕纵坐标
 
     constructor(props) {
         super(props);
@@ -62,7 +63,9 @@ export default class PanResponderExample1 extends React.Component {
             moveY: 0,       //最近一次移动时的屏幕纵坐标
             y0: 0,          //当响应器产生时的屏幕纵坐标
             dy: 0,          //从触摸操作开始时的累计纵向路程
-            vy: 0,           //当前的纵向移动速度
+            vy: 0,          //当前的纵向移动速度
+
+
         }
     }
 
@@ -131,7 +134,7 @@ export default class PanResponderExample1 extends React.Component {
                 const moveY = gesturesState.moveY;      //最近一次移动时的屏幕纵坐标
                 const y0 = gesturesState.y0;            //当响应器产生时的屏幕纵坐标
                 const dy = gesturesState.dy;            //从触摸操作开始时的累计纵向路程
-                const vy = gesturesState.vy;             //当前的纵向移动速度
+                const vy = gesturesState.vy;            //当前的纵向移动速度
 
 
                 this.setState({
@@ -146,23 +149,28 @@ export default class PanResponderExample1 extends React.Component {
                     vy: vy,
                 });
 
-                if(vy > 0 ){
+                //gestureState.vy（当前的纵向移动速度）的值小于0时，表示手势往上滑动，ScrollView的组件往上滚动；
+                // 值大于0时，表示手势往下滑动，ScrollView的组件往下滚动。
+
+                if (vy > 0) {
                     this.setState({
-                        swipeState:'往上滑动',
+                        swipeState: '往上滑动',
                     });
-                }else{
+                } else {
                     this.setState({
-                        swipeState:'往下滑动',
+                        swipeState: '往下滑动',
                     });
                 }
 
 
             },
-            onPanResponderRelease: () => {
+            onPanResponderRelease: (event, gesturesState) => {
                 //触摸操作结束时触发，比如"touchUp"（手指抬起离开屏幕）。
                 // 用户放开了所有的触摸点，且此时视图已经成为了响应者。
                 // 一般来说这意味着一个手势操作已经成功完成。
-
+                console.log('onPanResponderRelease');
+                console.log(event.nativeEvent);
+                console.log(gesturesState);
             }
         });
     }
