@@ -14,6 +14,7 @@ import SwipeListViewExample from './react-native-swipe-list-view/SwipeExample';
 import MySwipeListViewExample from './react-native-swipe-list-view/MySwipeListViewExample';
 import MySwipeListViewExample_1 from './react-native-swipe-list-view/MySwipeListViewExample_1';
 import MySwipeListViewExample_2 from './react-native-swipe-list-view/MySwipeListViewExample_2';
+import MySwipeListViewExample_3 from './react-native-swipe-list-view/MySwipeListViewExample_3';
 
 
 import SwipeoutExample from './react-native-swipeout/SwipeoutExample';
@@ -55,8 +56,10 @@ class SwipeComponentNavigatorPage extends React.Component {
             id: 'MySwipeListViewExample_2',
             name: 'react-native-swipe-list-view删除列表组件'
         });
-
-
+        dataList.push({
+            id: 'MySwipeListViewExample_3',
+            name: 'react-native-swipe-list-view直接滑动删除'
+        });
 
 
         dataList.push({
@@ -172,11 +175,13 @@ export default createStackNavigator(
         MySwipeListViewExample_2: {
             screen: MySwipeListViewExample_2
         },
+        MySwipeListViewExample_3: {
+            screen: MySwipeListViewExample_3
+        },
 
         SwipeableExample: {
             screen: SwipeableExample
         },
-
 
 
         MySwipeableExample: {
