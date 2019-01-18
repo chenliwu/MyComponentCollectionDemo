@@ -7,10 +7,12 @@ import {
     Button,
     TouchableOpacity,
     FlatList,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback, Dimensions
 } from 'react-native';
 
 import MySwipeRow from './MySwipeRow';
+
+const screenWidth = Dimensions.get('window').width;
 
 export default class MySwipeExample extends Component {
 
@@ -54,11 +56,12 @@ export default class MySwipeExample extends Component {
                 this.MySwipeRow = ref;
             }} style={{
                 flex: 1,
-                backgroundColor:'red',
-                width: '100%',
+                backgroundColor: 'red',
+                width: screenWidth,
             }}>
                 {/*绝对在底部的view*/}
                 <TouchableOpacity
+                    activeOpacity={1}
                     style={styles.delTextContainer}
                     onPress={() => {
                         this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
@@ -71,9 +74,11 @@ export default class MySwipeExample extends Component {
                 {/*内容content*/}
                 <View style={{flex: 1}}>
                     <TouchableOpacity
+                        activeOpacity={1}
                         onPress={() => {
                             this.MySwipeRow && this.MySwipeRow._closeSwipeRow();
-                        }}>
+                        }}
+                    >
                         <View style={{
                             width: '100%',
                             height: 100,

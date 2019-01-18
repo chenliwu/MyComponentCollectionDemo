@@ -16,8 +16,11 @@ import {
     TouchableOpacity,
     ViewPropTypes,
     View,
-    Text
+    Text,
+    Dimensions
 } from 'react-native';
+
+const screenWidth = Dimensions.get('window').width;
 
 export default class SwipeRow extends Component {
     // 构造
@@ -182,12 +185,13 @@ export default class SwipeRow extends Component {
                 toValue,
             }
         ).start((value) => {
+
         });
     }
 }
 const styles = StyleSheet.create({
     swipeContainer: {
-        width: '100%',
+        width: screenWidth,
     },
     swipeActions: {
         backgroundColor: 'transparent',

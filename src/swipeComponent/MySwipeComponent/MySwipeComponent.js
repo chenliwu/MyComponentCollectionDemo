@@ -25,9 +25,7 @@ export default class MySwipeComponent extends Component {
                                 alert('ss');
                             }}
                         >
-                            <Text
-                                style={styles.deleteTextStyle}
-                            >删除</Text>
+                            <Text style={styles.deleteTextStyle}>删除</Text>
                         </TouchableOpacity>
                     </View>
                     {/*
