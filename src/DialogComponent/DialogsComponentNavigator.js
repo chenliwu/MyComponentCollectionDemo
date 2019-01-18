@@ -15,10 +15,12 @@ import PopupDialogExample from './react-native-popup-dialog/PopupDialogExample';
 import LoadingDialogExample from './react-native-popup-dialog/LoadingDialogExample';
 import InputDialogExample from './react-native-popup-dialog/InputDialogExample';
 import InputDialogExample1 from './react-native-popup-dialog/InputDialogExample1';
-import TestBaseDialogComponentExample from './react-native-popup-dialog/TestBaseDialogComponentExample';
+
+import TestLoadingDialogUtilsExample
+    from './react-native-popup-dialog/loading-dialog-example/TestLoadingDialogUtilsExample';
 
 
-class DialogsComponentNavigator extends React.Component{
+class DialogsComponentNavigator extends React.Component {
 
     static navigationOptions = {
         headerTitle: '对话框',
@@ -44,8 +46,8 @@ class DialogsComponentNavigator extends React.Component{
         });
 
         dataList.push({
-            id: 'TestBaseDialogComponentExample',
-            name: '测试基类Dialog'
+            id: 'TestLoadingDialogUtilsExample',
+            name: '测试加载对话框工具类'
         });
 
 
@@ -90,14 +92,14 @@ class DialogsComponentNavigator extends React.Component{
 
     render() {
         return (
-            <SafeAreaView style={{flex: 1,backgroundColor:'#fff'}}>
+            <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
                 <FlatList
                     ref={(flatList) => {
                         //获取FlatList组件的引用
                         this.flatListComponent = flatList;
                     }}
                     ItemSeparatorComponent={() => <View
-                        style={{ height: 1, backgroundColor: '#f5f5f9', }} />}
+                        style={{height: 1, backgroundColor: '#f5f5f9',}}/>}
                     data={this.state.dataList}
                     keyExtractor={(item, index) => {
                         return item.id;
@@ -118,20 +120,21 @@ class DialogsComponentNavigator extends React.Component{
 
 export default createStackNavigator(
     {
-        DialogsComponentNavigator:{
-            screen:DialogsComponentNavigator
+        DialogsComponentNavigator: {
+            screen: DialogsComponentNavigator
         },
-        PopupDialogExample:{
-            screen:PopupDialogExample,
+        PopupDialogExample: {
+            screen: PopupDialogExample,
         },
-        LoadingDialogExample:{
-            screen:LoadingDialogExample,
+        LoadingDialogExample: {
+            screen: LoadingDialogExample,
         },
-        InputDialogExample:{
-            screen:InputDialogExample1,
+        InputDialogExample: {
+            screen: InputDialogExample1,
         },
-        TestBaseDialogComponentExample:{
-            screen:TestBaseDialogComponentExample,
+
+        TestLoadingDialogUtilsExample: {
+            screen: TestLoadingDialogUtilsExample,
         },
     },
     {

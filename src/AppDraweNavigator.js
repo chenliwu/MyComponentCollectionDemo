@@ -5,8 +5,6 @@ import {
     Button
 } from 'react-native';
 
-///滑动删除组件
-import SwipeComponentNavigator from './swipeComponent/SwipeComponentNavigator';
 
 ///手风琴
 import AccordionComponentNavigator from './AccordionComponent/AccordionComponentNavigator';
@@ -60,12 +58,7 @@ export default createDrawerNavigator(
                 drawerLabel: "首页",
             }
         },
-        SwipeComponentNavigator: {
-            screen: SwipeComponentNavigator,
-            navigationOptions:{
-                drawerLabel: '侧滑组件',
-            }
-        },
+
         AccordionComponentNavigator: {
             screen: AccordionComponentNavigator,
             navigationOptions:{
