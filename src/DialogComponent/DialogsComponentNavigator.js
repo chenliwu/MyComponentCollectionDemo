@@ -16,8 +16,11 @@ import LoadingDialogExample from './react-native-popup-dialog/LoadingDialogExamp
 import InputDialogExample from './react-native-popup-dialog/InputDialogExample';
 import InputDialogExample1 from './react-native-popup-dialog/InputDialogExample1';
 
-import TestLoadingDialogUtilsExample
-    from './react-native-popup-dialog/loading-dialog-example/TestLoadingDialogUtilsExample';
+//测试加载层工具类 2019-01-18
+import TestLoadingDialogUtilsExample from './react-native-popup-dialog/loading-dialog-example/TestLoadingDialogUtilsExample';
+
+//测试自定义加载层组件 2019-01-18
+import CustomLoadingComponentExample from './react-native-popup-dialog/custom-loading-component/CustomLoadingComponentExample';
 
 
 class DialogsComponentNavigator extends React.Component {
@@ -48,6 +51,11 @@ class DialogsComponentNavigator extends React.Component {
         dataList.push({
             id: 'TestLoadingDialogUtilsExample',
             name: '测试加载对话框工具类'
+        });
+
+        dataList.push({
+            id: 'CustomLoadingComponentExample',
+            name: '测试自定义加载层组件'
         });
 
 
@@ -135,6 +143,10 @@ export default createStackNavigator(
 
         TestLoadingDialogUtilsExample: {
             screen: TestLoadingDialogUtilsExample,
+        },
+
+        CustomLoadingComponentExample: {
+            screen: CustomLoadingComponentExample,
         },
     },
     {
