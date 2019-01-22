@@ -56,7 +56,13 @@ export default class NetInfoExample extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {/*<Text>网络状态：{this.state.connectionInfo}</Text>*/}
+                <Text>是否联网：{}</Text>
+                <Button title={'是否联网'} onPress={()=>{
+                    console.log(NetInfo.isConnected);
+                    NetInfo.isConnected.fetch().done((isConnected) => {
+                        console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+                    });
+                }}/>
             </View>
         )
     }
