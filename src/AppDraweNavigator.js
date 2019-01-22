@@ -20,6 +20,9 @@ import ProgressBarNavigator from './react-native-component/ProgressBar/ProgressB
 //2019-01-03
 import TextInputNavigator from './react-native-component/TextInput/TextInputNavigator';
 
+//2019-01-22
+import ReactNativeApiNavigator from './react-native-api/ReactNativeApiNavigator';
+
 class AppNavigatorPage extends Component {
 
     static navigationOptions = {
@@ -78,6 +81,14 @@ export default createDrawerNavigator(
             screen: TextInputNavigator,
             navigationOptions: {
                 drawerLabel: "TextInput组件",
+            }
+        },
+
+
+        ReactNativeApiNavigator: {
+            screen: ReactNativeApiNavigator,
+            navigationOptions: {
+                drawerLabel: "react-native API学习",
             }
         },
 
