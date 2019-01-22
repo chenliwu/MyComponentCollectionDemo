@@ -137,7 +137,7 @@ export default class WebViewProgressBarExample extends React.Component {
      */
     render() {
         return (
-            <View style={{flex: 1,backgroundColor:'#fff'}}>
+            <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <ScrollView>
                     {
                         this.renderWebViewLoadingBar()
@@ -223,10 +223,10 @@ export default class WebViewProgressBarExample extends React.Component {
         if (this.state.webViewIsLoading) {
             return (
                 <Progress.Bar
-                    // style={{
-                    //     position: 'absolute',
-                    //     top: 0,
-                    // }}
+                    style={{
+                        position: 'absolute',
+                        top: 0,
+                    }}
                     width={screenWidth}
                     //color={'#337ab7'}
                     color={'#5FBDB7'}
@@ -235,8 +235,8 @@ export default class WebViewProgressBarExample extends React.Component {
                     borderWidth={0}
                     useNativeDriver={true}
                     borderColor={'transparent'}
-                    progress={this.state.webViewLoadingProgress}
-                    indeterminate={false}
+                    //progress={this.state.webViewLoadingProgress}
+                    indeterminate={true}
                     animationType={'timing'}
                 />
             )

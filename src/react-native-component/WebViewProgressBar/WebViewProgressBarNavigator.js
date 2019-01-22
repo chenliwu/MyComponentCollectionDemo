@@ -11,6 +11,8 @@ import {
 } from 'react-navigation';
 
 import WebViewProgressBarExample from './Example/WebViewProgressBarExample';
+import WebViewProgressBarExample_1 from './Example/WebViewProgressBarExample_1';
+import WebViewProgressBarExample_2 from './Example/WebViewProgressBarExample_2';
 
 class WebViewProgressBarNavigatorPage extends React.Component {
 
@@ -27,6 +29,16 @@ class WebViewProgressBarNavigatorPage extends React.Component {
         dataList.push({
             id: 'WebViewProgressBarExample',
             name: 'WebView加载条demo'
+        });
+
+        dataList.push({
+            id: 'WebViewProgressBarExample_1',
+            name: 'WebView加载条demo 1'
+        });
+
+        dataList.push({
+            id: 'WebViewProgressBarExample_2',
+            name: 'WebView加载条demo 2'
         });
 
 
@@ -108,6 +120,14 @@ const WebViewProgressBarNavigator = createStackNavigator(
         },
         WebViewProgressBarExample: {
             screen: WebViewProgressBarExample
+        },
+
+        WebViewProgressBarExample_1: {
+            screen: WebViewProgressBarExample_1
+        },
+
+        WebViewProgressBarExample_2: {
+            screen: WebViewProgressBarExample_2
         },
 
 
