@@ -12,7 +12,7 @@ import {
 } from 'react-navigation';
 
 //2018-12-14
-import WebViewNavigator from './react-native-component/WebViewNavigator';
+import WebViewNavigator from './react-native-component/WebView/WebViewNavigator';
 
 import ProgressBarNavigator from './react-native-component/ProgressBar/ProgressBarNavigator';
 
@@ -22,6 +22,9 @@ import TextInputNavigator from './react-native-component/TextInput/TextInputNavi
 
 //2019-01-22
 import ReactNativeApiNavigator from './react-native-api/ReactNativeApiNavigator';
+
+//2019-01-22
+import WebViewProgressBarNavigator from './react-native-component/WebViewProgressBar/WebViewProgressBarNavigator';
 
 class AppNavigatorPage extends Component {
 
@@ -74,6 +77,13 @@ export default createDrawerNavigator(
             screen: ProgressBarNavigator,
             navigationOptions: {
                 drawerLabel: "ProgressBar进度条组件",
+            }
+        },
+
+        WebViewProgressBarNavigator: {
+            screen: WebViewProgressBarNavigator,
+            navigationOptions: {
+                drawerLabel: "WebView加载条组件",
             }
         },
 

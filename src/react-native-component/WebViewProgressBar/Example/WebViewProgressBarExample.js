@@ -6,13 +6,13 @@ import {
     Text,
     WebView,
     ActivityIndicator,
-    ScrollView,
-    LayoutAnimation
+    ScrollView
 } from 'react-native';
 
-import WebViewLoadingBar1 from '../WebViewLoadingComponent/WebViewLoadingBar1';
+import WebViewLoadingBar from '../../WebViewLoadingComponent/WebViewLoadingBar';
 
-const ScreenWidth = Dimensions.get('window').width;
+
+const {width, height} = Dimensions.get('window');
 
 const HTML = `  
 <!DOCTYPEhtml>\n  
@@ -93,10 +93,10 @@ const HTML = `
 /**
  * 测试WebView加载层组件
  */
-export default class WebViewExample1 extends React.Component {
+export default class WebViewProgressBarExample extends React.Component {
 
     static navigationOptions = {
-        headerTitle: '测试webView适配高度'
+        headerTitle: 'WebView加载条组件'
     };
 
     constructor(props) {
@@ -105,8 +105,7 @@ export default class WebViewExample1 extends React.Component {
         this.state = {
             height: 200,
 
-            webViewIsLoading: true,     //WebView组件加载状态：true加载中;false加载完成
-            webViewLoadingBarWidth: 0,  //WebView加载条的宽度
+            webViewLoadingState: 0, //webView组件加载状态：0加载中;1加载完成
         };
     }
 
@@ -120,8 +119,8 @@ export default class WebViewExample1 extends React.Component {
 
                 case 'setHeight':
                     //当HTML高度发生变化时，动态设置WebView高度
-                    //console.log('setHeight');
-                    //console.log(objData);
+                    console.log('setHeight');
+                    console.log(objData);
                     if (objData.height > 0) {
                         this.setState({height: objData.height})
                     }
@@ -139,14 +138,18 @@ export default class WebViewExample1 extends React.Component {
         return (
             <View style={{flex: 1}}>
                 <ScrollView>
-                    {
-                        this.renderWebViewLoadingBar()
-                    }
+
+                    {/*{*/}
+                    {/*this.state.webViewLoadingState === 0 ?*/}
+                    {/*<WebViewLoadingBar/>*/}
+                    {/*: null*/}
+                    {/*}*/}
+
                     <WebView
                         style={{flex: 1, height: this.state.height}}
                         source={{
-                            html: HTML
-                            //url: 'https://www.google.com'
+                            //html: HTML
+                            url: 'https://www.baidu.com'
                         }}
                         ref={'webview_ref'}
                         dataDetectorTypes={'none'}
@@ -154,19 +157,16 @@ export default class WebViewExample1 extends React.Component {
                         startInLoadingState={true}
                         renderLoading={() => {
                             return (
-                                <View/>
+                                <View style={{
+                                    flex: 1,
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                }}>
+                                    <WebViewLoadingBar color={'red'}/>
+                                </View>
                             )
-                            // return (
-                            //     <View style={{
-                            //         flex: 1,
-                            //         position: 'absolute',
-                            //         top: 0,
-                            //         left: 0,
-                            //         right: 0,
-                            //     }}>
-                            //         <WebViewLoadingBar1 color={'red'}/>
-                            //     </View>
-                            // )
                             // return (<View
                             //     style={{
                             //         flex: 1,
@@ -192,12 +192,14 @@ export default class WebViewExample1 extends React.Component {
 
                         onLoadStart={() => {
                             //当网页开始加载的时候调用。
-                            this.showWebViewLoadingBar();
+
                         }}
 
                         onLoadEnd={() => {
                             //当网页加载结束调用，不管是成功还是失败。
-                            this.closeWebViewLoadingBar();
+                            this.setState({
+                                webViewLoadingState: 1,
+                            });
                         }}
 
 
@@ -208,67 +210,7 @@ export default class WebViewExample1 extends React.Component {
             </View>
         );
     }
-
-    /**
-     * 绘制WebView组件加载条
-     * @returns {*}
-     */
-    renderWebViewLoadingBar = () => {
-        if (this.state.webViewIsLoading) {
-            return (
-                <WebViewLoadingBar1 width={this.state.webViewLoadingBarWidth} color={'red'}/>
-            );
-        }
-    };
-
-    /**
-     * 显示WebView组件加载条
-     */
-    showWebViewLoadingBar = () => {
-        this.webViewLoadingBarTimer = setInterval(
-            () => {
-
-                if (this.state.webViewLoadingBarWidth < ScreenWidth) {
-                    //LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
-                    this.setState({
-                        webViewLoadingBarWidth: this.state.webViewLoadingBarWidth + ScreenWidth / 3,
-                    });
-                }
-
-            },
-            500
-        );
-    };
-
-    /**
-     * 关闭WebView组件加载条
-     */
-    closeWebViewLoadingBar = () => {
-        if (this.state.webViewLoadingBarWidth < ScreenWidth) {
-            //WebView加载已完成，但是进度条的宽度未占满屏幕，需要更改宽度占满屏幕，然后再更改加载状态
-            //使用setTimeout关闭加载状态是为了让进度条看上去是比较自然的
-            //LayoutAnimation.configureNext(LayoutAnimation.Presets.linear);
-            this.setState({
-                webViewLoadingBarWidth: ScreenWidth,
-            });
-
-            //setTimeout设为700毫秒执行，是因为LayoutAnimation.Presets.linear的动画时间是500毫秒，设置比它长，看上去效果比较好
-            setTimeout(() => {
-                this.setState({
-                    webViewIsLoading: false,
-                });
-                this.webViewLoadingBarTimer && clearTimeout(this.webViewLoadingBarTimer);
-            }, 700);
-        } else {
-            this.setState({
-                webViewIsLoading: false,
-            });
-            this.webViewLoadingBarTimer && clearTimeout(this.webViewLoadingBarTimer);
-        }
-    }
-
-}
-;
+};
 
 const BaseScript =
     `

@@ -10,17 +10,12 @@ import {
     createStackNavigator
 } from 'react-navigation';
 
-import WebViewExample from './WebView/WebViewExample';
-import WebViewExample1 from './WebView/WebViewExample1';
-import WebViewLoadingExample from './WebView/WebViewLoadingExample';
-import WebViewLoadingExample1 from './WebView/WebViewLoadingExample1';
-import WebViewLoadingExample2 from './WebView/WebViewLoadingExample2';
+import WebViewProgressBarExample from './Example/WebViewProgressBarExample';
 
-
-class WebViewNavigatorPage extends React.Component {
+class WebViewProgressBarNavigatorPage extends React.Component {
 
     static navigationOptions = {
-        headerTitle: 'ScrollViewExample组件练习',
+        headerTitle: 'WebView组件练习',
     };
 
     flatListComponent = null;
@@ -30,29 +25,10 @@ class WebViewNavigatorPage extends React.Component {
         let dataList = new Array();
 
         dataList.push({
-            id: 'WebViewExample',
-            name: 'WebViewExample组件练习'
+            id: 'WebViewProgressBarExample',
+            name: 'WebView加载条demo'
         });
 
-        dataList.push({
-            id: 'WebViewExample1',
-            name: 'WebViewExample组件练习1'
-        });
-
-        dataList.push({
-            id: 'WebViewLoadingExample',
-            name: 'WebView加载条Demo'
-        });
-
-        dataList.push({
-            id: 'WebViewLoadingExample1',
-            name: 'WebView加载条Demo1'
-        });
-
-        dataList.push({
-            id: 'WebViewLoadingExample2',
-            name: 'WebView ProgressBar加载条'
-        });
 
         this.state = {
             dataList: dataList
@@ -97,7 +73,7 @@ class WebViewNavigatorPage extends React.Component {
         return (
             <SafeAreaView style={{
                 flex: 1,
-                backgroundColor:'#fff'
+                backgroundColor: '#fff'
             }}>
                 <FlatList
                     ref={(flatList) => {
@@ -125,36 +101,22 @@ class WebViewNavigatorPage extends React.Component {
 }
 
 
-const WebViewNavigator = createStackNavigator(
+const WebViewProgressBarNavigator = createStackNavigator(
     {
-        WebViewNavigatorPage: {
-            screen: WebViewNavigatorPage
+        WebViewProgressBarNavigatorPage: {
+            screen: WebViewProgressBarNavigatorPage
         },
-        WebViewExample: {
-            screen: WebViewExample
-        },
-
-        WebViewExample1: {
-            screen: WebViewExample1
-        },
-
-        WebViewLoadingExample: {
-            screen: WebViewLoadingExample
-        },
-        WebViewLoadingExample1: {
-            screen: WebViewLoadingExample1
-        },
-        WebViewLoadingExample2: {
-            screen: WebViewLoadingExample2
+        WebViewProgressBarExample: {
+            screen: WebViewProgressBarExample
         },
 
 
     },
     {
-        initialRouteName: 'WebViewNavigatorPage',
+        initialRouteName: 'WebViewProgressBarNavigatorPage',
         //headerMode: 'center'
     }
 );
 
-export default WebViewNavigator;
+export default WebViewProgressBarNavigator;
 

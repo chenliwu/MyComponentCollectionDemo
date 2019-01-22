@@ -9,7 +9,7 @@ import {
     ScrollView
 } from 'react-native';
 
-import WebViewLoadingBar from '../WebViewLoadingComponent/WebViewLoadingBar';
+import WebViewLoadingBar from '../../WebViewLoadingComponent/WebViewLoadingBar';
 
 
 const {width, height} = Dimensions.get('window');
@@ -93,10 +93,10 @@ const HTML = `
 /**
  * 测试WebView加载层组件
  */
-export default class WebViewExample1 extends React.Component {
+export default class WebViewProgressBarExample extends React.Component {
 
     static navigationOptions = {
-        headerTitle: '测试webView适配高度'
+        headerTitle: 'WebView加载条组件'
     };
 
     constructor(props) {
@@ -140,16 +140,16 @@ export default class WebViewExample1 extends React.Component {
                 <ScrollView>
 
                     {/*{*/}
-                        {/*this.state.webViewLoadingState === 0 ?*/}
-                            {/*<WebViewLoadingBar/>*/}
-                            {/*: null*/}
+                    {/*this.state.webViewLoadingState === 0 ?*/}
+                    {/*<WebViewLoadingBar/>*/}
+                    {/*: null*/}
                     {/*}*/}
 
                     <WebView
                         style={{flex: 1, height: this.state.height}}
                         source={{
                             //html: HTML
-                            url: 'https://www.google.com'
+                            url: 'https://www.baidu.com'
                         }}
                         ref={'webview_ref'}
                         dataDetectorTypes={'none'}
@@ -164,7 +164,7 @@ export default class WebViewExample1 extends React.Component {
                                     left: 0,
                                     right: 0,
                                 }}>
-                                    <WebViewLoadingBar color={'red'} />
+                                    <WebViewLoadingBar color={'red'}/>
                                 </View>
                             )
                             // return (<View
