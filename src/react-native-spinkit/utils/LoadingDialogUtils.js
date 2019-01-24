@@ -1,8 +1,12 @@
 import React from 'react';
-import {ActivityIndicator, Text, View} from "react-native";
+import {ActivityIndicator, Text, View, Dimensions, Platform} from "react-native";
 import Dialog from "react-native-popup-dialog";
 
 import Spinner from 'react-native-spinkit';
+
+const screenHeight = Dimensions.get('window').height;
+
+const isAndroid = Platform.OS === 'android';
 
 const GlobalLoadingDialogStyle = {
 
@@ -23,13 +27,14 @@ const GlobalLoadingDialogStyle = {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 10,
     },
 
     //提示文字的样式
     loadingHintTextStyle: {
         fontSize: 16,
         color: '#fff',
-        marginTop: 15,
+        marginTop: 5,
     }
 
 };
@@ -45,34 +50,68 @@ const GlobalLoadingDialogStyle = {
  * @constructor
  */
 function LoadingDialog({loadingDialogVisible, loadingHintText}) {
-    return (
-        <Dialog
-            width={GlobalLoadingDialogStyle.loadingDialogWidthPercent}
-            height={GlobalLoadingDialogStyle.loadingDialogHeightPercent}
-            visible={loadingDialogVisible}
-            rounded
-            overlayBackgroundColor={GlobalLoadingDialogStyle.overlayBackgroundColor}
-            dialogStyle={GlobalLoadingDialogStyle.dialogStyle}
-        >
-            <View style={GlobalLoadingDialogStyle.dialogContentContainerStyle}>
-                <Spinner
-                    style={{
-                        marginLeft: 0,
-                        marginRight: 5,
-                        marginBottom: 10,
-                    }}
-                    //type={'Circle'}
-                    type={'Circle'}
-                    isVisible={true}
-                    size={50}
-                    color={'#fff'}
-                />
-                <Text style={GlobalLoadingDialogStyle.loadingHintTextStyle}>
-                    {loadingHintText}
-                </Text>
-            </View>
-        </Dialog>
-    );
+    if (isAndroid) {
+        return (
+            <Dialog
+                width={GlobalLoadingDialogStyle.loadingDialogWidthPercent}
+                height={GlobalLoadingDialogStyle.loadingDialogHeightPercent}
+                visible={loadingDialogVisible}
+                rounded
+                overlayBackgroundColor={GlobalLoadingDialogStyle.overlayBackgroundColor}
+                dialogStyle={GlobalLoadingDialogStyle.dialogStyle}
+            >
+                <View style={GlobalLoadingDialogStyle.dialogContentContainerStyle}>
+                    <Spinner
+                        style={{
+                            //marginLeft: 0,
+                            //marginRight: 10,
+                            //marginBottom: 10,
+                        }}
+                        //type={'Circle'}
+                        type={'Circle'}
+                        isVisible={true}
+                        //size={50}
+                        color={'#fff'}
+                    />
+                    <Text style={GlobalLoadingDialogStyle.loadingHintTextStyle}>
+                        {loadingHintText}
+                    </Text>
+                </View>
+            </Dialog>
+        );
+    } else {  //IOS
+        return (
+            <Dialog
+                width={GlobalLoadingDialogStyle.loadingDialogWidthPercent}
+                height={GlobalLoadingDialogStyle.loadingDialogHeightPercent}
+                visible={loadingDialogVisible}
+                rounded
+                overlayBackgroundColor={GlobalLoadingDialogStyle.overlayBackgroundColor}
+                dialogStyle={GlobalLoadingDialogStyle.dialogStyle}
+            >
+                <View style={GlobalLoadingDialogStyle.dialogContentContainerStyle}>
+                    <Spinner
+                        style={{
+                            //marginLeft: 0,
+                            marginRight: 10,
+                            marginBottom: 5,
+                        }}
+                        //type={'Circle'}
+                        type={'Circle'}
+                        isVisible={true}
+                        //size={50}
+                        color={'#fff'}
+                    />
+                    <Text style={[GlobalLoadingDialogStyle.loadingHintTextStyle, {
+                        marginTop: 15,
+                    }]}>
+                        {loadingHintText}
+                    </Text>
+                </View>
+            </Dialog>
+        );
+    }
+
 }
 
 export {LoadingDialog};

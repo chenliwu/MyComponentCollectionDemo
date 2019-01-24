@@ -58,10 +58,10 @@ export default class ReactNativeSpinkitExample extends Component {
         return (
             <View style={styles.container}>
                 <Button title={'打开加载层'} onPress={() => {
-                    this.showLoadingDialog('加载中');
+                    this.showLoadingDialog('加载中...');
                     setTimeout(() => {
                         this.closeLoadingDialog();
-                    }, 3000);
+                    }, 5000);
                 }}/>
                 <LoadingDialog
                     loadingDialogVisible={this.state.loadingDialogVisible}
