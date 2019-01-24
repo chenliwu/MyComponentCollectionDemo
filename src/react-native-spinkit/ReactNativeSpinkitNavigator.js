@@ -11,6 +11,7 @@ import {
 } from 'react-navigation';
 
 import ReactNativeSpinkitExample from './Example/ReactNativeSpinkitExample';
+import ReactNativeSpinkitExample_1 from './Example/ReactNativeSpinkitExample_1';
 
 
 class ReactNativeSpinkitNavigatorPage extends React.Component {
@@ -28,6 +29,10 @@ class ReactNativeSpinkitNavigatorPage extends React.Component {
         dataList.push({
             id: 'ReactNativeSpinkitExample',
             name: 'react-native-spinkit加载层demo'
+        });
+        dataList.push({
+            id: 'ReactNativeSpinkitExample_1',
+            name: 'react-native-spinkit加载层demo 1'
         });
 
 
@@ -105,6 +110,10 @@ export default createStackNavigator(
         },
         ReactNativeSpinkitExample: {
             screen: ReactNativeSpinkitExample
+        },
+
+        ReactNativeSpinkitExample_1: {
+            screen: ReactNativeSpinkitExample_1
         },
 
     },

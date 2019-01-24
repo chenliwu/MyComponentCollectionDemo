@@ -10,6 +10,10 @@ import Spinner from 'react-native-spinkit';
 
 export default class ReactNativeSpinkitExample extends Component {
 
+    static navigationOptions = {
+        headerTitle: 'react-native-spinkit demo',
+    };
+
     constructor(props) {
         super(props);
         this.state = {
