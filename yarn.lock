@@ -4242,6 +4242,13 @@ react-native-screens@^1.0.0-alpha.11:
   version "1.0.0-alpha.16"
   resolved "http://registry.npm.taobao.org/react-native-screens/download/react-native-screens-1.0.0-alpha.16.tgz#e3651b7077ea8fa04e8dd3265ad9b87f1f77a758"
 
+react-native-spinkit@^1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/react-native-spinkit/download/react-native-spinkit-1.1.1.tgz#3ae512f3978bc750b7c02639911e1710750d8539"
+  integrity sha1-OuUS85eLx1C3wCY5kR4XEHUNhTk=
+  dependencies:
+    prop-types "^15.5.8"
+
 react-native-swipe-list-view@^1.5.0:
   version "1.5.0"
   resolved "http://registry.npm.taobao.org/react-native-swipe-list-view/download/react-native-swipe-list-view-1.5.0.tgz#c197c9afe21889de68df2f63a7dd0162eb6fc411"

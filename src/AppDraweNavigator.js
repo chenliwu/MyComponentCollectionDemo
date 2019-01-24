@@ -12,6 +12,9 @@ import AccordionComponentNavigator from './AccordionComponent/AccordionComponent
 //对话框组件
 import DialogsComponentNavigator from './DialogComponent/DialogsComponentNavigator';
 
+//2019-01-24
+import ReactNativeSpinkitNavigator from './react-native-spinkit/ReactNativeSpinkitNavigator';
+
 
 import {
     SafeAreaView,
@@ -73,6 +76,15 @@ export default createDrawerNavigator(
                 drawerLabel: '对话框',
             }
         },
+        ReactNativeSpinkitNavigator: {
+            screen: ReactNativeSpinkitNavigator,
+            navigationOptions:{
+                drawerLabel: 'react-native-spinkit加载层组件',
+            }
+        },
+
+
+
     },
     {
         initialRouteName: 'AppNavigatorPage',
