@@ -12,6 +12,7 @@ import {
 
 
 import NetInfoExample from './NetInfo/NetInfoExample';
+import TestBaseNetInfoComponent from './NetInfo/TestBaseNetInfoComponent';
 
 class ReactNativeApiNavigatorPage extends React.Component {
 
@@ -28,6 +29,10 @@ class ReactNativeApiNavigatorPage extends React.Component {
         dataList.push({
             id: 'NetInfoExample',
             name: '设备联网状态——NetInfo'
+        });
+        dataList.push({
+            id: 'TestBaseNetInfoComponent',
+            name: '测试监听网络状态变化的base component'
         });
 
 
@@ -110,6 +115,10 @@ const ReactNativeApiNavigator = createStackNavigator(
 
         NetInfoExample: {
             screen: NetInfoExample
+        },
+
+        TestBaseNetInfoComponent: {
+            screen: TestBaseNetInfoComponent
         },
 
 
