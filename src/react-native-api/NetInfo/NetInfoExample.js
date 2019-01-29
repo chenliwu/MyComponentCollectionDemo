@@ -24,6 +24,13 @@ import {
  cellular - 设备通过蜂窝数据流量联网
  unknown - 联网状态异常
 
+
+ * 问题记录：在android平台时，获取网络状态是没问题的，可是在IOS平台时出问题了，总是不能获取正确的网络状态。
+ * 经过多方的查询找到了一个合适的解决方法。在获取IOS的网络状态时需要调用一次网络状态改变的监听才能准确获取到网络的链接状态
+ *
+ * RN版本57.7版本已经修复这个问题。
+
+
  *
  *
  */
@@ -44,10 +51,11 @@ export default class NetInfoExample extends Component {
 
     componentDidMount() {
         //监听网络的变化
-        NetInfo.addEventListener(
-            'connectionChange',
-            this._handleFirstConnectivityChange
-        );
+        // NetInfo.addEventListener(
+        //     'connectionChange',
+        //     this._handleFirstConnectivityChange
+        // );
+
     }
 
     /**
@@ -104,14 +112,6 @@ export default class NetInfoExample extends Component {
                         console.log(isConnected);
                         alert('First, is ' + (isConnected ? 'online' : 'offline'));
                     });
-                }}/>
-
-                <Button title={'是否联网测试'} onPress={() => {
-                    if (this.state.netIsConnected) {
-                        alert('设备处于联网');
-                    } else {
-                        alert('设备处于离线状态');
-                    }
                 }}/>
 
             </View>
