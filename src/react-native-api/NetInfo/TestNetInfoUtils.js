@@ -32,7 +32,7 @@ export default class TestNetInfoUtils extends Component {
             <View style={styles.container}>
 
                 <Button title={'是否联网测试'} onPress={() => {
-                    NetInfoUtils.getNetworkState((isConnected) => {
+                    NetInfoUtils.getNetworkIsConnectedState((isConnected) => {
                         if (isConnected) {
                             alert('设备处于联网');
                         } else {
