@@ -12,6 +12,8 @@ import {
     createDrawerNavigator
 } from 'react-navigation';
 
+import CameraNavigator from './react-native-camera/CameraNavigator';
+
 
 class AppNavigatorPage extends Component {
 
@@ -50,6 +52,13 @@ export default createDrawerNavigator(
             screen: AppNavigatorPage,
             navigationOptions:{
                 drawerLabel: "首页",
+            }
+        },
+
+        CameraNavigator: {
+            screen: CameraNavigator,
+            navigationOptions:{
+                drawerLabel: "相机",
             }
         },
 
