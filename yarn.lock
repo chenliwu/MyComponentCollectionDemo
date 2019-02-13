@@ -4189,6 +4189,13 @@ react-native-animatable@^1.2.4:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-camera@^1.10.2:
+  version "1.10.2"
+  resolved "http://registry.npm.taobao.org/react-native-camera/download/react-native-camera-1.10.2.tgz#0e188c4efdf1f1af0f44664d57b84e33b1343978"
+  integrity sha1-DhiMTv3x8a8PRGZNV7hOM7E0OXg=
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/react-native-dismiss-keyboard/download/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
