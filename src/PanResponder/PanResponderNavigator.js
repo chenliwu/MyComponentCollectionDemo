@@ -14,6 +14,7 @@ import {
 
 import PanResponderExample from './Example/PanResponderExample';
 import PanResponderExample1 from './Example/PanResponderExample1';
+import PanResponderExample2 from './Example/PanResponderExample2';
 
 
 class PanResponderNavigator extends React.Component {
@@ -36,6 +37,11 @@ class PanResponderNavigator extends React.Component {
         dataList.push({
             id: 'PanResponderExample1',
             name: '手势参数观察'
+        });
+
+        dataList.push({
+            id: 'PanResponderExample2',
+            name: 'View手势监控demo'
         });
 
 
@@ -123,6 +129,13 @@ const AnimationNavigator = createStackNavigator(
         PanResponderExample1: {
             screen: PanResponderExample1
         },
+
+        PanResponderExample2: {
+            screen: PanResponderExample2
+        },
+
+
+
     },
     {
         initialRouteName: 'PanResponderNavigator',
