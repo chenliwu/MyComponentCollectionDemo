@@ -46,25 +46,45 @@ export default class AnimatedExample extends React.Component {
         return ({
             headerTitle: 'Animated.event学习',
             //禁止打开菜单
-            drawerLockMode: "locked-closed",
+            //drawerLockMode: "locked-closed",
             //允许使用返回手势
-            gesturesEnabled: true,
+            //gesturesEnabled: true,
         });
 
     };
 
-    state: {
-        xOffset: Animated,
-    };
+    scrollViewOffsetXAnimation = new Animated.Value(0);
+    scrollViewOffsetXAnimationListenerId = null;
 
     constructor(props) {
         super(props);
-        this.state = {
-            xOffset: new Animated.Value(1.0),   //初始化动画值
-        };
     }
 
-    _onScroll=(event)=>{
+
+    componentWillMount() {
+        this.addScrollViewOffsetXAnimationListener();
+    }
+
+    componentWillUnmount() {
+        this.removeScrollViewOffsetXAnimationListener();
+    }
+
+
+    addScrollViewOffsetXAnimationListener = () => {
+        this.scrollViewOffsetXAnimationListenerId = this.scrollViewOffsetXAnimation.addListener((value) => {
+            console.log('scrollViewOffsetXAnimation.addListener');
+            console.log(value);
+        });
+    };
+
+    removeScrollViewOffsetXAnimationListener = () => {
+        if (this.scrollViewOffsetXAnimationListenerId) {
+            this.scrollViewOffsetXAnimation.removeListener(this.scrollViewOffsetXAnimationListenerId);
+        }
+    };
+
+
+    _onScroll = (event) => {
         console.log('_onScroll');
         console.log(event);
     };
@@ -93,13 +113,16 @@ export default class AnimatedExample extends React.Component {
                             nativeEvent: {
                                 contentOffset: {
                                     //把contentOffset.x绑定给this.state.xOffset
-                                    x: this.state.xOffset,
+                                    //x: this.state.xOffset,
+                                    x: this.scrollViewOffsetXAnimation,
                                 }
                             }
                         }],
-                        {listener:this._onScroll}
+
+                        {listener: this._onScroll},
+                        {useNativeDriver: true}
                     )}
-                    scrollEventThrottle={100}//onScroll回调间隔
+                    scrollEventThrottle={16}//onScroll回调间隔
                 >
                     <Animated.Image source={require('./../../assets/airport-photo.jpg')}
                                     style={{
@@ -108,14 +131,14 @@ export default class AnimatedExample extends React.Component {
                                         //interpolate映射动画值，触发动画
                                         //outputRange:映射到0.0,1.0之间
                                         //inputRange:输入的值只处理0-375之间
-                                        opacity: this.state.xOffset.interpolate({
+                                        opacity: this.scrollViewOffsetXAnimation.interpolate({
                                             inputRange: [0, 375],
-                                            outputRange: [1.0, 0.0]
+                                            outputRange: [1, 0]
                                         }),
                                     }}
                                     resizeMode="cover"
                     />
-                    <Image
+                    <Animated.Image
                         source={require('./../../assets/calendar-body.png')}
                         style={{
                             height: deviceHeight,
@@ -123,12 +146,12 @@ export default class AnimatedExample extends React.Component {
                         }}
                         resizeMode="cover"
                     />
-                    <Image source={require('./../../assets/chatheads-face1.jpg')}
-                           style={{
-                               height: deviceHeight,
-                               width: deviceWidth
-                           }}
-                           resizeMode="cover"
+                    <Animated.Image source={require('./../../assets/chatheads-face1.jpg')}
+                                    style={{
+                                        height: deviceHeight,
+                                        width: deviceWidth
+                                    }}
+                                    resizeMode="cover"
                     />
                 </ScrollView>
             </View>

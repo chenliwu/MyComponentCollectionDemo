@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    Button,
-    ActivityIndicator,
-    ScrollView,
-    StyleSheet,
-    Dimensions,
-    LayoutAnimation
-} from 'react-native';
+import {Button, View} from 'react-native';
 
 import MySpringAnimation from './MySpringAnimation';
 
