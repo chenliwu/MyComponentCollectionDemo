@@ -154,11 +154,11 @@ export default class PanResponderExample1 extends React.Component {
 
                 if (vy > 0) {
                     this.setState({
-                        swipeState: '往上滑动',
+                        swipeState: '手势往下滑动',
                     });
                 } else {
                     this.setState({
-                        swipeState: '往下滑动',
+                        swipeState: '手势往上滑动',
                     });
                 }
 

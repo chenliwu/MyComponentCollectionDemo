@@ -105,7 +105,7 @@ export default class PanResponderExample2 extends React.Component {
             scrollViewContentOffsetYAnimation: new Animated.Value(ROOT_VIEW_HEADER_HEIGHT),//初始化动画值
 
             swipeState: '未滑动', //记录滑动手势方向
-
+            panResponderStartY: 0,  //记录当响应器产生时的屏幕纵坐标
 
         }
     }
@@ -130,7 +130,6 @@ export default class PanResponderExample2 extends React.Component {
                 //每次滑动前回调此方法
                 // View 现在要开始响应触摸事件了。这也是需要做高亮的时候，使用户知道他到底点到了哪里。
 
-
             },
 
 
@@ -150,20 +149,35 @@ export default class PanResponderExample2 extends React.Component {
                 const dy = gesturesState.dy;            //从触摸操作开始时的累计纵向路程
                 const vy = gesturesState.vy;            //当前的纵向移动速度
 
+                ///2019-02-18
+                //手势滑动方向判断
+
+                if (moveY < y0) {
+                    //手势往上滑动
+                    this.setState({
+                        swipeState: '手势往上滑动',
+                    });
+                } else if(moveY > y0){
+                    this.setState({
+                        swipeState: '手势往下滑动',
+                    });
+                }
+
+
                 //gestureState.vy（当前的纵向移动速度）的值小于0时，表示手势往上滑动，ScrollView的组件往上滚动；
                 // 值大于0时，表示手势往下滑动，ScrollView的组件往下滚动。
 
-                if (vy > 0) {       //手势往下滑动
-                    this.showHeader();
-                    // this.setState({
-                    //     swipeState: '手势往下滑动',
-                    // });
-                } else {    //手势往上滑动
-                    this.hideHeader();
-                    // this.setState({
-                    //     swipeState: '手势往上滑动',
-                    // });
-                }
+                // if (vy > 0) {       //手势往下滑动
+                //     this.showHeader();
+                //     // this.setState({
+                //     //     swipeState: '手势往下滑动',
+                //     // });
+                // } else {    //手势往上滑动
+                //     this.hideHeader();
+                //     // this.setState({
+                //     //     swipeState: '手势往上滑动',
+                //     // });
+                // }
 
 
             },
@@ -198,7 +212,7 @@ export default class PanResponderExample2 extends React.Component {
         Animated.timing(this.state.scrollViewContentOffsetYAnimation, {
             toValue: 0,
             duration: 300
-        }).start(()=>{
+        }).start(() => {
 
         });
 
@@ -216,7 +230,7 @@ export default class PanResponderExample2 extends React.Component {
         Animated.timing(this.state.scrollViewContentOffsetYAnimation, {
             toValue: ROOT_VIEW_HEADER_HEIGHT,
             duration: 300
-        }).start(()=>{
+        }).start(() => {
             setTimeout(() => {
                 this.setLayoutAnimation();
                 this.props.navigation.setParams({
@@ -226,8 +240,6 @@ export default class PanResponderExample2 extends React.Component {
         });
 
 
-
-
     };
 
 
@@ -235,7 +247,6 @@ export default class PanResponderExample2 extends React.Component {
         return (
             <View
                 style={styles.container}
-                {...this._panResponder.panHandlers}
             >
 
 
@@ -256,20 +267,37 @@ export default class PanResponderExample2 extends React.Component {
                     {/*<Text>滑动改变组件高度</Text>*/}
                 </Animated.View>
 
+                <Text>手势滑动方向：{this.state.swipeState}</Text>
 
-                <Text style={{
-                    height: 50,
-                    marginBottom: 20,
-                }}>手势滑动方向：{this.state.swipeState}</Text>
-                <ScrollView>
-                    <Text style={{height: 100}}>text</Text>
-                    <Text style={{height: 100}}>text</Text>
-                    <Text style={{height: 100}}>text</Text>
-                    <Text style={{height: 100}}>text</Text>
-                    <Text style={{height: 100}}>text</Text>
-                    <Text style={{height: 100}}>text</Text>
-                    <Text style={{height: 100}}>text</Text>
-                    <Text style={{height: 100}}>text</Text>
+
+                <ScrollView
+                    {...this._panResponder.panHandlers}
+                >
+                    <Text style={{height: 30, backgroundColor: 'pink'}}>--------1111111---------</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
+                    <Text style={{height: 50, backgroundColor: 'pink'}}>11111111</Text>
                 </ScrollView>
 
             </View>
