@@ -12,6 +12,7 @@ import {
 
 import ScrollViewPanResponderExample from './Example/ScrollViewPanResponderExample';
 import ScrollViewPanResponderExample_1 from './Example/ScrollViewPanResponderExample_1';
+import ScrollViewPanResponderExample_2 from './Example/ScrollViewPanResponderExample_2';
 
 
 class ScrollViewPanResponderNavigatorPage extends React.Component {
@@ -33,6 +34,10 @@ class ScrollViewPanResponderNavigatorPage extends React.Component {
         dataList.push({
             id: 'ScrollViewPanResponderExample_1',
             name: 'ScrollViewPanResponderExample手势操作1'
+        });
+        dataList.push({
+            id: 'ScrollViewPanResponderExample_2',
+            name: 'ScrollView判断滚动方向'
         });
 
 
@@ -119,6 +124,11 @@ const ScrollViewPanResponderNavigator = createStackNavigator(
         ScrollViewPanResponderExample_1: {
             screen: ScrollViewPanResponderExample_1
         },
+        ScrollViewPanResponderExample_2: {
+            screen: ScrollViewPanResponderExample_2
+        },
+
+
     },
     {
         initialRouteName: 'ScrollViewPanResponderNavigatorPage',
