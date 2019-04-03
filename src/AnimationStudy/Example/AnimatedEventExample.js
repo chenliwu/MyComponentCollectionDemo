@@ -32,7 +32,7 @@ const deviceHeight = Dimensions.get('window').height;
  （2）outputRange：声明输出值的范围。例如opacity透明度设置，通常设置为[1.0,0]（透明度由1到0）或者[0,1.0]（透明度由0到1）。(输出值的区间，即动画变化的区间)
 
  2、当ScrollView滑动时，会触发onScroll滚动事件，onScroll回调函数的参数为event，这个event.nativeEvent记录了滚动的相关数据，比如滚动的位置。
- 在这个例子当中，我们把把event.nativeEvent.contentOffset.x绑定给this.state.xOffset，这个绑定完成后就会触发
+ 在这个例子当中，我们把把event.nativeEvent.contentOffset.x绑定给this.scrollViewOffsetXAnimation，这个绑定完成后就会触发
  插值函数interpolate，然后就会逐渐改变组件的透明度，这样动画的效果就出来了。
 
 
