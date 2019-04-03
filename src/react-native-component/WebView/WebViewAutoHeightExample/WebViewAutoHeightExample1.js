@@ -17,7 +17,7 @@ const HTML = `
 <html>  
   <head>  
     <title>HTML字符串</title>  
-    <metahttp-equivmetahttp-equiv="content-type" content="text/html;charset=utf-8">  
+    <meta http-equivmetahttp-equiv="content-type" content="text/html;charset=utf-8">  
     <meta name="viewport"content="width=320, user-scalable=no">  
     <style type="text/css">  
       body {  
@@ -89,7 +89,7 @@ const HTML = `
 
 
 //模块声名并导出
-export default class WebViewExample1 extends React.Component {
+export default class WebViewAutoHeightExample1 extends React.Component {
 
     static navigationOptions = {
         headerTitle: '测试webView适配高度'
@@ -135,7 +135,8 @@ export default class WebViewExample1 extends React.Component {
                     <WebView
                         style={{flex: 1, height: this.state.height}}
                         source={{
-                            html: HTML
+                            html: HTML,
+                            baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
                         }}
                         ref={'webview_ref'}
                         dataDetectorTypes={'none'}

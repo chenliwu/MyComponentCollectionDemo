@@ -10,8 +10,8 @@ import {
     createStackNavigator
 } from 'react-navigation';
 
-import WebViewExample from './Example/WebViewExample';
-import WebViewExample1 from './Example/WebViewExample1';
+import WebViewAutoHeightExample from './WebViewAutoHeightExample/WebViewAutoHeightExample';
+import WebViewAutoHeightExample1 from './WebViewAutoHeightExample/WebViewAutoHeightExample1';
 
 
 class WebViewNavigatorPage extends React.Component {
@@ -27,13 +27,13 @@ class WebViewNavigatorPage extends React.Component {
         let dataList = new Array();
 
         dataList.push({
-            id: 'WebViewExample',
-            name: 'WebViewExample组件练习'
+            id: 'WebViewAutoHeightExample',
+            name: 'WebView自适应高度组件练习'
         });
 
         dataList.push({
-            id: 'WebViewExample1',
-            name: 'WebViewExample组件练习1'
+            id: 'WebViewAutoHeightExample1',
+            name: 'WebView自适应高度组件练习1'
         });
 
         this.state = {
@@ -112,12 +112,12 @@ const WebViewNavigator = createStackNavigator(
         WebViewNavigatorPage: {
             screen: WebViewNavigatorPage
         },
-        WebViewExample: {
-            screen: WebViewExample
+        WebViewAutoHeightExample: {
+            screen: WebViewAutoHeightExample
         },
 
-        WebViewExample1: {
-            screen: WebViewExample1
+        WebViewAutoHeightExample1: {
+            screen: WebViewAutoHeightExample1
         },
 
 
