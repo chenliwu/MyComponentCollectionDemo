@@ -1,13 +1,8 @@
-import React, {Component} from 'react';
-import {
-    StyleSheet,
-    View,
-    Dimensions,
-    Text
-} from 'react-native';
+import React from 'react';
+import {Dimensions, Platform, Text, View} from 'react-native';
+import WebViewAutoHeight from './WebViewAutoHeight';
 
 const {width, height} = Dimensions.get('window');
-import WebViewAutoHeight from './WebViewAutoHeight';
 
 const HTML = `  
 <!DOCTYPEhtml>\n  
@@ -49,6 +44,18 @@ export default class WebViewAutoHeightExample extends React.Component {
 
     //渲染
     render() {
+        let webViewSource;
+        if(Platform.OS === 'android'){
+            webViewSource = {
+                html:HTML,
+                baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
+            }
+        }else if(Platform.OS === 'ios'){
+            webViewSource = {
+                html:HTML,
+                //baseUrl:''      //IOS不要加这个属性，会导致HTML加载不出来
+            }
+        }
         return (
             <View style={{flex: 1}}>
                 <View style={{height: 64, width: width, justifyContent: 'center', alignItems: 'center'}}>
@@ -57,10 +64,11 @@ export default class WebViewAutoHeightExample extends React.Component {
                 </View>
                 <WebViewAutoHeight
                     style={{backgroundColor: '#FFF', flex: 1}}
-                    source={{
-                        html: HTML,  // 可以接受本地的HTML, 也可以单纯接受网络请求下来的html字符串,带标签,默认字体丑爆而已...
-                        baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
-                    }}
+                    // source={{
+                    //     html: HTML,  // 可以接受本地的HTML, 也可以单纯接受网络请求下来的html字符串,带标签,默认字体丑爆而已...
+                    //     baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
+                    // }}
+                    source={webViewSource}
                     domStorageEnabled={true}
                     javaScriptEnabled={true}
                 >

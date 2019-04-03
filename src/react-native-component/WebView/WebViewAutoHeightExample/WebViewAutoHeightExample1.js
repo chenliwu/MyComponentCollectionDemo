@@ -6,7 +6,7 @@ import {
     Text,
     WebView,
     ActivityIndicator,
-    ScrollView
+    ScrollView, Platform
 } from 'react-native';
 import SceneView from "react-navigation/src/views/SceneView";
 
@@ -127,6 +127,18 @@ export default class WebViewAutoHeightExample1 extends React.Component {
      * @returns {*}
      */
     render() {
+        let webViewSource;
+        if (Platform.OS === 'android') {
+            webViewSource = {
+                html: HTML,
+                baseUrl: ''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
+            }
+        } else if (Platform.OS === 'ios') {
+            webViewSource = {
+                html: HTML,
+                //baseUrl:''      //IOS不要加这个属性，会导致HTML加载不出来
+            }
+        }
         return (
             <View style={{flex: 1}}>
                 <ScrollView>
@@ -134,10 +146,11 @@ export default class WebViewAutoHeightExample1 extends React.Component {
                     <Text>WebView高度：{this.state.height}</Text>
                     <WebView
                         style={{flex: 1, height: this.state.height}}
-                        source={{
-                            html: HTML,
-                            baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
-                        }}
+                        // source={{
+                        //     html: HTML,
+                        //     baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
+                        // }}
+                        source={webViewSource}
                         ref={'webview_ref'}
                         dataDetectorTypes={'none'}
                         automaticallyAdjustContentInsets={false}
