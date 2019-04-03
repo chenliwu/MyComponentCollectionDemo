@@ -13,6 +13,9 @@ import {
 import WebViewAutoHeightExample from './WebViewAutoHeightExample/WebViewAutoHeightExample';
 import WebViewAutoHeightExample1 from './WebViewAutoHeightExample/WebViewAutoHeightExample1';
 
+//2019-04-03  WebView组件与React-Native通信机制实践
+import WebViewCommunicationExample from './WebViewCommunicationExample/WebViewCommunicationExample';
+
 
 class WebViewNavigatorPage extends React.Component {
 
@@ -34,6 +37,11 @@ class WebViewNavigatorPage extends React.Component {
         dataList.push({
             id: 'WebViewAutoHeightExample1',
             name: 'WebView自适应高度组件练习1'
+        });
+
+        dataList.push({
+            id: 'WebViewCommunicationExample',
+            name: 'WebView组件与React-Native通信机制实践'
         });
 
         this.state = {
@@ -118,6 +126,10 @@ const WebViewNavigator = createStackNavigator(
 
         WebViewAutoHeightExample1: {
             screen: WebViewAutoHeightExample1
+        },
+
+        WebViewCommunicationExample: {
+            screen: WebViewCommunicationExample
         },
 
 
