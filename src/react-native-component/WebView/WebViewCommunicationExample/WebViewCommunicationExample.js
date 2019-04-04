@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, Dimensions, View, WebView,Platform} from 'react-native';
+import {ActivityIndicator, Dimensions, View, WebView, Platform, Button} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -21,6 +21,20 @@ const HTML = `
   
   <script>
   
+    window.onload = function(){
+        addReactNativeListener();
+    };
+    
+    /**
+    * document.addEventListener("message",function(event) {}
+    * 监听RN发送的事件，通过event.data获取传递过来的参数值
+    */
+    function addReactNativeListener() {
+        document.addEventListener("message",function(event) {
+            document.getElementById("showInfoElement").innerHTML = "RN发送事件到HTML页面，传递过来的参数：" + event.data;
+        });
+    }
+  
     function sendEventToReactNative(){
         console.log('sendEventToReactNative');
         document.getElementById("showInfoElement").innerHTML = "发送事件到React-Native端";
@@ -28,11 +42,7 @@ const HTML = `
         params.type = 'eventName';  
         params.message = "这是HTML页面传递到React-Native端的参数值";
         if(window.postMessage) {
-            
-            setTimeout(function() {
-                 window.postMessage(JSON.stringify({type: 'eventName',message:"这是HTML页面传递到React-Native端的参数值"}));
-            },100);
-            
+            window.postMessage(JSON.stringify({type: 'eventName',message:"这是HTML页面传递到React-Native端的参数值"}));
         }
     }
   
@@ -87,20 +97,23 @@ export default class WebViewCommunicationExample extends React.Component {
      */
     render() {
         let webViewSource;
-        if(Platform.OS === 'android'){
+        if (Platform.OS === 'android') {
             webViewSource = {
-                html:HTML,
-                baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
+                html: HTML,
+                baseUrl: ''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
             }
-        }else if(Platform.OS === 'ios'){
+        } else if (Platform.OS === 'ios') {
             webViewSource = {
-                html:HTML,
+                html: HTML,
                 //baseUrl:''      //IOS不要加这个属性，会导致HTML加载不出来
             }
         }
 
         return (
             <View style={{flex: 1}}>
+                <Button title={'RN发送事件到HTML页面'} onPress={() => {
+                    this.refs.webView.postMessage("RN发送事件到HTML页面");
+                }}/>
                 <WebView
                     style={{flex: 1, height: this.state.height}}
                     // source={{
@@ -108,7 +121,7 @@ export default class WebViewCommunicationExample extends React.Component {
                     //     //baseUrl:''      //即使没有baseUrl，也要加上这个属性，写上空串，解决android加载页面乱码的问题
                     // }}
                     source={webViewSource}
-                    ref={'webview_ref'}
+                    ref={'webView'}
                     dataDetectorTypes={'none'}
                     automaticallyAdjustContentInsets={false}
                     startInLoadingState={true}
